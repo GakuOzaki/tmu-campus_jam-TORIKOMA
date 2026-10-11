@@ -65,8 +65,6 @@ git switch -c feat/first-demo
 
 同名のブランチをすでに使っている場合は、作成し直さず `git switch feat/first-demo` で戻ります。複数人で編集する場合は、`feat/input-form` など作業ごとに別の名前にします。
 
-ここで[コンテキストの図解](common/ai-development-tips.md#context-engineering)を見て、資料の置き場所と正本を確認します。読んだらこの手順へ戻ります。
-
 [docs/source/](source/README.md)へ企画メモや画面PNGを入れます。Figmaを使った場合も、画面PNGと「押すとどうなるか」のメモがあれば進められます。[締切管理の例](examples/deadline.md)も参考にできます。
 
 引き継ぐ情報は次の3ファイルに残します。
@@ -76,6 +74,8 @@ git switch -c feat/first-demo
 | [product.md](product.md) | 対象者、課題、作る範囲、完成条件、制約 |
 | [tasks.md](tasks.md) | 実装の順番と進捗 |
 | [verification.md](verification.md) | 実施した確認、結果、未確認のこと |
+
+[コンテキストの図解](common/ai-development-tips.md#context-engineering)で資料の置き場所と正本を確認し、資料が揃ったら[手順4のPlan](#planning)へ進みます。
 
 <a id="planning"></a>
 

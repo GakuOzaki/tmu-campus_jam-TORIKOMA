@@ -72,13 +72,14 @@ PCでのSetup・Runを省き、下の[Codespacesへ変更を渡して確認す�
 Copilotには「編集はこのPC、実行とブラウザ確認はCodespacesで行う。確認したい変更ができたら、変更内容とコミットメッセージ案、Codespacesでの確認コマンドを示して待って。commit・pushは自分でAppの画面から行う。実行できない確認は未確認として残して」と伝えます。
 
 <a id="prepare-materials"></a>
-<a id="planning"></a>
 
 ## 4. 資料を渡してPlanで計画する
 
-[コンテキストの図解](common/ai-development-tips.md#context-engineering)で、資料の置き場所と正本を確認してから、この手順へ戻ります。
-
 [docs/source/](source/README.md)へ企画メモや画面PNGを入れます。Figmaで考えた画面はPNGと操作・遷移の説明でも渡せます。元ファイルを探しにくい場合は、プロジェクトのフォルダをOSのファイル管理画面で開いて追加します。[締切管理の例](examples/deadline.md)も参考にできます。
+
+[コンテキストの図解](common/ai-development-tips.md#context-engineering)で資料の置き場所と正本を確認し、資料が揃ったら[この下のPlan](#planning)へ進みます。
+
+<a id="planning"></a>
 
 次に[プロンプトの図解](common/ai-development-tips.md#prompt-engineering)で依頼の4項目と短い例を確認します。モードを **Plan** に切り替え、下の依頼文を自分たちの企画に合わせて送ります。
 
