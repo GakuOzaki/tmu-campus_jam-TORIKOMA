@@ -12,6 +12,10 @@
 
 ## 1. 依頼は「目的・文脈・制約・完成条件」を具体的にする
 
+[![プロンプトエンジニアリングの図解：目的・文脈・制約・完成条件の4項目で依頼を具体化する。締切管理の依頼例と、この教材の対応ファイルを示す。](../images/prompt-engineering.png)](../images/prompt-engineering.png)
+
+図はクリックすると拡大できます。図中の **Plan / Interactive** はCopilot appの呼び方です。CodespacesのCopilot Chatでは **Plan / Agent** を使います。
+
 [OpenAIの開発向けbest practices](https://learn.chatgpt.com/guides/best-practices#strong-first-use-context-and-prompts)は、依頼の基本として **Goal・Context・Constraints・Done when** の4項目を挙げています。この教材では、Copilotへの依頼を考える手がかりとして使います。
 
 | 項目 | 学生が考えること | この教材で使う情報 |
@@ -68,6 +72,8 @@ Anthropicの[Prompting best practices](https://platform.claude.com/docs/en/build
 
 ## 2. 情報は正本を決め、必要な部分を渡す
 
+[![コンテキストエンジニアリングの図解：企画・開発方法・作業・検証結果の正本を分け、必要な情報を参照し、決定と結果を次のセッションへ引き継ぐ。](../images/context-engineering.png)](../images/context-engineering.png)
+
 会話が長くなっても、次のセッションが現在の決定を読めるようにします。
 
 | 場所 | 役割と使い方 |
@@ -102,6 +108,8 @@ Anthropicの[Prompting best practices](https://platform.claude.com/docs/en/build
 根拠：[AnthropicのContext engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)では、限られた文脈に十分な情報を選び、必要時に取得し、記録を使って継続する考え方を扱っています。[VS Codeのガイド](https://code.visualstudio.com/docs/agents/guides/context-engineering-guide)も、短い共通指示から必要な文書を参照する構成を説明しています。
 
 ## 3. 動かす・結果を見る・直す、を繰り返せるようにする
+
+[![ハーネスエンジニアリングの図解：実装・起動・観察・完成条件との照合・修正を繰り返す。mainはアプリ固有の起動・テスト・CIを最初に作り、初心者向けスターターは準備済みの仕組みを使う。](../images/harness-engineering.png)](../images/harness-engineering.png)
 
 mainでは、すべてのアプリに共通する教材と開発環境を残し、**アプリ固有の実行・検証の仕組みは最初のタスクで作ります。** ブランチをコピーした時点でテストやCIが動いているわけではありません。
 
