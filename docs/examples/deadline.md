@@ -32,7 +32,7 @@
 
 この範囲なら、ブラウザ内に保存するWebアプリが候補です。素のHTML・CSS・JavaScriptでも、ReactなどのUIライブラリでも実現できます。チームが説明・修正できるか、短時間で検証できるかで選びます。公開先がContainer Appsなら、静的な画面だけでもHTTPサーバーをコンテナに含めます。不要なAPIや共有DBを、教材の都合だけで追加する必要はありません。
 
-選んだ理由を[product.md](../product.md)、起動・確認方法を[development.md](../development.md)へ残します。
+選んだ技術と理由、起動・確認方法を[development.md](../development.md)へ残します。
 
 ## DoDと受入操作の例
 
@@ -52,3 +52,5 @@
 5. 保存・戻る・追加など、完成条件に対応する主要な操作経路を別の学生も手動で確かめます。
 
 この操作を自動テストにする場合も、同じ入力と期待結果を使います。ここに記載した手順はまだ実行していません。実際の結果は[verification.md](../verification.md)へ記録します。
+
+例を確認したら、自分たちの[企画づくり](../common/ideation.md)へ戻ります。企画済みなら、[元資料の置き方](../source/README.md)に沿って資料を揃え、[CodespacesのPlan](../codespaces.md#planning)・[Copilot appのPlan](../copilot-app.md#planning)へ進みます。検証中にこの例を参照した場合は、自分たちのDoDの入力・期待結果へ置き換え、[確認の進め方](../common/verification.md)へ戻ります。
