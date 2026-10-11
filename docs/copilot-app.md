@@ -63,12 +63,16 @@ git switch -c feat/first-demo
 
 [プロンプトの図解](common/ai-development-tips.md#prompt-engineering)で「目的・文脈・制約・完成条件」の役割を確認し、この手順へ戻ってモードを **Plan** に切り替え、次を送ります。「実行場所」の一行は、選んだ方だけを残してください。
 
+送る前に、文脈の「今回の入力資料」を[実際に置いたファイルのパス](source/README.md)に置き換えます。
+
 ```text
 目的：
 企画と画面案を整理し、短い開発時間で完成できる最小構成と実装・検証の計画を提案してください。
 
 文脈：
-prepare-projectスキル、docs/source/の資料、docs/product.md、docs/development.mdを読んでください。
+今回の入力資料：〈docs/source/に置いた実際のファイルパスを列挙〉
+指定した入力資料、prepare-projectスキル、docs/product.md、docs/development.mdを読んでください。
+docs/images/は教材の説明図です。アプリの画面案として扱わないでください。
 このmainコースにはアプリ本体も起動コマンドもまだありません。
 編集はこのPCで行います。
 実行場所：PC／Codespaces（選んだ方だけを残す）
@@ -123,6 +127,8 @@ Codespacesでの準備・起動・テスト方法も案内し、結果を渡す�
 完成条件：
 初回は最小アプリと起動方法、必要なテスト、同じ確認をPRで行うCIを用意してください。
 実際の準備・起動・終了・確認コマンドとポート、環境設定をdocs/development.mdへ記録してください。
+ブラウザテストを採用する場合は、失敗時の画像・操作記録（Playwrightならtraceなど）とCIのartifact保存を設定し、取得方法も同じ文書へ残してください。
+アプリ生成後はREADMEの初期状態の説明を更新し、起動・確認の案内をdocs/development.mdへつないでください。
 並び替えなど期待結果が明確な機能は、先にテストを書いて未実装時の失敗も確認してください。
 PCで実行する場合は記録した確認を実行し、Codespacesならこちらが返す結果と照合してください。
 verify-goalスキルでDoDと実装を照合し、実際の結果をdocs/verification.mdへ残してください。
