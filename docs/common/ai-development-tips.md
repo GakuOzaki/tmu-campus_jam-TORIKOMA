@@ -10,11 +10,15 @@
 
 これは各社共通の厳密な分類ではなく、教材を理解するための整理です。例えばSkillは必要な情報を渡す仕組みであり、繰り返す作業の手順でもあります。Copilot本体が持つ対話・ツール実行の仕組みに、リポジトリ側で資料・実行環境・検証方法を組み合わせています。
 
+<a id="prompt-engineering"></a>
+
 ## 1. 依頼は「目的・文脈・制約・完成条件」を具体的にする
 
 [![プロンプトエンジニアリングの図解：目的・文脈・制約・完成条件の4項目で依頼を具体化する。締切管理の依頼例と、この教材の対応ファイルを示す。](../images/prompt-engineering.png)](../images/prompt-engineering.png)
 
 図はクリックすると拡大できます。図中の **Plan / Interactive** はCopilot appの呼び方です。CodespacesのCopilot Chatでは **Plan / Agent** を使います。
+
+自分たちの目的・読む資料・対象外・完成条件を図に当てはめたら、選んだ環境のPlan（[Codespacesの手順4](../codespaces.md#planning)・[Copilot appの手順4](../copilot-app.md#planning)）へ戻り、依頼例を送ります。以下の説明と公式資料は、詳しく知りたいときに読めます。 **発表中の振り返りで開いた場合は、[発表ガイドの振り返り](presentation.md#3-copilotとの開発を振り返る)へ戻ります。**
 
 [OpenAIの開発向けbest practices](https://learn.chatgpt.com/guides/best-practices#strong-first-use-context-and-prompts)は、依頼の基本として **Goal・Context・Constraints・Done when** の4項目を挙げています。この教材では、Copilotへの依頼を考える手がかりとして使います。
 
@@ -70,11 +74,15 @@ Anthropicの[Prompting best practices](https://platform.claude.com/docs/en/build
 
 [Claude Codeのbest practices](https://code.claude.com/docs/en/best-practices#give-claude-a-way-to-verify-its-work)も、テスト・ビルド・画面比較など、結果を確かめる手段を渡すことを勧めています。この教材では、DoDの具体例、必要なテスト、画面と操作の確認に反映しています。例えば期限順の正常な入力に加えて、空の一覧や不正な入力も、その機能に必要なら確認します。Copilotではこれらの共通する考え方を使い、モデル固有の設定やXMLタグによる記法は必須にしていません。
 
+<a id="context-engineering"></a>
+
 ## 2. 情報は正本を決め、必要な部分を渡す
 
 [![コンテキストエンジニアリングの図解：企画・開発方法・作業・検証結果の正本を分け、必要な情報を参照し、決定と結果を次のセッションへ引き継ぐ。](../images/context-engineering.png)](../images/context-engineering.png)
 
 会話が長くなっても、次のセッションが現在の決定を読めるようにします。
+
+図で元資料と決定の保存先を確認したら、資料を渡す作業（[Codespacesの手順3](../codespaces.md#prepare-materials)・[Copilot appの手順4](../copilot-app.md#prepare-materials)）へ戻ります。作業の再開時に読んでいる場合は、[引き継ぎの確認](build-loop.md#5-保存し次の作業へ引き継ぐ)へ進みます。 **発表中の振り返りで開いた場合は、[発表ガイドの振り返り](presentation.md#3-copilotとの開発を振り返る)へ戻ります。**
 
 | 場所 | 役割と使い方 |
 | --- | --- |
@@ -107,11 +115,15 @@ Anthropicの[Prompting best practices](https://platform.claude.com/docs/en/build
 
 根拠：[AnthropicのContext engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)では、限られた文脈に十分な情報を選び、必要時に取得し、記録を使って継続する考え方を扱っています。[VS Codeのガイド](https://code.visualstudio.com/docs/agents/guides/context-engineering-guide)も、短い共通指示から必要な文書を参照する構成を説明しています。
 
+<a id="harness-engineering"></a>
+
 ## 3. 動かす・結果を見る・直す、を繰り返せるようにする
 
 [![ハーネスエンジニアリングの図解：実装・起動・観察・完成条件との照合・修正を繰り返す。mainはアプリ固有の起動・テスト・CIを最初に作り、初心者向けスターターは準備済みの仕組みを使う。](../images/harness-engineering.png)](../images/harness-engineering.png)
 
 mainでは、すべてのアプリに共通する教材と開発環境を残し、**アプリ固有の実行・検証の仕組みは最初のタスクで作ります。** ブランチをコピーした時点でテストやCIが動いているわけではありません。
+
+図で「動かす・結果を見る・直す」の循環を確認したら、最初の実装（[Codespacesの手順5](../codespaces.md#implementation)・[Copilot appの手順5](../copilot-app.md#implementation)）へ戻ります。アプリが動いている場合は、[共通ループの手順3](build-loop.md#3-実装検証修正を続ける)から続きを進めます。 **発表中の振り返りで開いた場合は、[発表ガイドの振り返り](presentation.md#3-copilotとの開発を振り返る)へ戻ります。**
 
 | 仕組み | いつ用意し、どう役立てるか |
 | --- | --- |

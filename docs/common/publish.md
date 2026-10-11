@@ -1,6 +1,6 @@
-# 動くアプリで発表し、必要ならContainer Appsへ公開する
+# Azure Container Appsへ公開する（任意）
 
-普段は[共通の開発手順](local-development.md)で、PC・Codespacesのアプリを起動します。Copilot appのBrowserやCodespacesの転送先で、そのまま確認・発表できます。継続して使えるURLが必要になったチームは、**Azure Container Apps**へ公開します。
+通常の発表は[発表と終了の手順](presentation.md)で進めます。Copilot appのBrowserやCodespacesの転送先を使えるため、Azureへの公開は必須ではありません。このページは、継続して使えるURLが必要になり、**Azure Container Apps**への公開を選んだチーム向けです。
 
 mainには公開用のDockerfileやワークフローを置いていません。選んだアプリ構成に合わせてCopilotと用意します。準備済みのReact・Node構成を使いたい場合は、開発開始前に[初心者向けコース](../choose-start.md)を選びます。途中で初心者向けブランチへ切り替えて、自分たちのコードを上書きする必要はありません。
 
@@ -38,7 +38,7 @@ Dockerfile、必要なテスト・CIと実際のコマンドが用意され、�
 docs/development.mdにポート・起動確認・環境変数・公開手順があり、未実行は未確認と記録されていること。
 ```
 
-[Azure・レジストリの初期設定](azure-setup.md)では、GitHub Container Registry（GHCR）のPublicイメージを使う方法を説明します。コードを非公開に保ちたい場合は、運営と非公開レジストリの取得認証を準備します。
+[Azure・レジストリの初期設定](azure-setup.md)では、GitHub Container Registry（GHCR）のPublicイメージを使う方法を説明します。コードを非公開に保ちたい場合は、運営と非公開レジストリの取得認証を準備します。**公開用ワークフローが未作成なら、先に[初期設定の手順1](azure-setup.md#1-テスト済みイメージをレジストリへ保存する)でワークフローを作成し、development.mdへの記録まで済ませて、このページの手順2へ戻ります。** ワークフローの実行とイメージの公開は、PRを確認・マージした後の手順3で行います。
 
 ## 2. GitHubへ変更と確認結果を保存する
 
@@ -57,6 +57,8 @@ CIが存在しない・未実行の場合は、成功したものとして扱わ
 ## 4. 公開URLで確認する
 
 Azure portalのContainer App概要にある **Application URL** を開きます。必須DoDに対応する操作、URLの直接表示・再読み込み、必要なAPI・実際のログイン・共有DBを確認します。[verification.md](../verification.md)にURL・イメージのdigest・結果・未確認事項を記録します。起動確認の成功だけでは、すべての完成条件を満たした証拠にはなりません。
+
+確認と記録を終えたら[発表と終了](presentation.md)へ戻り、公開URLを使ってデモします。未達があれば修正して同じ操作を再確認します。
 
 ## API・DB・アプリ内AIを使う場合
 

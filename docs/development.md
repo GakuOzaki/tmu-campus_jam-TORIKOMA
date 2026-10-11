@@ -72,3 +72,5 @@ Copilot appのボタンを使う場合は、コマンドが動くことを確か
 - 公開後に確認する操作：未入力
 
 Azure Container Appsを使う場合は[公開手順](common/publish.md)に沿い、採用した構成に合わせて準備します。公開用の設定が存在しない段階では、デプロイできるとは扱いません。
+
+計画段階で構成を記録したら、[Codespacesの実装手順](codespaces.md#implementation)／[Appの実装手順](copilot-app.md#implementation)へ戻ります。生成後の起動方法を確認する場合は[共通の開発環境](common/local-development.md)、確認結果を残す場合は[検証記録](verification.md)を使ってください。公開の欄は必要になったときに埋めます。
