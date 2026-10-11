@@ -53,7 +53,9 @@ CodespacesにはNode.js 24とDockerを使える環境を用意していますが
 - [prepare-project](.github/skills/prepare-project/SKILL.md)：企画メモと画面案を開発用の資料に整理する。
 - [verify-goal](.github/skills/verify-goal/SKILL.md)：完成条件と実際の結果を照合し、残る作業を見つける。
 
-「prepare-projectを使って企画を整理して」のように依頼できます。認識されないときはSkillファイルを添付・参照します。[Copilotと開発する3つの工夫](docs/common/ai-development-tips.md)に、依頼の伝え方、情報の整理、実行・検証・改善の仕組みをまとめています。
+「prepare-projectを使って企画を整理して」のように依頼できます。認識されないときはSkillファイルを添付・参照します。
+
+[図解でわかる：Copilotと開発する3つの工夫](docs/common/ai-development-tips.md)では、プロンプト・コンテキスト・ハーネスエンジニアリングを、3枚の画像と具体例で説明しています。
 
 ## 運営・メンター向け
 
