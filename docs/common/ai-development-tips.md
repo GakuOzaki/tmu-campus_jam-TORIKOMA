@@ -8,13 +8,19 @@
 | コンテキストエンジニアリング | 判断に必要な情報を、必要なときに読める状態にする | 企画・作業・検証の3文書、画面PNGと遷移、必要な資料だけ読む指示、セッション間の引き継ぎ |
 | ハーネスエンジニアリング | AIが実行・観察・検証・修正を進められる環境と流れ | 共通の起動コマンド、Dev Container、AppのRun、テスト、CI、失敗の記録、人による確認 |
 
+**このページは必要な節だけ読みます。** 資料を渡すときは[コンテキスト](#context-engineering)、Planで依頼するときは[プロンプト](#prompt-engineering)、実装して確かめるときは[ハーネス](#harness-engineering)へ進み、読み終えたら各節のリンクから環境ガイドへ戻ります。根拠や各社との対応は、詳しく知りたいときに参照してください。
+
 これは各社共通の厳密な分類ではなく、教材を理解するための整理です。例えばSkillは必要な情報を渡す仕組みであり、繰り返す作業の手順でもあります。Copilot本体が持つ対話・ツール実行の仕組みに、リポジトリ側で資料・実行環境・検証方法を組み合わせています。
+
+<a id="prompt-engineering"></a>
 
 ## 1. 依頼は「目的・文脈・制約・完成条件」を具体的にする
 
 [![プロンプトエンジニアリングの図解：目的・文脈・制約・完成条件の4項目で依頼を具体化する。締切管理の依頼例と、この教材の対応ファイルを示す。](../images/prompt-engineering.png)](../images/prompt-engineering.png)
 
 図はクリックすると拡大できます。図中の **Plan / Interactive** はCopilot appの呼び方です。CodespacesのCopilot Chatでは **Plan / Agent** を使います。
+
+発表の振り返りで図を開いた場合は、自分たちの依頼に当てはまる工夫を確認して、[発表の手順3](presentation.md#3-copilotとの開発を振り返る)へ戻ります。
 
 [OpenAIの開発向けbest practices](https://learn.chatgpt.com/guides/best-practices#strong-first-use-context-and-prompts)は、依頼の基本として **Goal・Context・Constraints・Done when** の4項目を挙げています。この教材では、Copilotへの依頼を考える手がかりとして使います。
 
@@ -70,11 +76,17 @@ Anthropicの[Prompting best practices](https://platform.claude.com/docs/en/build
 
 [Claude Codeのbest practices](https://code.claude.com/docs/en/best-practices#give-claude-a-way-to-verify-its-work)も、テスト・ビルド・画面比較など、結果を確かめる手段を渡すことを勧めています。この教材では、DoDの具体例、必要なテスト、画面と操作の確認に反映しています。例えば期限順の正常な入力に加えて、空の一覧や不正な入力も、その機能に必要なら確認します。Copilotではこれらの共通する考え方を使い、モデル固有の設定やXMLタグによる記法は必須にしていません。
 
+開発中に確認した場合は、選んだ環境のPlanへ戻ります：[Codespacesの手順4](../codespaces.md#planning) ／ [Copilot appの手順4](../copilot-app.md#planning)。
+
+<a id="context-engineering"></a>
+
 ## 2. 情報は正本を決め、必要な部分を渡す
 
 [![コンテキストエンジニアリングの図解：企画・開発方法・作業・検証結果の正本を分け、必要な情報を参照し、決定と結果を次のセッションへ引き継ぐ。](../images/context-engineering.png)](../images/context-engineering.png)
 
 図中の `docs/development.md` はmainコースのファイルです。この初心者向けコースでは、起動・確認方法を[READMEの共通コマンド](../../README.md#共通のコマンド)と[共通の開発環境](local-development.md)で確認します。
+
+発表の振り返りで図を開いた場合は、自分たちが資料や決定を残した場所を確認して、[発表の手順3](presentation.md#3-copilotとの開発を振り返る)へ戻ります。
 
 会話が長くなっても、次のセッションが現在の決定を読めるようにします。
 
@@ -108,11 +120,17 @@ Anthropicの[Prompting best practices](https://platform.claude.com/docs/en/build
 
 根拠：[AnthropicのContext engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)では、限られた文脈に十分な情報を選び、必要時に取得し、記録を使って継続する考え方を扱っています。[VS Codeのガイド](https://code.visualstudio.com/docs/agents/guides/context-engineering-guide)も、短い共通指示から必要な文書を参照する構成を説明しています。
 
+開発中に確認した場合は、資料を準備していた手順へ戻ります：[Codespacesの手順3](../codespaces.md#prepare-materials) ／ [Copilot appの手順4](../copilot-app.md#prepare-materials)。再開中なら[tasks.mdの引き継ぎ](../tasks.md#次のセッションへの引き継ぎ)を使います。
+
+<a id="harness-engineering"></a>
+
 ## 3. 動かす・結果を見る・直す、を繰り返せるようにする
 
 [![ハーネスエンジニアリングの図解：実装・起動・観察・完成条件との照合・修正を繰り返す。mainはアプリ固有の起動・テスト・CIを最初に作り、初心者向けスターターは準備済みの仕組みを使う。](../images/harness-engineering.png)](../images/harness-engineering.png)
 
 図中の「最初のタスクで起動・テスト・CIを作る」はmainコースの進め方です。この初心者向けコースでは準備済みの仕組みを使い、企画に合わせて更新します。起動・確認方法は、図中の `docs/development.md` の代わりに[共通の開発環境](local-development.md)を参照してください。
+
+発表の振り返りで図を開いた場合は、自分たちが実行・確認・修正した例を確認して、[発表の手順3](presentation.md#3-copilotとの開発を振り返る)へ戻ります。
 
 この教材のハーネスに相当する部分は、次の組み合わせです。
 
@@ -144,6 +162,8 @@ Anthropicの[Prompting best practices](https://platform.claude.com/docs/en/build
 このCIでは、チェックが失敗すると公開・デプロイへ進みません。これはワークフローで実行する制御です。「結果を待つ」「進展がなければ相談する」といったSkillや依頼文の指示は、AIの報告と人の確認で運用します。**PRのマージを必須チェックで制限する設定は、GitHub側で別途行うもの**です。このテンプレートだけでマージ制限や課金上限が設定されるわけではありません。Skillや依頼文も、セッション終了後の自動再開を保証する機能ではありません。
 
 根拠：[OpenAIのbest practices](https://learn.chatgpt.com/guides/best-practices)は、適切な文脈・簡潔な共通指示・検証・繰り返す失敗の改善を組み合わせています。[Anthropicの長時間エージェントの設計](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)は、実行環境、進捗の引き継ぎ、実動作の確認を扱っています。各製品固有の自動化機能や記事と同じ性能を、Copilotで再現したという意味ではありません。
+
+開発中に確認した場合は、選んだ環境の実装へ戻ります：[Codespacesの手順5](../codespaces.md#implementation) ／ [Copilot appの手順5](../copilot-app.md#implementation)。実装後の完成確認は[検証の手順](verification.md)を使います。
 
 ## 同じ失敗を繰り返したら、何を直すか
 

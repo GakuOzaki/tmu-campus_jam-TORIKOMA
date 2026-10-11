@@ -2,13 +2,15 @@
 
 **初心者向けスターターの手順です。** ブラウザの中でVS CodeとGitHub Copilotを使います。PCへのNode.jsやDockerのインストールは不要です。Codespace内で画面とAPIを動かして確認し、必要になったらAzure Container Appsへ公開します。
 
-**企画 → 環境準備 → 計画 → 実装と検証 → チームで確認 → 公開**
+**企画 → 環境準備 → 計画 → 実装と検証 → チームで確認 → 保存・PR → 発表・終了**
+
+このページが開発中の本線です。共通ページを開いたら、読んでいた段階へ戻って続けます。Azureへの公開は、継続して共有するURLが必要なチームだけが行います。
 
 ## 1. チームのリポジトリを作る
 
 Azureへの自動公開まで行う場合、Publicリポジトリ、またはGitHub Proの個人アカウント所有のPrivateリポジトリで進められます。Organization所有のPrivateリポジトリではOrganizationのGitHub Team以上が必要です。[公開の初期設定](common/azure-setup.md)を参照してください。
 
-1. [企画の進め方](common/ideation.md)の手順1〜5で、誰の何を解決するかと画面案をチームで決めます。手順6の文書整理は、環境を準備した後、このガイドの手順4で行います。
+1. [企画の進め方](common/ideation.md)の手順1〜5で、誰の何を解決するかと画面案をチームで決めます。事前に企画・画面案がある場合は、その成果を確認して使います。手順6の文書整理は、環境を準備した後、このガイドの手順4で行います。
 2. [はじめ方を選ぶ](choose-start.md)に沿って、**Include all branches** でチーム用リポジトリを作り、チーム側のデフォルトブランチを **`codex/beginner-starter`** にします。準備済みなら、そのリポジトリを使います。
 3. チーム全員が編集する場合は、リポジトリの **Settings → Collaborators** からメンバーを追加します。選択手順で招待済みなら追加し直す必要はありません。
 4. 以降は、作成したチームのリポジトリを開いて作業します。
@@ -49,6 +51,8 @@ Node.jsは **24.x** を使います。最後のコマンドはサーバーを動
 
 転送ポートは **Private** のまま使います。このURLはCodespaceとサーバーの起動中に使う確認用で、停止するとアクセスできません。チームの学生に試してもらうときは、ログイン済みの同じPCで交代して操作できます。継続して使える公開URLが必要になったら、最後のAzureへの公開へ進みます。
 
+<a id="prepare-materials"></a>
+
 ## 3. 作業用ブランチと資料を準備する
 
 Copilot appからの確認用に作業ブランチを開いている場合は、そのまま使い、[Appの確認手順](copilot-app.md#codespacesへ変更を渡して確認する)へ戻ります。
@@ -61,7 +65,9 @@ git switch -c feat/first-demo
 
 同名のブランチをすでに使っている場合は、作成し直さず `git switch feat/first-demo` で戻ります。複数人で編集する場合は、`feat/input-form` など作業ごとに別の名前にします。
 
-[docs/source/](source/)へ企画メモや画面PNGを入れます。Figmaを使った場合も、画面PNGと「押すとどうなるか」のメモがあれば進められます。[締切管理の例](examples/deadline.md)も参考にできます。
+ここで[コンテキストの図解](common/ai-development-tips.md#context-engineering)を見て、資料の置き場所と正本を確認します。読んだらこの手順へ戻ります。
+
+[docs/source/](source/README.md)へ企画メモや画面PNGを入れます。Figmaを使った場合も、画面PNGと「押すとどうなるか」のメモがあれば進められます。[締切管理の例](examples/deadline.md)も参考にできます。
 
 引き継ぐ情報は次の3ファイルに残します。
 
@@ -71,7 +77,11 @@ git switch -c feat/first-demo
 | [tasks.md](tasks.md) | 実装の順番と進捗 |
 | [verification.md](verification.md) | 実施した確認、結果、未確認のこと |
 
+<a id="planning"></a>
+
 ## 4. Planで実装前のすり合わせをする
+
+[プロンプトの図解](common/ai-development-tips.md#prompt-engineering)で、依頼の4項目と短い例を確認してから、下の依頼文を自分たちの企画に合わせて使います。
 
 Copilot Chatで **Plan** を選び、次を送ります。
 
@@ -100,9 +110,13 @@ docs/product.mdに残す企画・DoD・対象外と、docs/tasks.mdに残す小�
 
 対象者、最初に通す操作、完成条件をチームで確認します。案を直したい場合は、そのままChatへ伝えます。計画がまとまったら **Agent** に切り替え、採用した企画と計画を `docs/product.md` と `docs/tasks.md` へ反映するよう依頼します。`docs/tasks.md` の引き継ぎ欄には「編集・実行・ブラウザ確認はCodespaces」と残します。画面上の計画だけで終わらせず、次のセッションでも読めるファイルに残します。
 
+<a id="implementation"></a>
+
 ## 5. 小さく実装して、完成条件まで検証する
 
-[共通の実装ループ](common/build-loop.md)に沿って、Agentへ次を送ります。
+[ハーネスの図解](common/ai-development-tips.md#harness-engineering)で、起動・テスト・人の確認をどうつなぐかを確認します。このコースでは準備済みの仕組みを、自分たちのDoDに合わせて使います。
+
+[共通の実装ループの手順3](common/build-loop.md#3-aiに実装検証修正を続けてもらう)に沿って、Agentへ次を送ります。
 
 ```text
 目的：
@@ -136,6 +150,8 @@ docs/product.md、docs/tasks.md、docs/verification.mdと現在の変更を確�
 対応する完成条件を確かめ、結果と未達・未確認、次の作業を文書へ残してください。
 ```
 
+<a id="team-verification"></a>
+
 ## 6. 自分たちでも操作する
 
 [確認の進め方](common/verification.md)を開き、実装した人とは別の学生が4280の転送URLでアプリを操作します。同じPCで交代して確認して構いません。必須DoDに対応する主要な操作経路のボタン・移動・戻る操作、その機能に関係する空の状態や入力ミス、スマートフォン幅を確認し、実際の結果を記録します。
@@ -157,15 +173,19 @@ npx playwright install --with-deps chromium
 
 テストは学生のアプリに合わせて更新します。教材の初期テストだけの成功を、チームの完成条件の達成とは扱いません。
 
-## 7. 保存し、必要になったら公開する
+<a id="save-and-share"></a>
+
+## 7. 保存してPRで共有する
 
 **Source Control** で変更ファイルを選んで差分を確認し、採用するファイルの `+` を押してステージします。コミットメッセージを入力して **Commit** を選び、そのままGitHubへ送ります。初回は **Publish Branch**、公開済みの作業ブランチでは **Source Control → … → Push** を使います。Copilotには変更内容の説明やコミットメッセージ案を相談できます。[CodespacesのGUI操作の公式手順](https://docs.github.com/en/codespaces/developing-in-a-codespace/using-source-control-in-your-codespace)
 
-GitHubのチームリポジトリで **Compare & pull request** を開き、**baseがチームのデフォルトブランチ（`codex/beginner-starter`）、compareが作業ブランチ**になっているPRを作ります。コピーされた`main`コースへはPRを作りません。チームで変更とCIの結果を確認してマージします。CIには本番用コンテナを起動して行うテストも含まれます。Codespacesでの開発・動作確認までなら、Azureへのデプロイは不要です。継続して使えるURLが必要になったら、[Azure Container Appsへの公開手順](common/publish.md)へ進みます。公開後も実際のURLで動作を確認します。
+GitHubのチームリポジトリで **Compare & pull request** を開き、**baseがチームのデフォルトブランチ（`codex/beginner-starter`）、compareが作業ブランチ**になっているPRを作ります。コピーされた`main`コースへはPRを作りません。チームで変更とCIの結果を確認します。CIには本番用コンテナを起動して行うテストも含まれます。PR・CIの実行URL、対象変更、結果を[検証記録](verification.md#prとciの確認)へ追記し、追記分もcommit・pushします。最新のCIが成功し、チームが確認できたらマージします。記録だけを追加したコミットごとに同じ結果を追記し続ける必要はありません。
+
+次は[発表・振り返り・終了](common/presentation.md)へ進みます。Codespacesのプレビューで発表でき、Azureへのデプロイは必須ではありません。継続して使えるURLが必要な場合だけ、[Azure Container Appsへの公開手順](common/publish.md)を使い、公開先でも操作を確認します。
 
 公開前に自分たちでコンテナを操作したい場合は、[Codespacesでのコンテナ確認](common/local-development.md#コンテナで確認する任意)を使えます。日々の編集は引き続き `npm run dev` で進められます。
 
-作業を終えたら、[Codespaces一覧](https://github.com/codespaces)のメニューから **Stop codespace** を選びます。ブラウザタブを閉じるだけでは、直ちに停止するとは限りません。
+発表や確認でプレビューを使い終えたら、[Codespaces一覧](https://github.com/codespaces)のメニューから **Stop codespace** を選びます。ブラウザタブを閉じるだけでは、直ちに停止するとは限りません。
 
 ## うまくいかないとき
 

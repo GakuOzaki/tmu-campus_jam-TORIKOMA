@@ -40,26 +40,14 @@ DoDは「使いやすい」のような感想で終えず、「何を操作す�
 
 ## 6. 開発用の文書に整理する
 
-まだリポジトリや開発環境を準備していない場合は、選んだ環境のガイド（[Codespaces](../codespaces.md)・[Copilot app](../copilot-app.md)）へ進みます。各ガイドの手順4で、この文書整理と実装計画をまとめて行えます。以下は、準備済みの環境で企画資料を整理するときの依頼例です。各環境の手順で整理済みなら、繰り返す必要はありません。
+ここまでの成果物は、**企画メモ、手書き・Figmaの画面案、操作と遷移の説明**です。決定したこと・仮説・未確認を分け、共有してよい内容を揃えます。個人名や私的な連絡を含む原本はコミットしません。
 
-手書き画像、Figmaの画面・遷移を参照できるようにし、[product.md](../product.md)へ整理します。企画メモと入力画像は [docs/source/](../source/README.md) に置きます。個人名や私的な連絡を含む原本はコミットせず、共有してよい内容だけを記録します。
+このあと各環境ガイドで、[元資料の置き方](../source/README.md)に沿って `docs/source/` に保存し、Planで[prepare-project](../../.github/skills/prepare-project/SKILL.md)を使って文書と実装計画の草案に整理します。企画・DoD・対象外は[product.md](../product.md)、作業順と確認方法は[tasks.md](../tasks.md)へ、チームの合意後に編集できるモードで保存します。
 
-Copilotの編集できるモードで、[prepare-project](../../.github/skills/prepare-project/SKILL.md)を使います。例えば次のように頼めます。
+| 今の状態 | 次に進む場所 |
+| --- | --- |
+| 企画ができ、これから環境を準備する | [Codespaces](../codespaces.md)または[Copilot app](../copilot-app.md)の手順1から準備する。企画1〜5は繰り返さない |
+| Codespaceを開いている | [Codespacesの手順3](../codespaces.md#prepare-materials)で資料を置き、続けて手順4のPlanへ進む |
+| Appにリポジトリを追加し、作業ブランチと実行場所も決めた | [Copilot appの手順4](../copilot-app.md#prepare-materials)で資料を置き、Planへ進む |
 
-```text
-目的：
-prepare-project スキルを使って、チームで決めた企画を開発用の文書に整理してください。
-
-文脈：
-docs/source/ の企画メモ・画面設計と、docs/product.md の決定済みの内容を読んでください。
-
-制約：
-事実・仮説・未確認を分け、決まっていない仕様は未入力として残してください。
-まだコードは書かず、チームの確認を待ってください。
-
-完成条件：
-目的・コア機能・入力と期待結果を含むDoD・対象外が docs/product.md に整理されていること。
-要件と画面で食い違う点、未決定の点、最初に作る利用シナリオを示してください。
-```
-
-内容をチームで確認してから、選んだ環境のガイド（[Codespaces](../codespaces.md)・[Copilot app](../copilot-app.md)）で計画と実装へ進みます。[共通の実装と修正の進め方](build-loop.md)も参照してください。
+企画文書をすでに整理済みなら、その内容をPlanへ引き継ぎ、未決定の実装順だけを相談します。計画まで合意・保存済みなら、[Codespacesの手順5](../codespaces.md#implementation)・[Copilot appの手順5](../copilot-app.md#implementation)から実装を続けます。

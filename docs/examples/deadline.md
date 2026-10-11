@@ -46,3 +46,5 @@
 5. 保存・戻る・追加など、完成条件に対応する主要な操作経路を別の学生も手動で確かめます。
 
 この操作を自動テストにする場合も、同じ入力と期待結果を使います。ここに記載した手順はまだ実行していません。実際の結果は[verification.md](../verification.md)へ記録します。
+
+参考例を確認したら、[企画の手順](../common/ideation.md)へ戻って自分たちの内容に置き換えます。企画ができている場合は、[Codespacesの資料準備](../codespaces.md#prepare-materials)・[Copilot appの資料準備](../copilot-app.md#prepare-materials)へ戻ります。例に書かれた数値や結果を、そのまま自分たちの実績にはしません。

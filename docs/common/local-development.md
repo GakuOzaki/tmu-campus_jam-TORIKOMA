@@ -4,6 +4,8 @@
 
 公開時は、ビルド済みの画面とAPIを1つのコンテナにまとめてAzure Container Appsへ配置します。GitHub Actionsがコンテナを起動してテストします。手元でコンテナを確認する手順も、このページの後半にあります。
 
+発表のために開いた場合は、起動・終了の方法だけを使います。起動できたら[発表の手順1](presentation.md#1-デモの環境を用意する)、発表後に停止できたら[終了の手順4](presentation.md#4-発表後に保存して終了する)へ戻ります。開発の計画や実装をやり直す必要はありません。
+
 ## 起動する
 
 Node.js 24で、リポジトリのルートから実行します。Copilot appでは、初回の **Setup** が終わったら **Run** を押すと `npm run dev` が実行されます。
@@ -99,6 +101,6 @@ GitHub ActionsではContainer Appsに対応した `linux/amd64` のコンテナ�
 | Codespacesでホスト拒否・ホットリロード失敗 | 最新のvite.config.ts、CODESPACE_NAME、GITHUB_CODESPACES_PORT_FORWARDING_DOMAINを確認。allowedHostsをtrueにして回避しない |
 | Dockerが見つからない・接続できない | Codespacesなら開発環境の再構築、PCならDockerの起動を確認。日々の開発はnpm run devで続けられる |
 
-継続して使うURLを作る場合は[公開手順](publish.md)へ進み、公開先でも完成条件を確認します。
+起動や環境の確認ができたら、読んでいた環境ガイドへ戻ります。企画前の準備なら[Codespacesの資料準備](../codespaces.md#prepare-materials)・[Appの資料準備](../copilot-app.md#prepare-materials)、開発中なら[Codespacesの実装](../codespaces.md#implementation)・[Appの実装](../copilot-app.md#implementation)です。発表準備から来た場合は[発表の手順1](presentation.md#1-デモの環境を用意する)、発表後の停止を確認した場合は[終了の手順4](presentation.md#4-発表後に保存して終了する)へ戻ります。公開前のコンテナ確認から来た場合は[公開手順](publish.md)へ戻り、公開先でも完成条件を確認します。
 
 公式資料：[Codespacesのポート転送](https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace) · [Docker用Dev Container Feature](https://github.com/devcontainers/features/tree/main/src/docker-in-docker) · [Container Appsのコンテナ仕様](https://learn.microsoft.com/en-us/azure/container-apps/containers)

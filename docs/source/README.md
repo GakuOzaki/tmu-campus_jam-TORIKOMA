@@ -11,3 +11,5 @@ FigmaはPNGに書き出した画面と操作・遷移の説明で引き継げま
 学生は自分たちの調査と決定を[product.md](../product.md)へ記録します。参考例の数値や発言を、自分たちが得た事実として転記しないでください。
 
 元資料と教材で食い違いがあれば、課題 → 深掘り → 解決策 → 企画 → 開発要件 → 手書き → Figma → 実装の順を確認し、変更理由をチームで共有します。
+
+資料の場所と正本の役割は[コンテキストの図解](../common/ai-development-tips.md#context-engineering)でも確認できます。資料を用意したら、選んだ環境ガイド（[Codespacesの手順3](../codespaces.md#prepare-materials)・[Copilot appの手順4](../copilot-app.md#prepare-materials)）へ戻り、Planで自分たちの企画を整理します。

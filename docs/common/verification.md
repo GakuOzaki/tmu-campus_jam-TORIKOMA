@@ -73,3 +73,5 @@ DoDごとの達成・未達・未確認と、確認したコマンド・操作�
 Azure Container Appsへ公開した場合は、[公開手順](publish.md)に沿って公開URLでも操作します。開発中の確認、コンテナでの確認、Azure上の認証や外部サービス接続は、それぞれ実施した範囲を記録します。
 
 最後に、想定した学生が困りごとを解決できそうかを振り返ります。アプリの動作確認と、解決策の仮説検証は別です。実際の利用者に確かめていなければ、仮説は未検証として発表します。
+
+未達があれば、選んだ環境の実装（[Codespacesの手順5](../codespaces.md#implementation)・[Copilot appの手順5](../copilot-app.md#implementation)）へ戻ります。確認を終えたら、[Codespacesの手順7](../codespaces.md#save-and-share)・[Copilot appの手順7](../copilot-app.md#save-and-share)で検証記録も保存・pushし、PRとCIを確認します。その後に[発表・振り返り・終了](presentation.md)へ進みます。

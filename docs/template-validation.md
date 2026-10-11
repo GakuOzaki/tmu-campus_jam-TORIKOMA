@@ -1,5 +1,34 @@
 # スターターの検証記録
 
+## 2026年10月11日：教材を順にたどる導線の確認
+
+図解追加を両コースへ反映した状態（main `9c4032c`、初心者向け `f04ee38`）を基に、READMEから全教材・共通指示・Skills・記録欄を読み、次の6経路を文書上でたどり直しました。
+
+- main／初心者向けのそれぞれで、Codespaces、Copilot appでPC実行、Copilot appで編集してCodespaces実行。
+- 企画をこれから作る場合、記入済み資料がある場合、計画や実装を再開する場合の開始位置。
+- 企画・画面案 → 資料準備 → Plan → 合意した記録の保存 → 実装・検証 → 別の学生の操作 → 保存・PR・CI → 発表・振り返り → 引き継ぎ・停止。
+
+見つかった問題は、資料へのリンクがあっても読む場面が明示されないこと、共通ガイドから戻る先の不足、企画整理や依頼の重複、発表と終了の手順の不足でした。図解を使う段階へ接続し、環境ガイドを本線にして共通資料から同じ作業へ戻る形に修正しました。mainで技術構成の理由をproductへ書かせていた2か所も、developmentへ統一しました。
+
+| コンテンツ | 本線で触れる場面・役割 |
+| --- | --- |
+| [全体図とREADME](../README.md)、[コース選択](choose-start.md) | 現在地を確認し、企画済み・環境準備済みなら途中から始める |
+| [企画手順](common/ideation.md)、[締切管理の例](examples/deadline.md) | 課題・解決策・画面案を作る。例は自分たちの企画や調査実績と区別する |
+| [元資料](source/README.md)、[コンテキスト図](common/ai-development-tips.md#context-engineering) | Copilotへ渡す直前に、保存場所と正本を確かめる |
+| [プロンプト図](common/ai-development-tips.md#prompt-engineering)、prepare-project | 各環境のPlanで、4項目の依頼から企画と計画を整理する |
+| [product](product.md)、[tasks](tasks.md)、[起動・確認方法](common/local-development.md) | 企画と作業は合意後に保存する。初心者向けの実行方法はREADMEと共通の開発環境を使う |
+| [ハーネス図](common/ai-development-tips.md#harness-engineering)、[開発環境](common/local-development.md)、[実装ループ](common/build-loop.md) | 実装開始時に、動かす・確認する・直す方法をそろえる |
+| [検証手順](common/verification.md)、verify-goal、[検証記録](verification.md) | 実際の操作とDoDを照合。未達は実装へ、確認後は環境ガイドの保存・PRへ戻る |
+| [発表と終了](common/presentation.md) | 記録からデモと説明を準備し、3つの工夫を振り返り、発表後に保存・停止する |
+| [公開](common/publish.md)、[Azure初期設定](common/azure-setup.md) | 継続共有したいチームだけの任意分岐。公開後の確認から発表へ戻る |
+| [運営ガイド](facilitator.md)、[公式根拠](references.md)、この検証記録 | 運営の準備と、必要なときの根拠確認。学生の必須通読にはしない |
+
+mainの25 Markdown、初心者向けの24 Markdownを対象に相対リンク・見出し・明示アンカーとREADMEからの到達性を確認しました。独立した再レビューで、図解を発表の振り返りから開いた場合の戻り先、実装途中の節へ直接移った場合の依頼重複も修正しています。概要図と3つの図解は、該当する教材から参照されます。
+
+この確認は教材の順序・内容・リンクの確認です。Copilotでのアプリ再生成、学生アカウントの操作、Azure配置を今回やり直したという意味ではありません。以前の実機結果と未確認事項は、以下の実施日の記録を参照してください。
+
+## 2026年10月9日の確認
+
 検証日：2026年10月9日。これは教材を作成した環境での検証です。チームが作るアプリの完成記録は [verification.md](verification.md) に残します。
 
 ## 実行して確認したこと
