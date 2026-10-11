@@ -57,7 +57,7 @@ git switch -c feat/first-demo
 
 [元資料の置き方](source/README.md)に沿って `docs/source/` へ、共有してよい企画メモや画面PNGを入れます。Figmaの画面はPNGと操作・遷移の説明でも渡せます。[締切管理の例](examples/deadline.md)も参考にできます。
 
-[コンテキストの図解](common/ai-development-tips.md#context-engineering)で元資料と決定事項の置き場所を確かめ、この手順へ戻って使う資料を揃えます。
+[コンテキストの図解](common/ai-development-tips.md#context-engineering)で元資料と決定事項の置き場所を確かめ、資料が揃ったら[この下のPlan](#planning)へ進みます。
 
 <a id="planning"></a>
 
