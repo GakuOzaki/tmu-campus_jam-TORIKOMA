@@ -53,6 +53,8 @@ git switch -c feat/first-demo
 
 [プロンプトの図解](common/ai-development-tips.md#prompt-engineering)で「目的・文脈・制約・完成条件」の役割を確認し、この手順へ戻ってCopilot Chatで **Plan** を選び、次を送ります。
 
+送る前に、文脈の「今回の入力資料」を[実際に置いたファイルのパス](source/README.md)に置き換えます。
+
 Planが見当たらない場合は、サインインを確認して拡張の準備が終わるまで待ち、モードの選択欄を開き直します。
 
 ```text
@@ -60,7 +62,9 @@ Planが見当たらない場合は、サインインを確認して拡張の準�
 企画と画面案を整理し、短い開発時間で完成できる最小構成と実装・検証の計画を提案してください。
 
 文脈：
-prepare-projectスキル、docs/source/の資料、docs/product.md、docs/development.mdを読んでください。
+今回の入力資料：〈docs/source/に置いた実際のファイルパスを列挙〉
+指定した入力資料、prepare-projectスキル、docs/product.md、docs/development.mdを読んでください。
+docs/images/は教材の説明図です。アプリの画面案として扱わないでください。
 このmainコースにはアプリ本体も起動コマンドもまだありません。
 編集・実行・ブラウザ確認はCodespacesで行います。
 
@@ -75,6 +79,8 @@ React + Viteを含め、企画に必要な最小の技術構成を提案し、�
 最初の実装単位に、最小アプリ、起動方法、必要なテストとPR用CIの作成を含めてください。
 未決定の点を示し、チームが確認できる計画にしてください。
 ```
+
+初回の送信後に「MCP拡張機能をアクティブ化しています… スキップしますか?」で待機した場合、今回は外部MCPを使わずリポジトリ内の資料で進めるなら、画面の **「スキップしますか?」** を選んで続けられます。外部サービスのMCPが必要なチームは、その接続の準備を確認してください。
 
 スキルが認識されない場合は、`.github/skills/prepare-project/SKILL.md` を読んで進めるよう伝えます。
 
@@ -109,6 +115,8 @@ docs/product.md、docs/tasks.md、docs/development.mdと、作業に関係する
 完成条件：
 初回は最小アプリと起動方法、必要なテスト、同じ確認をPRで行うCIを用意してください。
 実際の準備・起動・終了・確認コマンドとポート、環境設定をdocs/development.mdへ記録してください。
+ブラウザテストを採用する場合は、失敗時の画像・操作記録（Playwrightならtraceなど）とCIのartifact保存を設定し、取得方法も同じ文書へ残してください。
+アプリ生成後はREADMEの初期状態の説明を更新し、起動・確認の案内をdocs/development.mdへつないでください。
 並び替えなど期待結果が明確な機能は、先にテストを書いて未実装時の失敗も確認してください。
 記録した確認を実行し、verify-goalスキルでDoDと実装を照合してください。
 実際の結果をdocs/verification.mdに残し、未達をdocs/tasks.mdへ戻して修正・再確認してください。
@@ -151,12 +159,27 @@ CIの実行URL・対象コミット・結果を [docs/verification.md](verificat
 | 状況 | 次にすること |
 | --- | --- |
 | 開いた直後にアプリがない | `main`の初期状態です。手順4〜5で構成を選び、最小アプリを作る |
+| Source Control・Terminal・Copilotの準備が進まない | [保存と復旧の手順](#codespaces-recovery)へ。保全を確認する前にCodespaceを削除しない |
 | プレビューが開かない | 記録した起動コマンド、起動完了の表示、実際のポート転送を確認する |
 | 停止後にURLが開かない | Codespaceを再開し、記録したコマンドでアプリを起動する |
 | Copilotが資料を見つけない | ファイルを保存し、必要なファイルのパスを明記する |
 | テストが失敗する | エラー本文と、期待と違った操作・結果をCopilotへ渡す |
 | 実行環境が足りない | 採用構成と`.devcontainer/`を照合し、必要な準備・再構築を行う |
 | CodespacesやCopilotの利用上限 | アカウントの残量を確認し、運営へ相談。途中のファイルを保存する |
+
+<a id="codespaces-recovery"></a>
+
+### GitやCopilotが応答しないとき
+
+1. 編集したファイルを保存し、未保存の印が残っていないか確認します。保存できない場合は再読み込みせず、その状態を運営へ伝えます。
+2. ブラウザを再読み込みするか、コマンドパレットから **Developer: Reload Window** を選び、準備の表示を確認します。[公式の接続トラブル対処](https://docs.github.com/en/codespaces/troubleshooting/troubleshooting-your-connection-to-github-codespaces)
+3. 改善しなければ[Codespaces一覧](https://github.com/codespaces)で該当Codespaceの **… → Stop codespace** を選び、停止を確認してから開き直します。[公式の停止・再開手順](https://docs.github.com/en/codespaces/developing-in-a-codespace/stopping-and-starting-a-codespace?tool=webui)
+
+それでも動かなければ、操作を繰り返さず運営へ相談します。pushできていない変更がある場合は、元のCodespaceを削除せず、運営と次の保全を行います。
+
+一覧の該当Codespaceで **… → Export changes to a branch → Create branch** を選ぶと、現在の作業ブランチの変更を別ブランチへ書き出せます。GitHub上で保全先のブランチと必要なファイル・差分を確認できてから、そのブランチを選んで新しいCodespaceを作ります。ほかのローカルブランチはこのExportの対象外です。[公式の変更のエクスポート](https://docs.github.com/en/codespaces/troubleshooting/exporting-changes-to-a-branch)
+
+保全先のブランチは元のPRを自動更新しません。保全先から作業を続ける場合は、そちらのPRとCIを確認します。新しい環境でも同じ症状が続く場合は運営と対応を決め、起動や確認ができたことにはしません。
 
 PC版VS Codeを使う場合は、Codespaceの **Open in VS Code** から接続できます。
 
