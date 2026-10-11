@@ -18,7 +18,7 @@ GitHubの[Copilot設定](https://github.com/settings/copilot)で利用権利を�
 
 **Codespacesでだけ実行する場合、PCへのNode.jsなどの実行環境の導入は不要です。** PCで実行する場合は、手順4で構成を選んでから必要なものを準備します。Node.jsを採用するなら、教材のCodespacesと同じ24 LTSが選択肢です。
 
-AppはPC上で編集し、GitHubへのcommit・pushでCodespacesへ変更を渡します。既存のCodespaceへ直接接続する手順ではありません。
+Codespacesで実行する場合は、AppでPC上のファイルを編集し、GitHubへのcommit・pushでCodespacesへ変更を渡します。既存のCodespaceへ直接接続する手順ではありません。
 
 ## 2. チームのリポジトリをAppに追加する
 
@@ -26,7 +26,7 @@ AppはPC上で編集し、GitHubへのcommit・pushでCodespacesへ変更を渡�
 2. [コースの選び方](choose-start.md)に沿って、`main`コースのチーム用リポジトリを作ります。作成済みなら、そのリポジトリを使います。初心者向けを選んだ場合は、そのブランチのガイドに従ってください。
 3. ほかのメンバーも編集する場合は、所有者が **Settings → Collaborators** から招待します。
 4. Copilot appで **Sign in to GitHub** を選び、今回使う学生アカウントにログインします。
-5. **Projects** 横の追加ボタンから **GitHub repository** を選び、チームのリポジトリをcloneします。
+5. **Projects** 横の追加ボタンから **Add GitHub repository** を選び、チームのリポジトリを検索して選択します。自動でcloneが始まるので、完了まで待ちます。
 6. 新しいsessionを作り、作業場所を **Local repository**（版によっては **Current checkout**）、モードを **Interactive**、モデルを **Auto** にします。
 7. 「README.mdを読み、この教材の構成を確認してください。まだファイルを編集せず待ってください」と送ります。
 
@@ -93,6 +93,8 @@ React + Viteを含め、企画に必要な最小の技術構成を提案し、�
 
 対象者、最初に通す操作、完成条件、採用構成をチームで確認し、**Interactive** に切り替えて合意内容を保存してもらいます。
 
+**Review plan** が表示される版では、**Exit plan mode and I will prompt myself** を選ぶとInteractiveへ戻ります。続けて「合意内容を `docs/product.md`、`docs/development.md`、`docs/tasks.md` へ保存し、アプリの実装はまだ始めないでください」と依頼します。
+
 | ファイル | 残す内容 |
 | --- | --- |
 | [product.md](product.md) | 企画・DoD・対象外 |
@@ -116,13 +118,15 @@ docs/product.md、docs/tasks.md、docs/development.mdと、作業に関係する
 
 制約：
 合意した範囲・構成と、記録した編集・実行場所に従ってください。
-実行場所がCodespacesなら、確認できる小さな変更ごとに、変更内容とコミットメッセージ案を示してください。
 commit・pushはこちらがAppの画面で行うので、自動実行せず待ってください。
-Codespacesでの準備・起動・テスト方法も案内し、結果を渡すまで次の修正を待ってください。
-この経路ではPCで依存関係をインストールしたり、アプリを実行したりしないでください。
-変更の取り込みは教材のGUI手順を使い、通常手順にGit確認コマンドを追加しないでください。
 人の判断、認証、外部サービスの準備が必要なら、その理由と次の操作を知らせてください。
 実行していない確認は未確認とし、成功扱いにしないでください。
+
+Codespacesで実行する場合にだけ、次の4点を守ってください。
+- 確認できる小さな変更ごとに、変更内容とコミットメッセージ案を示してください。
+- Codespacesでの準備・起動・テスト方法も案内し、結果を渡すまで次の修正を待ってください。
+- PCで依存関係をインストールしたり、アプリを実行したりしないでください。
+- 変更の取り込みは教材のGUI手順を使い、通常手順にGit確認コマンドを追加しないでください。
 
 完成条件：
 初回は最小アプリと起動方法、必要なテスト、同じ確認をPRで行うCIを用意してください。
