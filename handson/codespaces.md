@@ -29,7 +29,7 @@ Node.jsは24.xです。最後のコマンドは起動したままにし、**Port
 
 Explorerの`docs`へ企画資料を追加したら、[READMEのPlan](../README.md#plan)へ戻ります。PDF・画像など形式は自由で、画面画像は必須ではありません。読み取れない場合はチャットへ本文や読み取れるファイルを追加します。
 
-Planでは草案を相談し、合意後に **Agent** へ切り替えて[README 4.4の保存依頼](../README.md#plan-save)を送ります。`prepare-project`でルートの`PLAN.md`へ保存し、実ファイルを読み直して確認してもらいます。編集・実行・ブラウザ確認の場所は「Codespaces」と記録します。[README 4.5](../README.md#plan-confirm)に沿って、自分たちでもExplorerから同じファイルを開いて合意内容を確認し、[READMEの実装](../README.md#build)へ進みます。ファイルがない・内容が違う場合は、[README 4.4](../README.md#plan-save)で保存・確認を依頼し直します。ブラウザ版でAIの画面操作が使えなくても、Playwrightと学生の操作で確認できます。
+Planでは草案を相談し、合意後に **Agent** へ切り替えて[README 4.3の保存依頼](../README.md#plan-save)を送ります。`prepare-project`でルートの`PLAN.md`へ保存し、実ファイルを読み直して確認してもらいます。編集・実行・ブラウザ確認の場所は「Codespaces」と記録します。[README 4.3のファイル確認](../README.md#plan-confirm)に沿って、自分たちでもExplorerから同じファイルを開いて合意内容を確認し、[READMEの実装](../README.md#build)へ進みます。ファイルがない・内容が違う場合は、[README 4.3の保存依頼](../README.md#plan-save)で保存・確認を依頼し直します。ブラウザ版でAIの画面操作が使えなくても、Playwrightと学生の操作で確認できます。
 
 ## テストを確認する
 
