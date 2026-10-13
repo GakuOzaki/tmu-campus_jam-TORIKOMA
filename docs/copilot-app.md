@@ -37,7 +37,7 @@ Azureへの自動公開まで行う場合、Publicリポジトリ、またはGit
 2. [はじめ方を選ぶ](choose-start.md)に沿って、**Include all branches** でチーム用リポジトリを作り、チーム側のデフォルトブランチを **`codex/beginner-starter`** にします。準備済みなら、そのリポジトリを使います。
 3. チームのほかのメンバーも編集する場合は、リポジトリ所有者が **Settings → Collaborators** から招待し、各メンバーが招待を受け入れます。
 4. Copilot appを開き、**Sign in to GitHub** で今回使う学生アカウントにログインします。
-5. **Projects** 横の追加ボタンから **GitHub repository** を選び、チームのリポジトリを選択してcloneします。表示されるブランチが`codex/beginner-starter`で、READMEが初心者向けになっていることを確認します。
+5. **Projects** 横の追加ボタンから **Add GitHub repository**（版によっては **GitHub repository**）を選び、チームのリポジトリを検索して選択します。自動でcloneが始まるので、完了まで待ちます。表示されるブランチが`codex/beginner-starter`で、READMEが初心者向けになっていることを確認します。
 6. そのプロジェクトで新しいsessionを作り、実行場所を **Local repository**（版によっては **Current checkout**）、モードを **Interactive**、モデルを **Auto** にします。特定モデルを選ぶ手順はありません。
 7. 最初に「README.mdを読み、この教材の構成を確認してください。まだファイルを編集せず待ってください」と送ってsessionを開始します。
 
@@ -47,7 +47,7 @@ Autoが表示されない、利用権利や利用上限の表示が出る場合�
 
 ## 3. 作業ブランチと実行場所を準備する
 
-PCで実行する場合は、リポジトリ設定の確認が表示されたら、[.github/github-app.yml](../.github/github-app.yml)を確認して受け入れます。教材の **Setup** は依存関係のインストール、**Run** は `npm run dev` を通じたViteとNode.jsのAPIの起動に使います。Runのコマンドはこの設定ファイルに登録済みです。設定の受け入れ前は適用されず、設定ファイルが更新された場合も受け入れ直します。Codespacesだけで実行する場合は、PC用のSetup・Runを使う必要はありません。[設定の公式説明](https://docs.github.com/en/copilot/reference/github-copilot-app-reference/repository-configuration)
+PCで実行する場合は、リポジトリ設定の確認が表示されたら、**Review configuration → Repository configuration** で [.github/github-app.yml](../.github/github-app.yml) の内容を確認し、**Accept and apply** を選びます。教材の **Setup** は依存関係のインストール、**Run** は `npm run dev` を通じたViteとNode.jsのAPIの起動に使います。Runのコマンドはこの設定ファイルに登録済みです。設定の受け入れ前は適用されず、設定ファイルが更新された場合も受け入れ直します。Codespacesだけで実行する場合は、PC用のSetup・Runを使う必要はありません。[設定の公式説明](https://docs.github.com/en/copilot/reference/github-copilot-app-reference/repository-configuration)
 
 Appが選んだコースから作業用ブランチを作成済みの場合は、そのブランチを使います。まだチームのデフォルトブランチ（`codex/beginner-starter`）で作業している場合は、Terminalを開いて次で作業用ブランチを作ります。session開始後にチャットで `/terminal` と入力しても開けます。
 
@@ -59,11 +59,13 @@ git switch -c feat/first-demo
 
 ### PCで動作確認する場合
 
-1. **Setup** が成功したことを確認します。自動で実行されなかった場合は、Terminalで `npm ci` を実行します。
-2. **Run** を実行します。コマンドは `npm run dev` です。
+1. 初回の **Setup** が成功したことをログで確認します。教材にはsession作成時のSetupが設定されています。未実行なら、画面上部の実行メニューで **Setup**（版・表示によっては **Run Setup**）を選び、`npm ci` の正常終了まで待ちます。同じ依存関係の準備がこのPCで成功済みなら、再実行は不要です。失敗したらログをCopilotへ渡して準備を直します。
+2. すでに開発サーバーが動いていれば終了してから、同じメニューの **Run** を選びます。コマンドは `npm run dev` です。起動完了のログを確認します。
 3. Browserパネルが開き、アプリが表示されたら準備完了です。自動表示されない場合は、`http://127.0.0.1:4280` を開きます。
 
-サーバーを動かしているTerminalは開いたままにします。画面とAPIの確認には **4280** を使います。APIの追加や公開前のコンテナ確認は[共通のローカル開発手順](common/local-development.md)を参照してください。
+**Scriptsが空なら、教材の設定を受け入れたか確認します。** このコースには設定が用意されているため、生成し直す必要はありません。設定を変更した場合は、内容を確認して受け入れ直します。
+
+アプリの使用中はサーバーを動かしておきます。AppのRunで起動したサーバーは **Stop Run** で終了します。Terminalで手動起動した場合だけ、通常はそのTerminalで **Ctrl+C** を使います。画面とAPIの確認には **4280** を使います。APIの追加や公開前のコンテナ確認は[共通のローカル開発手順](common/local-development.md)を参照してください。
 
 ### Codespacesで動作確認する場合
 
@@ -103,6 +105,8 @@ docs/product.mdに残す企画・DoD・対象外と、docs/tasks.mdに残す小�
 スキルが認識されない場合は、`.github/skills/prepare-project/SKILL.md` を読んで進めるよう伝えます。`@`でファイルを追加することもできます。
 
 チームで対象者、最初に通す操作、完成条件を確認し、必要な修正を伝えます。計画を採用したら **Interactive** に切り替え、次のファイルへ反映してもらいます。
+
+**Review plan** が表示される版では、**Exit plan mode and I will prompt myself** を選ぶとInteractiveへ戻ります。続けて「合意した企画と完成条件を `docs/product.md`、実装の順番を `docs/tasks.md` へ保存し、アプリの実装はまだ始めないでください」と依頼します。実行していない確認は `docs/verification.md` に未確認として残します。
 
 | ファイル | 残す内容 |
 | --- | --- |
@@ -169,7 +173,7 @@ docs/product.md、docs/tasks.md、docs/verification.mdと現在の変更を確�
 
 ### PCで確認する
 
-[確認の進め方](common/verification.md)に沿って、実装した人とは別の学生が **Run → Browser** の `http://127.0.0.1:4280` で実際に操作します。同じPCで交代して構いません。必須DoDに対応する主要な操作経路のボタン・移動・戻る操作、その機能に関係する空の状態や入力ミス、スマートフォン幅を確認し、実際の結果を記録します。見た目を直したい場合は、Browserの **Pick & Polish** で要素を選んで伝えることもできます。
+[確認の進め方](common/verification.md)に沿って、実装した人とは別の学生が **Run** で起動し、**Browser** の `http://127.0.0.1:4280` で実際に操作します。同じPCで交代して構いません。必須DoDに対応する主要な操作経路のボタン・移動・戻る操作、その機能に関係する空の状態や入力ミス、スマートフォン幅を確認し、実際の結果を記録します。見た目を直したい場合は、Browserの **Pick & Polish** で要素を選んで伝えることもできます。
 
 同じ変更・同じ環境で直前に成功し、記録済みの自動確認は再実行不要です。未実施の確認や、関連するコード・仕様・実行環境を変えた場合の確認は、サーバーとは別のTerminalで次を実行します。
 
@@ -195,8 +199,8 @@ MCPの追加は必須ではありません。AIがBrowserを操作できない�
 PCとCodespacesのファイルは自動同期されません。**同じチームリポジトリの同じ作業ブランチ**を使います。
 
 1. PC側の編集が終わったらファイルを保存し、Appの **Changes** を開きます。入力欄の上に見当たらない場合は、右パネルの **＋ → Changes** から開けます。表示する変更を **Uncommitted** に切り替え、ファイルごとの差分と、表示中の作業ブランチ名を確認します。
-2. **Changesのブランチ操作メニュー（branch actions）**を開き、**Commit** の操作を選びます。確認画面が出たら、対象の変更とコミットメッセージを確認して実行します。メッセージは「企画と完成条件を記録」「入力フォームを追加」のように変更内容が分かるものにします。Copilotにはメッセージ案を相談できます。すでにコミット済みの場合は、新しいcommitは不要なので次へ進みます。
-3. **commitしたら、同じメニューから続けてすぐにPushの操作を選びます。** 初回にブランチの公開を求められたら、チームのリポジトリへ現在の作業ブランチを公開します。Appの処理完了を待ちます。**CommitはPC内への記録、PushはGitHubへの送信**です。commitだけではCodespacesへ届きません。
+2. **Changesのブランチ操作メニュー（branch actions）→ Commit changes**（版によっては **Commit**）を選び、対象の変更とメッセージを確認します。メッセージは「企画と完成条件を記録」「入力フォームを追加」のように変更内容が分かるものにします。**チャットへ依頼が送られ、Copilotが差分を確認してコミットする場合は、その処理の完了を待ちます。** クリックしただけでは完了とせず、完了報告とChangesの状態を確認します。すでにコミット済みなら次へ進みます。
+3. **commitの完了を確認したら、同じメニューから続けてPush changes（Push）を選びます。** 初回にブランチの公開を求められたら、チームのリポジトリへ現在の作業ブランチを公開します。Appの処理完了を待ちます。**CommitはPC内への記録、PushはGitHubへの送信**です。commitだけではCodespacesへ届きません。
 4. ブラウザでGitHubの**同じチームリポジトリ**を開き、ブランチ選択欄で作業ブランチを選びます。最新の変更が反映されていれば、Codespacesへ進めます。
 5. **ここからはCodespacesで動作確認する場合の操作です。** 初回は、作業ブランチを選んだまま **Code → Codespaces → Create codespace on（作業ブランチ名）** から作成し、準備が終わるまで待ちます。2回目以降は、その作業ブランチの既存Codespaceを開きます。初回準備がうまくいかない場合は[Codespacesの手順2](codespaces.md#2-codespaceを開く)を参照してから、この手順へ戻ります。Appですでに企画・ブランチを準備しているため、Codespaces側で作り直す必要はありません。
 6. **既存Codespaceを使う場合だけ**、前回のサーバーが動いていればTerminalで `Ctrl+C` を押して止め、**Source Control → … → Pull** で今回pushした変更を取り込みます。新規作成直後はこの操作は不要です。
@@ -226,7 +230,7 @@ PCとCodespacesのファイルは自動同期されません。**同じチーム
 4. PRの **baseがチームのデフォルトブランチ（`codex/beginner-starter`）、compareが作業ブランチ**になっていることを確かめます。コピーされた`main`コースへはPRを作りません。チームで差分・確認結果・CIを確認し、PR・CIの実行URL、対象変更、結果を[検証記録](verification.md#prとciの確認)へ追記します。追記分もAppからcommit・pushし、最新のCIが成功してチームが確認できたらマージします。記録だけを追加したコミットごとに同じ結果を追記し続ける必要はありません。
 5. [発表・振り返り・終了](common/presentation.md)へ進みます。PCやCodespacesの動くプレビューで発表できます。継続して使えるURLが必要な場合だけ、[Azure Container Appsへの公開手順](common/publish.md)を使い、公開先でも操作を確認します。GitHub Actionsで本番用コンテナをテストしてから公開するため、PCへのDocker導入は必須ではありません。
 
-発表や確認でプレビューを使い終えたら、動かしているTerminalで `Ctrl+C` を押します。Codespacesを使った場合は、[Codespaces一覧](https://github.com/codespaces)から **Stop codespace** も選びます。
+発表や確認でプレビューを使い終えたら、AppのRunで起動したサーバーは **Stop Run**、Terminalで手動起動したサーバーはそのTerminalで `Ctrl+C` を押して終了します。停止後もBrowserに描画済みの画面が残ることがあるため、実行の停止表示やログを確認します。Codespacesを使った場合は、[Codespaces一覧](https://github.com/codespaces)から **Stop codespace** も選びます。
 
 ## 発展：ほかの実行場所
 
