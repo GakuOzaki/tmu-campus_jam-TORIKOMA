@@ -33,19 +33,19 @@ Copilot appによる編集はPC上で行います。Codespacesだけで動作確
 
 ## 2. チームのリポジトリをAppに追加する
 
-Azureへの自動公開まで行う場合、Publicリポジトリ、またはGitHub Proの個人アカウント所有のPrivateリポジトリで進められます。Organization所有のPrivateリポジトリではOrganizationのGitHub Team以上が必要です。[公開の初期設定](common/azure-setup.md)を参照してください。
+この教材は、代表者が作成した **Publicのチーム用Fork** で進めます。Privateが必要な場合は運営へ相談します。Azure公開を選ぶ場合だけ、[公開の初期設定](common/azure-setup.md)を参照してください。
 
 1. [企画の進め方](common/ideation.md)の手順1〜5で、誰の何を解決するかと画面案をチームで決めます。事前に企画・画面案がある場合は、その成果を確認して使います。手順6の文書整理は、環境を準備した後、このガイドの手順4で行います。
-2. [はじめ方を選ぶ](choose-start.md)に沿って、**Include all branches** でチーム用リポジトリを作り、チーム側のデフォルトブランチを **`codex/beginner-starter`** にします。準備済みなら、そのリポジトリを使います。
+2. [はじめ方を選ぶ](choose-start.md)に沿って、代表者が **Copy the main branch onlyをオフ**にしてチーム用Forkを1つ作り、デフォルトブランチを **`codex/beginner-starter`** にします。[Actionsの有効化](choose-start.md#enable-actions)も行います。準備済みなら、そのリポジトリを使います。
 3. チームのほかのメンバーも編集する場合は、リポジトリ所有者が **Settings → Collaborators** から招待し、各メンバーが招待を受け入れます。
 4. Copilot appを開き、**Sign in to GitHub** で今回使う学生アカウントにログインします。
-5. **Projects** 横の追加ボタンから **Add GitHub repository**（版によっては **GitHub repository**）を選び、チームのリポジトリを検索して選択します。自動でcloneが始まるので、完了まで待ちます。表示されるブランチが`codex/beginner-starter`で、READMEが初心者向けになっていることを確認します。
+5. **Projects** 横の追加ボタンから **Add GitHub repository**（版によっては **GitHub repository**）を選び、チームのForkの所有者・名前を検索して選択します。配布元は選びません。自動でcloneが始まるので、完了まで待ちます。表示されるブランチが`codex/beginner-starter`で、READMEが初心者向けになっていることを確認します。
 6. そのプロジェクトで新しいsessionを作り、実行場所を **Local repository**（版によっては **Current checkout**）、モードを **Interactive**、モデルを **Auto** にします。特定モデルを選ぶ手順はありません。
 7. 最初に「README.mdを読み、この教材の構成を確認してください。まだファイルを編集せず待ってください」と送ってsessionを開始します。
 
 Autoが表示されない、利用権利や利用上限の表示が出る場合は、アカウント名と表示内容を運営に見せてください。
 
-最初は一人が操作し、ほかのメンバーが企画・画面・動作を確認すると進めやすくなります。各自で作業する場合はGitHubからそれぞれcloneし、別のブランチを使います。
+最初は一人が操作し、ほかのメンバーが企画・画面・動作を確認すると進めやすくなります。各自で作業する場合も、招待された同じチームのForkをそれぞれcloneし、別のブランチを使います。
 
 ## 3. 作業ブランチと実行場所を準備する
 
@@ -228,8 +228,8 @@ PCとCodespacesのファイルは自動同期されません。**同じチーム
 
 1. **Changes** で、採用したい変更になっているか確認します。
 2. 上の[GUIで変更を渡す手順](#codespacesへ変更を渡して確認する)の1〜4と同じ操作で、残っている変更や検証記録をcommit・pushし、GitHubへの反映を確認します。PCで動作確認した場合もこの操作を使います。すべて送信済みなら次へ進みます。
-3. **Create PR** が表示されている場合は、そこからPRを作れます。表示されない場合は、push後にGitHubのチームリポジトリで **Compare & pull request** を使います。
-4. PRの **baseがチームのデフォルトブランチ（`codex/beginner-starter`）、compareが作業ブランチ**になっていることを確かめます。コピーされた`main`コースへはPRを作りません。チームで差分・確認結果・CIを確認し、PR・CIの実行URL、対象変更、結果を[検証記録](verification.md#prとciの確認)へ追記します。追記分もAppからcommit・pushし、最新のCIが成功してチームが確認できたらマージします。記録だけを追加したコミットごとに同じ結果を追記し続ける必要はありません。
+3. **Create PR** が表示され、作成前に[チーム内の比較先](choose-start.md#team-pull-request)を確かめられる場合は、そこからPRを作れます。送信先を確認できない場合やボタンがない場合は、push後にGitHubのチームのForkで **Compare & pull request** を開き、同じ比較先を選んで作成します。
+4. **AppのCreate PRを使った場合もGitHubでPRを開き**、[比較先の選び方](choose-start.md#team-pull-request)に沿って、**base repositoryとhead repositoryがどちらもチームのFork、baseが`codex/beginner-starter`、compareが作業ブランチ**であることを確かめます。学生のアプリのPRを配布元へ送らず、別コースの`main`へも向けません。CIが動かない場合は[Actionsの有効化](choose-start.md#enable-actions)を確認します。チームで差分・確認結果・CIを確認し、PR・CIの実行URL、対象変更、結果を[検証記録](verification.md#prとciの確認)へ追記します。追記分もAppからcommit・pushし、最新のCIが成功してチームが確認できたらマージします。記録だけを追加したコミットごとに同じ結果を追記し続ける必要はありません。
 5. [発表・振り返り・終了](common/presentation.md)へ進みます。PCやCodespacesの動くプレビューで発表できます。継続して使えるURLが必要な場合だけ、[Azure Container Appsへの公開手順](common/publish.md)を使い、公開先でも操作を確認します。GitHub Actionsで本番用コンテナをテストしてから公開するため、PCへのDocker導入は必須ではありません。
 
 発表や確認でプレビューを使い終えたら、AppのRunで起動したサーバーは **Stop Run**、Terminalで手動起動したサーバーはそのTerminalで `Ctrl+C` を押して終了します。停止後もBrowserに描画済みの画面が残ることがあるため、実行の停止表示やログを確認します。Codespacesを使った場合は、[Codespaces一覧](https://github.com/codespaces)から **Stop codespace** も選びます。

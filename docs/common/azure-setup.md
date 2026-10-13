@@ -8,11 +8,13 @@
 
 必要なのは、チームリポジトリの設定変更権限、Azureでリソースを作成する権限とロールを割り当てる権限です。使うサブスクリプションとチーム用リソースグループを決めます。学生クレジットは利用できるサービス・リージョン・残量を確認して使います。[Azure for Students](https://azure.microsoft.com/en-us/pricing/offers/ms-azr-0170p/)
 
+標準のチーム用ForkはPublicです。別途Privateでの運用を選ぶ場合は、PublicのForkを直接Privateへ変更できないため、先に運営と配布方法を決めます。
+
 GitHubの **Environment** を使います。Publicリポジトリ、またはGitHub Proの個人アカウントが所有するPrivateリポジトリで進められます。Organization所有のPrivateリポジトリには、そのOrganizationのGitHub Team以上のプランが必要です。学生個人のProはOrganizationへは引き継がれません。[Environmentの利用条件](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
 
 ## 1. テスト済みコンテナをGitHubへ保存する
 
-1. チームのリポジトリのデフォルトブランチに、この教材の`.github/workflows/check.yml`と`Dockerfile`があることを確認します。テンプレートから作成した直後ならそのまま進めます。公開したいアプリの変更が作業ブランチにある場合は、確認済みのPRをチームのデフォルトブランチへマージします。
+1. チームのリポジトリのデフォルトブランチに、この教材の`.github/workflows/check.yml`と`Dockerfile`があることを確認します。Fork直後は、[チームのActionsを有効化](../choose-start.md#enable-actions)してあることも確認します。公開したいアプリの変更が作業ブランチにある場合は、base repositoryとhead repositoryがチームのForkである確認済みのPRを、チームのデフォルトブランチへマージします。
 2. GitHubの **Settings → Secrets and variables → Actions → Variables → New repository variable** で、`ENABLE_CONTAINER_PUBLISH`を値`true`で追加します。`ENABLE_AZURE_DEPLOY`はまだ設定しません。
 3. **Actions → Check → Run workflow** で **チームのデフォルトブランチ** を選び、**初期設定用: Azureへ登録するOIDC接続情報だけ表示する**のチェックは外したまま実行します。
 4. `check`と`publish`が成功したら、実行の **Summary → Tested container image** を開きます。`Tag`に表示される`ghcr.io/所有者/リポジトリ:タグ`を次節で使います。このイメージは本番コンテナでのブラウザテストを通っています。

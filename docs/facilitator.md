@@ -6,20 +6,20 @@
 
 ## 開催前に確認すること
 
-配布元のGitHubリポジトリは **Settings → General → Template repository** を有効にします。学生が **Use this template** から新しいリポジトリを作れることを、配布前に確認してください。
+学生が配布元の **Fork** からチーム用リポジトリを作れることを、配布前に確認してください。代表者1人がForkを1つ作り、メンバーをCollaboratorsへ招待します。Public教材から作るForkもPublicのため、非公開が必要なチームは運営と別の配布方法を決めます。
 
-配布する変更は、それぞれの配布用ブランチへ反映します。`main`は自分たちで構成を決めるコース、`codex/beginner-starter`は初心者向けコースです。[コース選択とコピーの手順](choose-start.md)を、どちらも新しいチーム用リポジトリで確認してください。初心者向けは全ブランチをコピーし、チーム側のデフォルトブランチを`codex/beginner-starter`へ変更します。コース間をマージする手順にはしません。作業用ブランチ上の変更は、選択した配布用ブランチへ反映されるまで教材に含まれません。教材内のPRやCIのリンクは配布元の記録なので、学生チーム自身の成功記録とは区別します。
+配布する変更は、それぞれの配布用ブランチへ反映します。`main`は自分たちで構成を決めるコース、`codex/beginner-starter`は初心者向けコースです。[コース選択とForkの手順](choose-start.md)を、どちらも新しいチーム用Forkで確認してください。mainはCopy the main branch onlyをオン、初心者向けはオフにしてForkし、初心者向けのチーム側のデフォルトブランチを`codex/beginner-starter`へ変更します。ForkのActionsを有効化し、教材更新のSync forkは運営が案内するときだけ同じコースで行います。コース間をマージする手順にはしません。作業用ブランチ上の変更は、選択した配布用ブランチへ反映されるまで教材に含まれません。教材内のPRやCIのリンクは配布元の記録なので、学生チーム自身の成功記録とは区別します。
 
 | 確認対象 | 確認内容 |
 | --- | --- |
 | 学生アカウント | GitHub Educationの認証だけでなく、Copilot Studentが有効でChatが使えること |
 | モデル | 実際の学生アカウントでAutoを選んで応答できること。特定モデル名を操作手順へ追加しない |
 | 残量 | CopilotとCodespacesの現在の残量・制限を各自のアカウント画面で確認する |
-| チームのリポジトリ | 選んだコースのファイルをコピーでき、デフォルトブランチの設定が一致し、必要なメンバーがアクセスできること。Azure公開を行う場合は[初期設定](common/azure-setup.md)で所有者・公開範囲とEnvironmentの利用条件も確認する |
+| チームのリポジトリ | 選んだコースをForkでき、デフォルトブランチの設定が一致し、招待したメンバーが同じForkへアクセスできること。Azure公開を行う場合は[初期設定](common/azure-setup.md)で所有者・公開範囲とEnvironmentの利用条件も確認する |
 | Codespaces | 新規作成からブラウザ接続、Terminal・Copilot、Node 24、npm ci、画面とAPIの4280のプレビューまで通ること。開発開始前に環境準備の時間を確保する |
 | Copilot app | Git・Appの準備とcloneが通ること。PCで実行する場合はNode 24・設定受け入れ・Setup・Run、Codespacesで実行する場合はPCのSetup・Runを使わずGUIで変更を渡して起動・確認できること |
 | 資料の引き継ぎ | 企画メモと画面PNGから、product・tasksの整理ができること |
-| 検証 | checkとPlaywright ChromiumのE2E、CIで本番用コンテナのE2Eを実行できること。人のブラウザ確認も行うこと |
+| 検証 | ForkのActionsを有効化でき、checkとPlaywright ChromiumのE2E、チームのFork内のPRのCIで本番用コンテナのE2Eを実行できること。人のブラウザ確認も行うこと |
 | 公開 | PC・Codespacesで確認・発表できること。Azure公開を行う場合は新しいチームリポジトリのOIDC情報で初回設定し、PR→CI→マージ→Container Apps公開→公開URL確認まで通ること |
 
 利用枠の数値はアカウントや提供条件で変わるため、過去の配布資料の数字だけで参加可否を判断しません。[Copilot設定](https://github.com/settings/copilot)、GitHubの **Settings → Billing and licensing**、[Codespaces一覧](https://github.com/codespaces)と[公式プラン説明](https://docs.github.com/en/copilot/get-started/plans)を確認します。
@@ -30,14 +30,14 @@
 
 運営の普段のアカウントや既存環境だけで済ませず、可能なら学生相当の権利と新しい作業環境で試します。
 
-1. 初心者向けのコピーとデフォルトブランチ変更を済ませ、[締切管理の例](examples/deadline.md)を使い、[Codespaces](codespaces.md)と[Copilot app](copilot-app.md)をそれぞれ最初からたどります。
+1. 初心者向けのFork、デフォルトブランチ変更、メンバー招待、Actionsの有効化を済ませ、[締切管理の例](examples/deadline.md)を使い、[Codespaces](codespaces.md)と[Copilot app](copilot-app.md)をそれぞれ最初からたどります。
 2. Planで企画と完成条件を確認し、Agent／Interactiveで一つの操作を実装します。
 3. 完成条件に対応する機能テストを確認します。並び替えなど期待値が明確な処理では、未実装時の失敗と実装後の成功も確かめます。
 4. `npm run check`、`npm run test:e2e`、人の操作確認を実施します。
 5. 仕様を一つ変更し、product、tasks、テスト、実装、verificationが一致するところまで戻します。
 6. sessionを終了して再開し、保存されたファイルから作業を継続できるか確認します。
 7. Copilot appのGUIでcommit・pushし、初回はその作業ブランチからCodespaceを作成、再利用時はGUIのPullで取り込んで4280から確認する経路も通します。
-8. 選んだコースから作った作業ブランチのPRが、チームのデフォルトブランチへ向いていることと、CIで本番用コンテナのテストを確認します。[Codespacesでの手動コンテナ確認](common/local-development.md#コンテナで確認する任意)も運営で通します。Azure公開を行う場合はContainer Appsの公開URLを別のブラウザで開き直し、APIや実際の認証も確かめます。
+8. 選んだコースから作った作業ブランチのPRのbase repository・head repositoryがともにチームのForkで、baseがチームのデフォルトブランチであることと、CIで本番用コンテナのテストを確認します。[Codespacesでの手動コンテナ確認](common/local-development.md#コンテナで確認する任意)も運営で通します。Azure公開を行う場合はContainer Appsの公開URLを別のブラウザで開き直し、APIや実際の認証も確かめます。
 
 9. マージ後は最新のチームのデフォルトブランチから新しい作業ブランチを作り、発表後の記録も次のPRで共有できることを[再開手順](common/build-loop.md#after-merge)で確認します。保存・PR・CIの後に[発表・振り返り・終了](common/presentation.md)へ到達し、Azureを使わなくてもプレビューでデモできることを確認します。資料・図解・参考例を開いた後、対応する環境手順へ戻れることも確かめます。
 
