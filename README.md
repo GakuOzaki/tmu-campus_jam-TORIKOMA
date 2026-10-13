@@ -13,7 +13,7 @@
 - **企画や画面案がまだない**：[企画の手順1〜5](docs/common/ideation.md)で考え、まとまったら下のコース選択・環境準備へ進みます。
 - **チーム用リポジトリがまだない**：[はじめ方を選ぶ](docs/choose-start.md)で作ります。初心者向けは **Include all branches** でコピーし、チーム側のデフォルトブランチを **`codex/beginner-starter`** に変更します。
 - **リポジトリを準備済み**：下の環境ガイドへ進みます。企画も決まっていれば、その資料を使い、済んだ作業を繰り返す必要はありません。
-- **開発の続きから再開する**：[tasks.mdの引き継ぎ](docs/tasks.md#次のセッションへの引き継ぎ)を読み、使っていた環境ガイドの実装へ戻ります。
+- **開発の続きから再開する**：[tasks.mdの引き継ぎ](docs/tasks.md#次のセッションへの引き継ぎ)を読み、使っていた環境と作業ブランチで続けます。前のPRをマージ済みなら、[マージ後の作業準備](docs/common/build-loop.md#after-merge)から始めます。
 
 | 使う環境 | 最初に開くガイド | 準備 |
 | --- | --- | --- |
@@ -35,9 +35,9 @@ Azureへの自動公開まで行う場合は、[初期設定](docs/common/azure-
 | 段階 | 進めること・開く資料 | 次へ渡すもの |
 | --- | --- | --- |
 | 1. 企画と画面を決める | [企画の手順1〜5](docs/common/ideation.md)、[締切管理の参考例](docs/examples/deadline.md) | 誰の何を解決するか、コア機能、完成条件、画面と操作 |
-| 2. 開発の準備をする | [コース選択とコピー](docs/choose-start.md)、選んだ環境ガイド、[元資料の置き方](docs/source/README.md) | チーム用リポジトリ、作業ブランチ、企画メモ・画面PNG・遷移 |
-| 3. Planで相談して保存する | 環境ガイドの手順4でprepare-projectを使う | 合意した[企画とDoD](docs/product.md)、[作業計画](docs/tasks.md) |
-| 4. 作って、確かめて、直す | 手順5の[実装ループ](docs/common/build-loop.md)、手順6の[完成確認](docs/common/verification.md)とverify-goal | 動くアプリ、機能テスト、別の学生の操作結果、[検証記録](docs/verification.md) |
+| 2. 開発の準備をする | [コース選択とコピー](docs/choose-start.md)、選んだ環境ガイド、[元資料の置き方](docs/source/README.md)、[コンテキスト図](docs/common/ai-development-tips.md#context-engineering) | チーム用リポジトリ、作業ブランチ、企画メモ・画面PNG・遷移 |
+| 3. Planで相談して保存する | [プロンプト図](docs/common/ai-development-tips.md#prompt-engineering)を見て、環境ガイドの手順4でprepare-projectを使う | 合意した[企画とDoD](docs/product.md)、[作業計画](docs/tasks.md) |
+| 4. 作って、確かめて、直す | [ハーネス図](docs/common/ai-development-tips.md#harness-engineering)を見て、手順5の[実装ループ](docs/common/build-loop.md)、手順6の[完成確認](docs/common/verification.md)とverify-goal | 動くアプリ、機能テスト、別の学生の操作結果、[検証記録](docs/verification.md) |
 | 5. 保存・PRで共有する | [Codespacesの手順7](docs/codespaces.md#save-and-share)・[Appの手順7](docs/copilot-app.md#save-and-share) | commit・push、PRとCIの結果、チームへの共有 |
 | 6. 発表して終了する | [発表・振り返り・終了](docs/common/presentation.md) | デモ、学んだこと、次の作業、環境の停止 |
 

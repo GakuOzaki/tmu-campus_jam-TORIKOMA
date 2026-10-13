@@ -89,3 +89,35 @@ AIの完了報告を、[検証の進め方](verification.md)で確かめます�
 セッションや開発環境を切り替える前に、実装済み・未完了、確認結果、次の作業を文書に残してGitで保存します。次のAIは文書とGitの変更を読み、起動・基本動作を確認してから続きを進めます。
 
 実装後は、選んだ環境のチーム確認（[Codespacesの手順6](../codespaces.md#team-verification)・[Copilot appの手順6](../copilot-app.md#team-verification)）へ進みます。必須条件と人の操作確認まで終えている場合は、[Codespacesの手順7](../codespaces.md#save-and-share)・[Copilot appの手順7](../copilot-app.md#save-and-share)で保存・PR・CIの確認を済ませ、[発表・振り返り・終了](presentation.md)へ進みます。
+
+<a id="resume-work"></a>
+
+## 5. 保存した作業から再開する
+
+[tasks.mdの引き継ぎ](../tasks.md#次のセッションへの引き継ぎ)で、作業ブランチ・PR、編集と実行の場所、最後に成功した確認、次の作業を読みます。PRの現在の状態はGitHubでも確かめます。**未マージのPRの修正なら、同じ作業ブランチとPRを使います。** 企画や実装計画を作り直す必要はありません。元のPRをマージ済みで追加編集する場合は、先に[マージ後の作業準備](#after-merge)を行います。
+
+| 保存してある状態 | 再開する場所 |
+| --- | --- |
+| 企画はあるが計画が未決定 | 環境ガイドのPlan（[Codespaces](../codespaces.md#planning)／[App](../copilot-app.md#planning)） |
+| 計画を合意・保存済み、または実装途中 | Agent／Interactiveで環境ガイドの実装（[Codespaces](../codespaces.md#implementation)／[App](../copilot-app.md#implementation)）。最初の未完了タスクから進める |
+| 実装を終え、チームで操作を確かめる | 環境ガイドの手順6（[Codespaces](../codespaces.md#team-verification)／[App](../copilot-app.md#team-verification)） |
+| 操作確認済みで、保存・PR・CI・マージが残る | 環境ガイドの手順7（[Codespaces](../codespaces.md#save-and-share)／[App](../copilot-app.md#save-and-share)）の未完了の操作から続ける |
+| PRの確認・マージまで完了 | [発表と終了](presentation.md)。同じ変更のPRやCI記録を作り直さない |
+
+アプリを動かす段階では、記録した実行場所と[起動手順](local-development.md#起動する)を使います。確認済みの同じ変更・環境のサーバーが動いていれば再利用し、変更の影響を受ける確認だけを行います。環境を変えた場合は、その場所で起動と基本動作を確認し、過去の成功をそのまま現在の結果にはしません。App→Codespacesでは[GUIで変更を渡す手順](../copilot-app.md#codespacesへ変更を渡して確認する)を使います。
+
+<a id="after-merge"></a>
+
+### 前のPRをマージした後に編集する
+
+**確認済みのアプリを発表するだけなら、そのまま使えます。** 次の修正や発表後の記録を始める場合は、ファイルを編集する前に、新しい作業ブランチを準備します。すでに最新のチームのデフォルトブランチから次の作業ブランチを作成済みなら、その枝を使います。マージ済みのPRの枝へ追加の変更をpushしても、そのPRからチームのデフォルトブランチへは反映されません。
+
+開いている編集環境のCopilotへ、次のように依頼できます。
+
+> 前のPRはマージ済みです。未コミットの変更がなければ、チームのデフォルトブランチを最新にして、そこから新しい作業ブランチを作ってください。未保存の変更や競合があれば、削除・強制操作をせず状況と次の操作を知らせてください。commit・pushは自分でGUIから行います。
+
+新しい名前は `feat/follow-up` などにします。すでに次の編集を始めていた場合は、その変更を保全して運営と取り込み方を確認します。表示される作業ブランチを確認し、tasksの引き継ぎへ新しいブランチとPRの情報を残します。
+
+Appで編集してCodespacesで確認する場合、アプリを再確認する変更なら、Appで新しい枝を作り、[変更を渡す手順](../copilot-app.md#codespacesへ変更を渡して確認する)でpushした後、Codespacesもその枝へ切り替えます。記録だけの変更なら、PCのAppから保存・PRで共有でき、Codespacesへ渡して同じアプリを再確認する必要はありません。
+
+次は、来た工程へ戻ります。実装なら[Codespacesの手順5](../codespaces.md#implementation)・[Appの手順5](../copilot-app.md#implementation)、公開準備なら[公開手順](publish.md)、公開結果の記録なら[公開URLの確認と記録](publish.md#4-公開urlで確認する)、発表後の記録なら[発表後の保存](presentation.md#4-発表後に保存して終了する)へ進みます。

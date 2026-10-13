@@ -40,7 +40,7 @@
 
 成功した実行の **Summary** にある **Azure Container Apps → URL** を開きます。Azure portalのContainer App概要にある **Application URL** からも開けます。
 
-必須DoDに対応する操作、URLを直接開いた場合・再読み込み、API、使っている場合は実際のログインや共有DBを確認します。[verification.md](../verification.md)にURL・結果・未確認事項を記録します。CIの`/api/health`成功はサーバーの起動確認であり、チームの完成条件すべての達成を意味しません。
+必須DoDに対応する操作、URLを直接開いた場合・再読み込み、API、使っている場合は実際のログインや共有DBを確認します。結果をファイルへ記録する前に、公開したPRをマージ済みで次の作業ブランチをまだ用意していなければ、[マージ後の作業準備](build-loop.md#after-merge)で新しい枝を用意します。[verification.md](../verification.md)にURL・結果・未確認事項を記録します。CIの`/api/health`成功はサーバーの起動確認であり、チームの完成条件すべての達成を意味しません。
 
 更新は同じ **編集 → 確認 → commit・push → PR → マージ** で行います。
 

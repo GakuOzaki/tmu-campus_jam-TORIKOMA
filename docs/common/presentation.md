@@ -31,12 +31,12 @@
 - [コンテキストの図](ai-development-tips.md#context-engineering)：どの資料を渡し、決定をどのファイルへ残したか。
 - [ハーネスの図](ai-development-tips.md#harness-engineering)：何を動かして確かめ、どの結果から修正したか。
 
-次の開発にも使いたい気づきや残る作業は、[tasks.md](../tasks.md)の引き継ぎへ残します。
+次の開発にも使いたい気づきや残る作業は、このあと手順4で[tasks.md](../tasks.md)の引き継ぎへ残します。
 
 ## 4. 発表後に保存して終了する
 
-1. 発表や操作確認で分かったことをverification、次の作業をtasksへ残します。企画を変えると決めた場合はproductも更新します。
-2. 未保存の変更を確認し、使っている環境の[Codespacesの保存手順](../codespaces.md#save-and-share)／[Copilot appの保存手順](../copilot-app.md#save-and-share)でcommit・pushします。元のPRをマージ済みなら、新しい作業ブランチとPRを使います。この段階で発表をやり直す必要はありません。
+1. 記録を編集する前に、元のPRをマージ済みで次の作業ブランチをまだ用意していなければ、[次の作業ブランチを準備](build-loop.md#after-merge)します。まだ開いているPRなら同じ作業ブランチを使います。発表や操作確認で分かったことをverification、次の作業をtasksへ残し、企画を変えると決めた場合はproductも更新します。
+2. 未保存の変更を確認し、使っている環境の[Codespacesの保存手順](../codespaces.md#save-and-share)／[Copilot appの保存手順](../copilot-app.md#save-and-share)でcommit・pushし、対応するPRでチームへ共有します。記録だけの変更ならアプリの操作確認を繰り返す必要はありません。CIとチームの確認後にマージする流れは同じです。この段階で発表をやり直す必要はありません。
 3. [起動・終了の手順](local-development.md)に沿って開発サーバーを終了します。手動で起動したコンテナがある場合は、それも停止します。
 4. Codespacesを使ったチームは、[Codespaces一覧](https://github.com/codespaces)の **… → Stop codespace** で停止します。ブラウザタブを閉じただけでは停止したとは判断しません。
 5. Azureへ公開したチームだけ、[公開後の利用終了・継続](azure-setup.md#5-利用を終えるとき)を確認し、継続する担当や不要リソースの扱いを決めます。
