@@ -42,6 +42,17 @@ Spec Kitや各社SDK自体の導入は、この教材の必須条件ではあり
 
 教材の「ゴールまで繰り返す」は、完成条件をファイルに保存して実装・確認・修正を続ける進め方です。特定製品の`/goal`、永続的な自動再開、Copilot appのAutopilotを同一の機能として扱いません。
 
+## チーム用リポジトリはForkで作る
+
+2026年10月13日から、新しいチームは[選択手順](choose-start.md)のFork方式で始めます。代表者が1つ作成し、チーム内の作業ブランチとPRを使います。
+
+- [Forkの作成](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo)：既定ブランチだけ取得するか、全ブランチを取得するかを選ぶ。初心者向けは後者で既定ブランチも変更する。
+- [公開範囲](https://docs.github.com/en/pull-requests/reference/forks#visibility-of-forks)：Public教材のForkはPublic。非公開で始めるチームは運営と別の構成を決める。
+- [ForkのActions](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflows-in-forked-repositories)：Fork側で有効化を確認する。チーム内PRと、Forkから配布元へ送るPRを区別する。
+- [同期](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/syncing-a-fork)：運営の案内時だけ同じコースの変更を取り込み、競合があれば解決する。
+
+以前のTemplate方式での実機記録は履歴として保持します。Forkの作成・有効化・チーム内PRの新しいGUI経路は、その結果を流用して確認済みとはせず、[検証記録](template-validation.md)で区別します。
+
 ## 開発環境と実行場所
 
 | 経路 | 根拠・制約 |

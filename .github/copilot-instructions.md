@@ -21,6 +21,7 @@
 
 ## 編集と確認の場所
 
+- チームのアプリ開発では、push先とPRのbase/head repositoryをチームのForkにそろえ、base branchは選んだコースにする。配布元への教材改善PRとは区別する。
 - チームが選んだ編集・実行場所を守る。Appで編集しCodespacesで実行する場合は、PCでの起動や依存関係のインストールを前提にしない。
 - Codespacesへ渡す変更の説明・コミットメッセージ案・起動と確認の方法を示す。学生がAppのGUIでcommit・pushし、同じ作業ブランチのCodespaceで確認して結果を返すまで、次の修正を待つ。明示的な依頼がなければcommit・pushを自動実行しない。
 - 初回はpush済みの作業ブランチからCodespaceを作成する。既存Codespaceを再利用する場合は同じブランチでGUIのPullを使う。PCとCodespacesが自動同期されるとは扱わず、通常の手順にGit確認コマンドやコミット番号の照合を追加しない。
