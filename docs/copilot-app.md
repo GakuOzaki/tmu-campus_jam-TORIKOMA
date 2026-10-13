@@ -143,17 +143,48 @@ verify-goalスキルでDoDと実装を照合し、実際の結果をdocs/verific
 
 Codespacesで実行する場合、**最初のアプリと確認方法ができたら、その場で[次のGUI手順](#codespacesへ変更を渡して確認する)からcommit・pushし、起動を確かめます。** 以降も **実装 → GUIでcommit・push → Codespacesでpull・確認 → 結果をAppへ返す → 修正** を繰り返します。企画文書だけの時点ではアプリは動きません。
 
-PCで実行する場合は、まず `docs/development.md` のコマンドをTerminalで実行します。Setup／Runボタンを使いたい場合は、確認できたコマンドを `.github/github-app.yml` に登録するよう依頼します。設定と起動URLを確認し、Appで受け入れると適用されます。更新時も受け入れ直します。[設定の公式説明](https://docs.github.com/en/copilot/reference/github-copilot-app-reference/repository-configuration)
+PCで実行する場合は、`docs/development.md` の手順に沿って起動・確認します。確認できたコマンドをAppのボタンから実行したい場合は、下の[Setup／Runの手順](#setup-run)へ進みます。Codespacesでだけ実行する場合は、この設定は不要です。
 
 最初の起動と確認ができたら、[共通の実装ループの手順3](common/build-loop.md#3-実装検証修正を続ける)を使って残る機能を進めます。計画や初回生成はやり直さず、Codespacesで実行する場合の依頼文と変更の受け渡しはこのページの手順を使います。チームの完成条件を確かめる段階になったら[手順6](#6-チームの完成条件を確認する)へ進みます。
 
 途中で終了した場合は、4つの記録と現在の変更を読み、記録済みの実行場所・確認結果・次の作業から続けるよう依頼します。教材の「完成条件まで進める」は確認と修正の繰り返しであり、session終了後の自動再開を前提にしていません。
 
+<a id="setup-run"></a>
+
+### PCでSetup／Runを設定して使う
+
+**アプリを作り、PCでの準備・起動方法を確認した後**に行います。Interactiveで次を依頼します。
+
+```text
+目的：
+PCでの準備と起動をAppのSetup／Runから行えるようにしてください。
+
+文脈：
+docs/development.md、実際のアプリの設定、確認済みの起動ログを参照してください。
+
+制約：
+採用した構成と確認済みのコマンドを使い、Setup／Runは手動実行にしてください。
+設定の作成だけを行い、こちらが画面で確認するまで実行・commit・pushは待ってください。
+
+完成条件：
+.github/github-app.ymlに必要なSetupとRun、起動ログに合うURL検出とBrowserの自動表示を設定してください。
+変更内容を示し、設定を作ったことと実際に起動できたことを分けて報告してください。
+```
+
+1. 設定ができたら **Review configuration → Repository configuration** で、Setup／RunのコマンドとBrowserの設定を確認し、**Accept and apply** を選びます。生成された設定を受け入れる前は適用されません。ファイルが更新された場合も確認・受け入れを行います。
+2. すでに開発サーバーが動いていれば、そのサーバーを起動したTerminalなどで終了します。同じサーバーを重ねて起動しません。
+3. 画面上部の実行メニューから **Setup**（版・表示によっては **Run Setup**）を選び、準備のログが正常終了するまで待ちます。同じ依存関係の準備がこのPCで成功済みなら省略できます。失敗したらログをCopilotへ渡し、準備を直してから進みます。
+4. 同じメニューの **Run** を選びます。起動完了のログを確認し、自動表示された **Browser** で操作します。自動表示されなければ、起動ログにある実際のURLをBrowserで開き、developmentの記録と照合します。
+
+**Scriptsが空なら、設定ファイルの作成と受け入れまで完了したか確認します。** package.jsonが存在するだけでSetup／Runも設定済みとは判断しません。コマンドやポートは採用構成に合わせ、ほかのチームの例をそのまま固定しません。[設定の公式説明](https://docs.github.com/en/copilot/reference/github-copilot-app-reference/repository-configuration)
+
+起動できたら、残る機能は[実装ループの手順3](common/build-loop.md#3-実装検証修正を続ける)、完成確認は次の手順6へ進みます。デモを終えて終了するときは **Stop Run** を選びます。停止後もBrowserの画面が残ることがあるため、表示が残っているだけでサーバーが動いているとは判断しません。
+
 ## 6. チームの完成条件を確認する
 
 ### PCで確認する
 
-作成した起動コマンド、または設定済みの **Run → Browser** で、`docs/development.md` に記録したURLを開きます。[確認の進め方](common/verification.md)に沿って、実装した人とは別の学生が操作します。同じPCで交代して構いません。
+作成した起動コマンド、または設定済みの **Run** で起動し、**Browser** で `docs/development.md` に記録したURLを開きます。[確認の進め方](common/verification.md)に沿って、実装した人とは別の学生が操作します。同じPCで交代して構いません。
 
 必須DoDの主要な操作経路、関係する空の状態・入力ミス、スマートフォン幅を確認し、実際の結果を記録します。見た目を直したい場合は、Browserの **Pick & Polish** で要素を選んで伝えることもできます。
 
@@ -166,8 +197,8 @@ PCで実行する場合は、まず `docs/development.md` のコマンドをTerm
 **Codespacesで確かめたい変更ができたら、その場で学生がAppの画面からcommit・pushします。全機能の完成やPR作成まで待つ必要はありません。** PCとCodespacesのファイルは自動同期されないため、**同じチームリポジトリの同じ作業ブランチ**を使います。
 
 1. PC側でファイルを保存し、Appの **Changes** を開きます。見当たらない場合は右パネルの **＋ → Changes** から開きます。表示を **Uncommitted** にし、差分と作業ブランチ名を確認します。
-2. **Changesのブランチ操作メニュー（branch actions）→ Commit** を選び、対象の変更とメッセージを確認して実行します。「最小アプリと起動方法を追加」のように内容が分かるメッセージにします。すでにコミット済みなら次へ進みます。
-3. **commitしたら、同じメニューから続けてすぐにPushを選びます。** 初回に求められたら、現在の作業ブランチをチームのリポジトリへ公開します。処理完了を待ちます。CommitはPC内への記録、PushはGitHubへの送信です。
+2. **Changesのブランチ操作メニュー（branch actions）→ Commit changes**（版によっては **Commit**）を選び、対象の変更とメッセージを確認します。「最小アプリと起動方法を追加」のように内容が分かるメッセージにします。**チャットへ依頼が送られ、Copilotが差分を確認してコミットする場合は、その処理の完了を待ちます。** クリックしただけでは完了とせず、完了報告とChangesの状態を確認します。すでにコミット済みなら次へ進みます。
+3. **commitの完了を確認したら、同じメニューから続けてPush changes（Push）を選びます。** 初回に求められたら、現在の作業ブランチをチームのリポジトリへ公開します。処理完了を待ちます。CommitはPC内への記録、PushはGitHubへの送信です。
 4. ブラウザでGitHubの同じチームリポジトリを開き、作業ブランチを選んで最新の変更が反映されたことを確認します。
 5. **ここからはCodespacesで動作確認する場合の操作です。** 初回は作業ブランチを選んだまま **Code → Codespaces → Create codespace on（作業ブランチ名）** を選び、準備完了まで待ちます。2回目以降はそのブランチの既存Codespaceを開きます。接続に困った場合は[Codespacesの手順2](codespaces.md#2-codespaceを開く)を参照します。
 6. **既存Codespaceを使う場合だけ**、前回のサーバーが動いていれば元のTerminalで終了し、**Source Control → … → Pull** で変更を取り込みます。新規作成直後は不要です。
@@ -194,7 +225,7 @@ AppのGUI手順は[v1.1.26以降のbranch actions](https://github.com/github/app
 5. チームで差分・検証記録・最新チェックを確認し、基準ブランチ（通常は `main`）へマージします。記録の追記だけのコミットでは、その最新チェックをPR上で確認し、CI結果の追記を際限なく繰り返しません。アプリやテストを変更した場合は、影響する確認をやり直して記録を更新します。
 6. [発表の準備とデモ](common/presentation.md)へ進みます。企画と検証記録から伝える内容を選び、動くプレビューで発表します。Azureへの公開は、そのガイドから選べる任意の分岐です。
 
-発表と作業を終えたら、サーバーは記録した手順で終了します。Codespacesを使った場合は[一覧](https://github.com/codespaces)から **Stop codespace** も選びます。
+発表と作業を終えたら、AppのRunで起動したサーバーは **Stop Run**、Terminalで起動したサーバーは記録した終了手順で停止します。Codespacesを使った場合は[一覧](https://github.com/codespaces)から **Stop codespace** も選びます。
 
 ## 発展：ほかの作業場所
 

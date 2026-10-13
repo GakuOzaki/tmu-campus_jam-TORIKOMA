@@ -52,6 +52,8 @@ Spec Kitや各社SDK自体の導入は、この教材の必須条件ではあり
 | AppのSetup・Run | [.github/github-app.ymlの仕様](https://docs.github.com/en/copilot/reference/github-copilot-app-reference/repository-configuration)。リポジトリ設定は確認・受け入れ後に適用される。mainには配布時点で置かず、構成決定後に必要なSetup・Runを登録する |
 | Appの画面確認 | [Terminal・Browser・Changesの公式解説](https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-using-the-diff-terminal-and-browser/)。Runで起動し、Browserで確認する |
 
+Setup／Runの設定仕様は**2026年10月13日**に再確認しました。手動スクリプト、設定ファイルの確認・受け入れ、起動URLの検出とBrowserの自動表示を[Appの手順](copilot-app.md#setup-run)へ反映しています。App 1.1.28の実操作結果と未確認の範囲は[教材の検証記録](template-validation.md)へ分けて記載しています。
+
 VS Codeの[内蔵Browser Tools](https://code.visualstudio.com/docs/agents/run/browser-tools)は[2026年7月1日にGA](https://code.visualstudio.com/updates/v1_127)となりました。ただし、ブラウザ版CodespacesでDesktopと同じ機能が使えることはこの教材の前提にしません。共通の方針は、構成に合う自動テストと人によるブラウザ操作です。Playwright Chromiumはブラウザテストの選択肢で、初心者向けブランチでは設定済みです。
 
 Copilot appから既存のCodespaceへの直接接続は未検証です。AppのCloud sandboxは[Public Preview](https://docs.github.com/en/copilot/how-tos/github-copilot-app/agent-sessions#using-cloud-and-local-sandboxes)で、標準経路から外しています。
