@@ -2,6 +2,30 @@
 
 参加チームのアプリの完成記録は[verification.md](verification.md)へ残します。以下は教材自体の検証記録です。
 
+## 2026年10月13日：Copilot app・PC実行の共有検証記録を照合
+
+10月11日に実施されたGitHub Copilot app 1.1.28のレポート、検証文書、Setup／Runの再現記録とCIログを、共有資料 `hackathon-verification-all-20261013.zip` から受領し、内容を照合しました。**共有記録では、PC編集・PC実行の経路を企画から終了まで完了しています。** 今回は既存の証拠を確認したもので、アプリの再生成や動作テストの再実行はしていません。
+
+GitHubの **Use this template** でmainのみを複製し、Appの **Add GitHub repository** から開いた検証です。初期ツリーは配布元main `11f13ab` と一致したとの記録があり、締切管理の転記メモと画面要件PNGから、過去のアプリを持ち込まずに生成しています。実行場所はPC、Current checkout、Plan／Interactive、Autoでした。
+
+| 工程 | 共有記録で確認した結果 |
+| --- | --- |
+| 企画・保存・生成 | `prepare-project`と入力資料を参照し、Vanilla JS ES modules＋Vite＋localStorageを選択。Planを終了してproduct・development・tasksへ合意を保存し、アプリ・単体テスト・Playwright・CIを生成した |
+| 実操作・レビュー修正 | 登録、締切順、提出済み、再読み込み保存、入力エラー、390px幅、取消を操作。別タブ・同時保存、日付更新、長文表示、フォーカスと提出ボタン名の問題を修正し、回帰テストの修正前失敗・修正後成功を記録した |
+| Setup／Run | Repository configurationで設定を確認・適用し、GUIのSetupで依存関係を準備。RunからApp内Browserを自動表示し、保存データと操作を確認した |
+| GUIでの共有・CI・マージ | Commit changes → Push changes → Create PRを実施。Commit changesはチャットへ依頼を送り、Copilotが検査・処理する動作だった。アプリPRをマージ後、終了記録はGitHubの **Compare & pull request** から別PRとして作り、CI成功後にマージした |
+| 最終デモ・振り返り・停止 | マージ後に登録・締切順・提出済み・再読み込みを実演。3つの工夫の振り返りと引き継ぎを保存・共有した。GUIのStop Run後、接続拒否と待受ポートがないことを確認した |
+
+PCでの確認は **Node.js 22.22.1** です。Node 24の導入はHomebrewの競合ロックで完了しておらず、PCでNode 24を確認した実績にはしません。一方、[終了記録PR #2](https://github.com/mochan-tk/hackathon-rehearsal-copilot-app-20261011/pull/2)の対象 `12094a9` の[最終CIログ](https://github.com/mochan-tk/hackathon-rehearsal-copilot-app-20261011/actions/runs/38124889969/job/114427101743)では、**Node.js 24.21.0、単体5件成功・失敗0・skip 0、E2E17件成功（13.7秒）**を同梱ログと照合しました。終了記録までの最終マージは `075f5b6` です。[当時の検証文書](https://github.com/mochan-tk/hackathon-rehearsal-copilot-app-20261011/blob/12094a99a294dc709e43c0b7dafd76b72f9284d3/docs/verification.md)も参照できます（検証用リポジトリとCIにはPrivateのアクセス権が必要です）。
+
+別途共有された**Setup／Runの23枚の画面記録は、完成済みアプリから設定を再作成した再現確認**です。設定を退避し、依存関係未導入の複製から、Copilotへの依頼 → Review・Accept → GUIのSetup → Run → Browser操作 → Stop Runを確認しています。設定ファイルの比較でも変更は撮影用ポートの `5173 → 5174` のみでした。この再現では、アプリ本体の新規生成、自動テストの再実行、push・PR作成はしていません。
+
+途中でPC実行の依頼にCodespaces専用の禁止条件が混ざり、Copilotが停止した問題は、実行場所を確認して継続しています。[教材PR #7](https://github.com/mochan-tk/hackathon-for-student-20261017/pull/7)で条件を分離し、Appの追加メニューとPlan終了後の保存操作も修正済みです。main `db130f6` に反映されており、今回重ねて同じ修正は行っていません。
+
+今回の教材修正では、[Appの設定・起動手順](copilot-app.md#setup-run)、Commit処理の完了を待ってからPushする案内、Stop RunとTerminalでの終了の使い分けを具体化しました。[検証手順](common/verification.md)には機能に応じて選ぶ境界ケースと、PC・CIの環境を分けた記録を追加しています。25 Markdownの相対参照322件・READMEから教材20文書への到達性・差分の空白を確認し、PC／Codespacesの分岐を独立レビューしました。
+
+操作担当はCodexです。学生本人・別学生の操作、利用者への効果、Copilot Studentの利用権・残量、App編集→Codespaces実行の受け渡し、PCのNode 24、CI失敗artifactのupload／download、PR #7の修正版で新しいsessionを最初から通す確認、Azure公開は未確認です。PC経路の完了は、以下のCodespaces経路の未完走や追加レビュー5点の解消を意味しません。
+
 ## 2026年10月11日：mainのCodespaces実機リハーサル（通常経路は完走未達）
 
 **アプリ生成・操作・不具合修正と修正版CIの成功まで確認しましたが、Codespacesの通常経路は完走できませんでした。** 後半にGit／Copilot拡張とTerminalが応答しなくなり、保全先から作った新環境でもremote extension hostのready待ちが60秒でタイムアウトしました。成果と記録はGitHubへ保全し、今回の2環境は停止済みです。新環境での起動、最終ライブデモ、振り返り保存は未実施で、追加レビューの5指摘も残しています。
