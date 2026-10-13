@@ -10,7 +10,7 @@
 
 ## 1. チームのForkを用意する
 
-**[チーム用にForkする](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)**
+[![チーム用にForkする](https://img.shields.io/badge/Fork_on_GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)
 
 代表者1人がForkを1つ作り、メンバーを招待します。チーム用リポジトリがある場合は作り直しません。
 
@@ -31,6 +31,12 @@ Publicの教材から作るForkもPublicです。共有できる企画・コー�
 初回に試すなら **Actions → Check → Run workflow** で`codex/beginner-starter`を選び、OIDC表示用のチェックを外します。公開用変数を設定しなければテストだけが動き、Azureの準備は不要です。この手動実行は、後で作るPRの最新CIの代わりにはしません。
 
 ## 2. 使う環境を開く
+
+[![Codespacesの作成画面を開く](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new)
+
+**先にチームのForkを作成してください。** Codespacesで編集を始める場合は、ボタン先の **Repository** でチームのFork、**Branch** で `codex/beginner-starter`、**Machine type** で2-coreを選び、**Create codespace** を押します。準備が終わったら、下のCodespacesガイドでCopilotの設定と作業ブランチの作成を続けます。
+
+作成済みなら[Codespaces一覧から再開](https://github.com/codespaces)できます。Appで編集した変更の確認には、[push済みの作業ブランチを開く手順](handson/copilot-app.md#codespaces-transfer)を使います。
 
 | 編集・動作確認する場所 | 環境の操作手順 |
 | --- | --- |
