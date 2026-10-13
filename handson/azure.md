@@ -1,8 +1,8 @@
-# Container Appsへ公開するための初期設定（任意）
+# Azure Container Appsへ公開する（任意）
 
-[公開手順](publish.md)から進んだ、Azure公開を選ぶチームのための準備です。プレビューで発表するチームは[発表・振り返り・終了](presentation.md)へ進みます。
+動くプレビューで発表するだけなら、このページの作業は不要です。[READMEの確認・PR](../README.md#share)まで済ませ、継続して使うURLが必要なチームが運営と進めます。画面とAPIを1つのコンテナにまとめ、CIでテストした同じイメージをGHCRからAzureへ配置します。PCへのDocker導入は必須ではありません。
 
-この初心者向けコースでは、[選択手順](../choose-start.md)で設定した **`codex/beginner-starter`** がチームのデフォルトブランチです。以下のPRの統合先、手動実行のブランチ、Environmentの許可ブランチには、その名前を使います。
+この初心者向けコースでは、[Forkの手順](../README.md#fork)で設定した **`codex/beginner-starter`** がチームのデフォルトブランチです。以下のPRの統合先、手動実行のブランチ、Environmentの許可ブランチには、その名前を使います。
 
 チームの代表者が運営・メンターと一度行う準備です。準備後は、学生はGitHubのPRをマージする操作で更新できます。対象は通常の **Azure Container Apps（Consumption）**です。
 
@@ -14,7 +14,7 @@ GitHubの **Environment** を使います。Publicリポジトリ、またはGit
 
 ## 1. テスト済みコンテナをGitHubへ保存する
 
-1. チームのリポジトリのデフォルトブランチに、この教材の`.github/workflows/check.yml`と`Dockerfile`があることを確認します。Fork直後は、[チームのActionsを有効化](../choose-start.md#enable-actions)してあることも確認します。公開したいアプリの変更が作業ブランチにある場合は、base repositoryとhead repositoryがチームのForkである確認済みのPRを、チームのデフォルトブランチへマージします。
+1. チームのリポジトリのデフォルトブランチに、この教材の`.github/workflows/check.yml`と`Dockerfile`があることを確認します。Fork直後は、[チームのActionsを有効化](../README.md#enable-actions)してあることも確認します。公開したいアプリの変更が作業ブランチにある場合は、base repositoryとhead repositoryがチームのForkである確認済みのPRを、チームのデフォルトブランチへマージします。
 2. GitHubの **Settings → Secrets and variables → Actions → Variables → New repository variable** で、`ENABLE_CONTAINER_PUBLISH`を値`true`で追加します。`ENABLE_AZURE_DEPLOY`はまだ設定しません。
 3. **Actions → Check → Run workflow** で **チームのデフォルトブランチ** を選び、**初期設定用: Azureへ登録するOIDC接続情報だけ表示する**のチェックは外したまま実行します。
 4. `check`と`publish`が成功したら、実行の **Summary → Tested container image** を開きます。`Tag`に表示される`ghcr.io/所有者/リポジトリ:タグ`を次節で使います。このイメージは本番コンテナでのブラウザテストを通っています。
@@ -74,12 +74,52 @@ GitHubの **Settings → Secrets and variables → Actions → Variables** に�
 
 **Actions → Check → Run workflow → チームのデフォルトブランチ** で、**OIDC接続情報だけ表示するチェックを外して**実行します。`check` → `publish` → `deploy`が成功し、Summaryに公開URLが表示されれば初期設定は完了です。以降はチームのデフォルトブランチへのマージで同じ流れが動きます。
 
-`deploy`は既存アプリへテスト済みイメージのdigestを指定して更新します。Single revision modeで新しいリビジョンが準備できるのを待ち、公開URLの`/api/health`を確認します。アプリの動作確認は[公開手順](publish.md#4-公開urlで確認する)へ戻って行います。
+`deploy`は既存アプリへテスト済みイメージのdigestを指定して更新します。Single revision modeで新しいリビジョンが準備できるのを待ち、公開URLの`/api/health`を確認します。PRでのCI成功だけではデプロイ済みとは扱いません。次の公開URLの確認を行います。
 
-## 5. 利用を終えるとき
+## 5. 公開URLで確認し、更新する
 
-公開の自動更新を止めるときは`ENABLE_AZURE_DEPLOY`を`false`にします。イメージの公開も止める場合は`ENABLE_CONTAINER_PUBLISH`も`false`にします。**この設定だけでは、Azure上のアプリやDBは停止・削除されません。**
+成功した **Actions → Check → Summary → Azure Container Apps → URL**、またはAzure portalの **Application URL** を開きます。PLANの必須DoD、直接アクセス・再読み込み、使う場合はAPI・本物のログイン・共有DBを確認します。`/api/health`の成功は起動確認であり、企画全体の完成確認ではありません。
 
-発表後の継続利用をチームで決め、不要になったリソースはAzure portalから停止・削除します。チーム専用リソースグループごと削除する場合は、残したいDBやデータが含まれていないか確認してから行います。残す場合は **Cost Management** で使用額・クレジット残量を確認します。
+元のPRをマージ済みなら、まず[次の作業ブランチ](../README.md#after-merge)を準備してから、この節へ戻ります。公開URL・対象変更・日時・操作結果・未確認をルートの`PROGRESS.md`へ残します。記録を[保存・PR](../README.md#share)で共有し、[発表・終了](../README.md#finish)へ戻ります。
 
-[公開URLの確認へ戻る](publish.md#4-公開urlで確認する) · [発表・振り返り・終了](presentation.md)
+次のアプリ更新は **編集 → 確認 → commit・push → チーム内PR → マージ**です。マージ後のCheckで、`check`が本番コンテナをテストし、`publish`が再ビルドせずGHCRへ保存、`deploy`がそのdigestで既存Container Appを更新します。公開はチームのデフォルトブランチだけで動きます。
+
+## 本番コンテナを手元で確認する（任意）
+
+普段は`npm run dev`を使います。Dockerを用意済みのPC、またはDocker機能を含むCodespacesで公開前のコンテナを試せます。以前からのCodespaceでは必要に応じて **Codespaces: Rebuild Container** を使います。
+
+手動previewやE2Eで4281を使っていたら止め、リポジトリのルートで実行します。
+
+```sh
+docker build -t student-hackathon .
+docker run --rm -p 127.0.0.1:4281:8080 student-hackathon
+```
+
+PCは`http://127.0.0.1:4281`、Codespacesは **Ports → 4281 → Open in Browser**から画面と`/api/health`を確認します。ポートがなければ追加し、Privateのまま使えます。終了は **Ctrl+C**、変更後は再buildします。外部設定が必要ならrunへ`--env-file .env`を追加できます。CIはContainer Apps用の`linux/amd64`でビルド・テストします。手元での成功をAzureでの確認済みとはしません。
+
+## API・DB・外部AIを使う場合
+
+- APIは`server/api.js`へ追加し、画面は`/api/...`で呼びます。画面とAPIは同じサーバーが配信します。
+- 開発中の`.env`は[.env.example](../.env.example)を参考に作り、教材の`PORT`・`HOST`を上書きしません。Azureには自動で移らないので、Container Appの[Secrets](https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets)と[環境変数](https://learn.microsoft.com/en-us/azure/container-apps/environment-variables)へ設定します。秘密のキーはサーバー側で使い、画面や`VITE_`変数には入れません。
+- 共有・永続データには外部DB・ストレージを接続します。コンテナのファイルやメモリは永続保存先としません。必要な認証方式や外部AIの権利・利用枠・リージョンを確認し、公開URLで実際に操作します。
+- `.env`やAzureのSecretsはCIにも継承されません。モックやテスト専用接続先を使うなら、その結果と実サービスの接続確認を区別してPROGRESSへ残します。CIへ値を渡す場合はActions Secrets等を使い、コンテナイメージに埋め込みません。
+
+## うまくいかないとき
+
+| 状況 | 確認すること |
+| --- | --- |
+| checkが失敗 | 最初の失敗ログと操作をCopilotへ渡す。失敗を省略して公開しない |
+| publish／deployがSkipped | 有効化変数と実行ブランチ。OIDC表示用の実行なら公開・デプロイは行われない |
+| GHCRへのpush／取得が失敗 | Packagesのポリシー、Public設定、イメージ名。既存パッケージはManage Actions accessでチームForkのWrite権限も確認 |
+| Azureログインが失敗 | IDとFederated credentialsのIssuer・Subject・Audienceが実際の表示値と一致するか、Environment設定、設定反映待ち |
+| productionを作れない | 管理権限と所有者のプラン。Private Organizationでは個人のProを代用できない |
+| 起動しない | Azureのコンテナログ、環境変数、8080、DB・APIへの接続、Single revision設定 |
+| 公開後に機能が動かない | 公開URLでの再現操作・結果・Actionsの実行URLをCopilotへ渡す |
+
+## 利用を終えるとき
+
+自動更新を止めるには`ENABLE_AZURE_DEPLOY=false`、イメージ公開も止めるなら`ENABLE_CONTAINER_PUBLISH=false`にします。**これだけではAzureのアプリやDBは停止・削除されません。**
+
+継続利用するかチームで決め、不要なリソースはAzure portalから停止・削除します。チーム専用リソースグループを削除する場合は、残すDBやデータがないか確認します。残す場合はCost Managementで使用額・クレジット残量と担当者を確認します。
+
+[READMEの発表・終了へ戻る](../README.md#finish) · [公式根拠と確認範囲](references.md)

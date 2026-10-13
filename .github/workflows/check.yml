@@ -68,7 +68,7 @@ jobs:
       - name: Check publish and deploy switches
         if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && vars.ENABLE_AZURE_DEPLOY == 'true' && vars.ENABLE_CONTAINER_PUBLISH != 'true'
         run: |
-          echo '::error::Azure deployment requires ENABLE_CONTAINER_PUBLISH=true as well. See docs/common/publish.md.'
+          echo '::error::Azure deployment requires ENABLE_CONTAINER_PUBLISH=true as well. See handson/azure.md.'
           exit 1
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -165,7 +165,7 @@ jobs:
             echo '### Tested container image'
             echo "Tag: \`$image\`"
             echo "Deploy this digest: \`$digest_ref\`"
-            echo 'For the first publish, make the GHCR package public before enabling Azure deployment. See docs/common/publish.md.'
+            echo 'For the first publish, make the GHCR package public before enabling Azure deployment. See handson/azure.md.'
           } >> "$GITHUB_STEP_SUMMARY"
       - name: Sign out of the registry
         if: always()
@@ -191,14 +191,14 @@ jobs:
         run: |
           for setting in AZURE_CLIENT_ID AZURE_TENANT_ID AZURE_SUBSCRIPTION_ID AZURE_RESOURCE_GROUP AZURE_CONTAINER_APP_NAME; do
             if [[ -z "${!setting}" ]]; then
-              echo "::error::Set the $setting Actions variable before enabling Azure deployment. See docs/common/publish.md."
+              echo "::error::Set the $setting Actions variable before enabling Azure deployment. See handson/azure.md."
               exit 1
             fi
           done
       - name: Check that Azure can pull the public image
         run: |
           if ! docker --config "$RUNNER_TEMP/anonymous-docker" manifest inspect "$TESTED_IMAGE" > /dev/null; then
-            echo '::error::Make the GHCR package public before enabling Azure deployment. See docs/common/publish.md.'
+            echo '::error::Make the GHCR package public before enabling Azure deployment. See handson/azure.md.'
             exit 1
           fi
       - name: Sign in to Azure with OpenID Connect
@@ -212,7 +212,7 @@ jobs:
           az extension add --name containerapp --upgrade --only-show-errors
           mode=$(az containerapp show --name "$AZURE_CONTAINER_APP_NAME" --resource-group "$AZURE_RESOURCE_GROUP" --query properties.configuration.activeRevisionsMode --output tsv)
           if [[ "$mode" != 'Single' ]]; then
-            echo '::error::Use Single revision mode for this starter. See docs/common/publish.md.'
+            echo '::error::Use Single revision mode for this starter. See handson/azure.md.'
             exit 1
           fi
           az containerapp update \
