@@ -13,25 +13,61 @@
 
 ## チームのリポジトリを作る
 
-GitHubの **Use this template** を使って、教材をチーム用リポジトリへコピーします。これはファイルの配布方法です。`main`を選ぶ場合も、アプリのひな形を使う必要はありません。
+**チームの代表者が1つのForkを作り、メンバーを招待します。** 開発する全員が個別にForkを作る必要はありません。今回の配布元はPublicなので、チームのForkもPublicです。公開できる企画・画像・ダミーデータを使います。非公開での開発が必要なら、作成前に運営へ相談してください。[Forkの公開範囲](https://docs.github.com/en/pull-requests/reference/forks#visibility-of-forks)
 
-1. [配布元のGitHubページ](https://github.com/mochan-tk/hackathon-for-student-20261017)で **Use this template → Create a new repository** を選びます。
-2. 所有者・チーム用の名前・公開範囲を決めます。
-3. **自分たちで構成を決める場合は、Include all branchesを外したまま**作成します。配布元のデフォルトブランチ`main`だけがコピーされます。
-4. **初心者向けの場合は、Include all branchesにチェックを入れて**作成します。作成が終わったら、チーム側の **Settings → General → Default branch** の変更ボタンから`codex/beginner-starter`を選び、**Update** を押して確認画面を確定します。管理権限が必要なので、チームの代表者が行います。
-5. チームリポジトリの **Code** に戻り、ブランチ名とREADMEを確かめます。自分たちで構成を決める場合は`main`、初心者向けの場合は`codex/beginner-starter`がデフォルトです。初心者向けなら`package.json`・`src/`・`Dockerfile`も表示されます。
-6. 必要なメンバーを **Settings → Collaborators** から招待し、**チーム側で選んだブランチのREADME**からCodespacesまたはCopilot appのガイドへ進みます。すでにチームリポジトリがある場合は作り直さず、選択したコースとデフォルトブランチが一致しているか確認します。
+1. [配布元のGitHubページ](https://github.com/mochan-tk/hackathon-for-student-20261017)の右上で **Fork** を選びます。
+2. **Owner** にチーム代表者のアカウント、または作成権限のあるOrganizationを選び、チーム用の **Repository name** を入力します。
+3. **mainコースなら「Copy the main branch only」をオン**にします。**初心者向けならオフ**にして、`codex/beginner-starter`も取得します。
+4. **Create fork** を押し、作成先が `チームの所有者/チームのリポジトリ名` であることを確認します。配布元へのリンクは残りますが、以後の編集先はこのチーム側です。
+5. 初心者向けは、チーム側の **Settings → General → Default branch** から`codex/beginner-starter`を選び、**Update** と確認操作を行います。代表者の管理権限で設定します。mainコースは`main`のままです。
+6. チーム側の **Code** に戻り、既定ブランチとREADMEを確かめます。初心者向けなら`package.json`・`src/`・`Dockerfile`があり、mainコースには初期アプリがありません。
+7. 必要なメンバーを **Settings → Collaborators** から招待します。招待を受けたメンバーも、この同じチームのリポジトリで作業します。
+8. 下の[Actionsの確認](#enable-actions)を済ませ、**チーム側で選んだコースのREADME**から環境ガイドへ進みます。
 
-配布元でブランチを表示しているだけでは、その枝だけがコピーされるわけではありません。GitHubの選択肢は「デフォルトブランチだけ」または「全ブランチ」です。全ブランチには教材の作業用ブランチが含まれる場合もありますが、参加者が選ぶコースは上の2つです。[テンプレートからの作成](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)・[デフォルトブランチの変更](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/changing-the-default-branch)
+表示しているブランチだけが自動的にForkされるわけではありません。「Copy the main branch only」を外すと全ブランチが取得されます。作業用ブランチが含まれていても、参加者が選ぶコースは上の2つです。[Forkの作成](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo)・[既定ブランチの変更](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/changing-the-default-branch)
 
-## 実装を始めるとき
+すでに作成済みのチームリポジトリがあれば作り直さず、所有者・選んだコース・既定ブランチを確認します。以前のTemplate方式で作ったチームも、同じリポジトリの作業を続けられます。その場合、後述のSync forkは使いません。
 
-- **選んだコースのブランチから**、`feat/first-demo`などの作業ブランチを作ります。複数人で編集する場合はそれぞれ別の作業ブランチを使います。
-- PRの **base** はチームのデフォルトブランチです。初心者向けでは`codex/beginner-starter`、自分たちで構成を決める場合は`main`へ戻します。
-- **コピーされたコース同士をPR・マージで統合しません。** 全ブランチをコピーすると、それぞれの履歴が独立するためです。途中でコースを変えたい場合は、未保存の作業を記録してから運営に相談します。
+<a id="enable-actions"></a>
 
-以後、各ガイドの「チームのデフォルトブランチ」は、この手順で選んだ統合先を指します。初心者向けの公開用ワークフローも、チームのデフォルトブランチだけを公開対象にします。ブランチ名は上の名前のまま使います。
+## Fork側のActionsを確認する
 
-作成できたら、**チーム用リポジトリの選んだブランチ**でREADMEを開き、環境ガイドへ進みます。このmainコースでは[Codespaces](codespaces.md)または[Copilot app](copilot-app.md)を選びます。各ガイドの企画・コピーの説明は完了済みとして、環境準備から続けてください。
+チーム側の **Actions** を開き、ワークフローの有効化を求める案内が出たら、教材の内容を確認して有効にします。Forkした既存ワークフローは、初期状態では実行されません。[ForkとActions](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflows-in-forked-repositories)
+
+- **mainコース**にはまだCIがありません。一覧や有効化の案内が出なくても、環境準備と実装へ進めます。最初のCIを追加しPRを作った段階で、Actionsの許可と実際の実行結果を確認します。
+- **初心者向け**は有効化を済ませ、以後のチーム内PRで **Check** の実行を確認します。Actionsの有効化は、Azure公開の有効化とは別の操作です。
+
+CIが始まらなければ、チーム側のPRになっているか、ワークフローと実行条件、**Settings → Actions → General** の許可を運営と確認します。有効化前にPRを作っていた場合も、過去のイベントが実行済みになったとは判断しません。通常の`pull_request`設定なら同じPRの **Close pull request → Reopen pull request** でも実行されます。mainではCopilotに生成した実行条件を確認してもらってから行います。[PRイベント](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request)
+
+初回準備で読んだ場合は、選んだコースの環境ガイドへ進みます。CIの未実行を調べに来た場合は、元のPRへ戻り、今回の変更に対する新しい実行と結果を確認します。
+
+<a id="team-pull-request"></a>
+
+## チーム内で作業ブランチとPRを使う
+
+選んだコースから`feat/first-demo`などの作業ブランチを作り、チームのリポジトリへpushします。複数人で編集する場合は、それぞれ別の作業ブランチを使います。PR作成画面では次を確認します。必要なら **compare across forks** を開いて、リポジトリも選びます。
+
+| 項目 | 選ぶ内容 |
+| --- | --- |
+| base repository（送り先） | チームのForkリポジトリ |
+| base（統合先ブランチ） | mainコースは`main`、初心者向けは`codex/beginner-starter` |
+| head repository（変更元） | 同じチームのForkリポジトリ |
+| compare（変更元ブランチ） | 今回pushした作業ブランチ |
+
+配布元の`mochan-tk/hackathon-for-student-20261017`が送り先になっていたら、作成前にチーム側へ変更します。Appの **Create PR** で送り先を事前に確認できない場合は、チーム側のGitHubの比較画面を使ってから作成します。作成後もPRのURLがチームの所有者・リポジトリ名になっていることを確認します。**チームのアプリ開発はチーム内のPRで完結させます。** 配布元への教材改善は運営と相談して別に扱います。
+
+`main`と`codex/beginner-starter`は初期構成が異なるため、コース同士をマージして組み合わせません。途中でコースを変えたい場合は、未保存の作業を保全して運営に相談します。以後の「チームの既定ブランチ」は、ここで選んだ統合先です。初心者向けの公開用ワークフローも、その既定ブランチだけを公開対象にします。
+
+PR作成中に参照した場合は、元の環境ガイドの保存・CI確認へ戻ります。これから開発を始める場合は、チーム側のコースのREADMEから[Codespaces](codespaces.md)または[Copilot app](copilot-app.md)を選び、完了済みの企画・Fork作成は繰り返さず環境準備から続けてください。
+
+<a id="sync-fork"></a>
+
+## 教材の更新を取り込むとき（任意）
+
+運営から教材の修正を取り込む案内があった場合だけ、チーム代表者が進めます。チームの変更を保存・pushしてから、使っているコースのブランチを開き、**Sync fork**で配布元の同じコースから取り込む差分を確認します。競合がなければ **Update branch**、競合や判断に迷う変更があれば運営と確認します。自分たちのアプリを捨てて同期せず、`main`と初心者向けを混ぜません。[Forkの同期](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/syncing-a-fork)
+
+Sync forkで更新されるのは、選んだコースの基準ブランチです。各環境でその最新を取得し、開発の途中ならCopilotや運営と差分を確認して、基準ブランチの更新を作業ブランチへ取り込みます。作業ブランチでPullするだけでは、この更新は入りません。前のPRがマージ済みなら、更新済みの基準ブランチから次の作業ブランチを作ります。競合が出た場合は作業を保全して運営と確認します。
+
+取り込み後は[保存した作業の再開](common/build-loop.md#resume-work)へ戻ります。教材を同期したことだけでアプリを確認済みにはせず、影響のある確認を行います。
 
 [全体の流れへ戻る](../README.md#企画から発表まで)

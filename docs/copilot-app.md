@@ -23,10 +23,10 @@ Codespacesで実行する場合は、AppでPC上のファイルを編集し、Gi
 ## 2. チームのリポジトリをAppに追加する
 
 1. [企画の進め方](common/ideation.md)の手順1〜5で、誰の何を解決するかと画面案をチームで決め、このページへ戻ります。企画済みならその資料を使います。文書整理は、このガイドの[手順4](#planning)で行います。
-2. [コースの選び方](choose-start.md)に沿って、`main`コースのチーム用リポジトリを作ります。作成済みなら、そのリポジトリを使います。初心者向けを選んだ場合は、そのブランチのガイドに従ってください。
+2. [コースの選び方](choose-start.md)に沿って、代表者が`main`コースのチーム用Forkを作り、Actionsの案内を確認します。作成済みなら、そのリポジトリを使います。初心者向けを選んだ場合は、そのブランチのガイドに従ってください。
 3. ほかのメンバーも編集する場合は、所有者が **Settings → Collaborators** から招待します。
 4. Copilot appで **Sign in to GitHub** を選び、今回使う学生アカウントにログインします。
-5. **Projects** 横の追加ボタンから **Add GitHub repository** を選び、チームのリポジトリを検索して選択します。自動でcloneが始まるので、完了まで待ちます。
+5. **Projects** 横の追加ボタンから **Add GitHub repository** を選び、チームの所有者・リポジトリ名でForkを検索して選択します。自動でcloneが始まるので、完了まで待ちます。
 6. 新しいsessionを作り、作業場所を **Local repository**（版によっては **Current checkout**）、モードを **Interactive**、モデルを **Auto** にします。
 7. 「README.mdを読み、この教材の構成を確認してください。まだファイルを編集せず待ってください」と送ります。
 
@@ -222,8 +222,8 @@ AppのGUI手順は[v1.1.26以降のbranch actions](https://github.com/github/app
 
 1. **Changes** で採用する差分を確認します。
 2. [上のGUI手順](#codespacesへ変更を渡して確認する)の1〜4で残る変更と検証記録をcommit・pushします。PCで確認した場合も同じです。
-3. **Create PR** が表示されればそこから作成し、なければGitHubの **Compare & pull request** を使います。
-4. CIが実行され、成功したことを確認します。**アプリ用CIは開発時に作ります。チェックがない、実行されない、skipされたことを成功とは扱いません。** CIの実行URL・対象コミット・結果を [docs/verification.md](verification.md) に追記し、同じGUI操作でcommit・pushします。
+3. [PRの送り先](choose-start.md#team-pull-request)を確認します。Appの **Create PR** は送り先を作成前に確認できる場合に使い、確認できなければチーム側のGitHubで **Compare & pull request** を開きます。**base repository・head repositoryはともにチームのFork、baseは`main`、compareは今回の作業ブランチ**にしてから作成し、作成後もGitHubで送り先を確認します。
+4. CIが実行され、成功したことを確認します。始まらない場合は[Fork側のActions確認](choose-start.md#enable-actions)からこのPRへ戻ります。**アプリ用CIは開発時に作ります。チェックがない、実行されない、skipされたことを成功とは扱いません。** CIの実行URL・対象コミット・結果を [docs/verification.md](verification.md) に追記し、同じGUI操作でcommit・pushします。
 5. チームで差分・検証記録・最新チェックを確認し、基準ブランチ（通常は `main`）へマージします。記録の追記だけのコミットでは、その最新チェックをPR上で確認し、CI結果の追記を際限なく繰り返しません。アプリやテストを変更した場合は、影響する確認をやり直して記録を更新します。
 6. [発表の準備とデモ](common/presentation.md)へ進みます。企画と検証記録から伝える内容を選び、動くプレビューで発表します。Azureへの公開は、そのガイドから選べる任意の分岐です。
 

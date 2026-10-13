@@ -37,7 +37,7 @@ CodespacesにはNode.js 24とDockerを使える環境を用意していますが
 | 段階 | 進めること・開く資料 | 次へ渡すもの |
 | --- | --- | --- |
 | 1. 企画と画面を決める | [企画の手順1〜5](docs/common/ideation.md)。書き方に迷ったら[締切管理の例](docs/examples/deadline.md)を見る | チームで選んだ課題・最大3つのコア機能・完成条件・画面案 |
-| 2. 開発の準備をする | [コース選択とコピー](docs/choose-start.md)後、[Codespaces](docs/codespaces.md)または[Copilot app](docs/copilot-app.md)を選ぶ。[元資料](docs/source/README.md)を置き、[コンテキストの図](docs/common/ai-development-tips.md#context-engineering)で保存先を確認する | チーム用リポジトリ、作業ブランチ、共有できる企画メモ・画面PNG・遷移 |
+| 2. 開発の準備をする | [コース選択とFork](docs/choose-start.md)後、[Codespaces](docs/codespaces.md)または[Copilot app](docs/copilot-app.md)を選ぶ。[元資料](docs/source/README.md)を置き、[コンテキストの図](docs/common/ai-development-tips.md#context-engineering)で保存先を確認する | チーム用リポジトリ、作業ブランチ、共有できる企画メモ・画面PNG・遷移 |
 | 3. Planで相談して保存する | [プロンプトの図](docs/common/ai-development-tips.md#prompt-engineering)で依頼の4項目を確認し、環境ガイドのPlanで`prepare-project`を使う。草案に合意してから保存する | 合意した[企画](docs/product.md)・[開発方法](docs/development.md)・[作業計画](docs/tasks.md) |
 | 4. 作って、確かめて、直す | [ハーネスの図](docs/common/ai-development-tips.md#harness-engineering)から環境ガイドの実装へ。[実装ループ](docs/common/build-loop.md#3-実装検証修正を続ける)、[起動・終了](docs/common/local-development.md)、[完成確認](docs/common/verification.md)を必要な場面で使う | アプリ、必要なテスト・CI、別の学生による操作結果、[検証記録](docs/verification.md) |
 | 5. 保存・PRで共有する | 使っている環境の[Codespaces手順7](docs/codespaces.md#save-and-share)／[App手順7](docs/copilot-app.md#save-and-share)へ戻り、差分・記録・CIを確認する | チームの基準ブランチへ反映した成果、CI結果と残る課題 |

@@ -9,14 +9,14 @@
 ## 1. チームのリポジトリを作る
 
 1. [企画の進め方](common/ideation.md)の手順1〜5で、誰の何を解決するかと画面案をチームで決め、このページへ戻ります。企画済みならその資料を使います。文書整理は、このガイドの[手順4](#planning)で行います。
-2. [コースの選び方](choose-start.md)に沿って、`main`コースのチーム用リポジトリを作ります。すでに作ったものがあれば、そのリポジトリを使います。初心者向けを選んだ場合は、そのブランチのガイドに従ってください。
+2. [コースの選び方](choose-start.md)に沿って、代表者が`main`コースのチーム用Forkを作り、Actionsの案内を確認します。すでに作ったものがあれば、そのリポジトリを使います。初心者向けを選んだ場合は、そのブランチのガイドに従ってください。
 3. チーム全員が編集する場合は、所有者が **Settings → Collaborators** からメンバーを追加します。
 
 最初の実装は一人が操作し、ほかのメンバーが企画・画面・動作を確認すると進めやすくなります。
 
 ## 2. Codespaceを開く
 
-1. チームのリポジトリで **Code → Codespaces → Create codespace on main** を選びます。マシンを選べる場合は、まず2-coreを使います。
+1. チームの所有者・リポジトリ名を確認し、そのForkで **Code → Codespaces → Create codespace on main** を選びます。マシンを選べる場合は、まず2-coreを使います。
 2. ブラウザにVS Codeが開き、環境の準備が終わるまで待ちます。
 3. Copilot Chatを開き、今回使う学生アカウントでサインインしていることを確認します。**Session Target** が表示される場合は **Local** を選び、開いているCodespaceのファイルとTerminalを使うチャットで進めます。
 4. GitHubの[Copilot設定](https://github.com/settings/copilot)で **Copilot Student** の利用権利を確認します。モデルは **Auto** を使います。
@@ -149,7 +149,7 @@ Playwrightを選んだ場合は、ブラウザ本体に加え、LinuxのOS依存
 
 **Source Control** で差分を確認し、採用するファイルの `+` でステージします。メッセージを入力して **Commit** を選び、そのままGitHubへ送ります。初回は **Publish Branch**、公開済みのブランチでは **Source Control → … → Push** を使います。[公式のGUI手順](https://docs.github.com/en/codespaces/developing-in-a-codespace/using-source-control-in-your-codespace)
 
-GitHubで **Compare & pull request** を開き、チームの基準ブランチ（通常は `main`）へのPRを作ります。**アプリ用CIは最初の実装で作るものです。チェックが表示されないことは成功の証拠ではありません。** 実際に採用した確認が実行され、成功したことを確かめます。
+GitHubで **Compare & pull request** を開き、[PRの送り先](choose-start.md#team-pull-request)を確認します。**base repository・head repositoryはともにチームのFork、baseは`main`、compareは今回の作業ブランチ**にして作成します。**アプリ用CIは最初の実装で作るものです。チェックが表示されないことは成功の証拠ではありません。** 実際に採用した確認が実行され、成功したことを確かめます。CIが始まらない場合は[Fork側のActions確認](choose-start.md#enable-actions)からこのPRへ戻り、結果を確認します。
 
 CIの実行URL・対象コミット・結果を [docs/verification.md](verification.md) に追記し、同じGUI操作でcommit・pushします。記録の追記だけのコミットでは、その最新チェックをPR上で確認し、CI結果の追記を際限なく繰り返しません。アプリやテストを変更した場合は、影響する確認をやり直して記録を更新します。チームで差分・検証記録・最新チェックを確認してからマージします。
 

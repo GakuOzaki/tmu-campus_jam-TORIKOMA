@@ -4,7 +4,7 @@
 
 プレビューで発表するチームは、[発表と終了](presentation.md)へ進みます。このページを公開用ワークフローの準備で開いた場合は、手順1の作成・記録まで進め、[公開手順2の保存・PR](publish.md#2-githubへ変更と確認結果を保存する)へ戻ってください。PRの確認・マージが済んでから、ワークフローの実行とAzureへの配置を続けます。
 
-ここでは、テスト済みイメージをGHCRにPublicで保存し、Azure Container Apps（Consumption）へdigestを指定して配置します。コンテナの中のコードや組み込んだ設定は取得できるため、GitHubリポジトリがPrivateでもイメージは公開できる内容にします。APIキー・私的な資料を含めません。非公開を保つ必要があるチームはこのPublic経路を使わず、[非公開ACRからの取得](https://learn.microsoft.com/en-us/azure/container-apps/managed-identity-image-pull)などを運営と準備します。
+ここでは、テスト済みイメージをGHCRにPublicで保存し、Azure Container Apps（Consumption）へdigestを指定して配置します。今回のForkはPublicです。コンテナの中のコードや組み込んだ設定も取得できるため、イメージも公開できる内容にします。APIキー・私的な資料を含めません。非公開を保つ必要があるチームは、作成前に運営と別のリポジトリ構成を選び、[非公開ACRからの取得](https://learn.microsoft.com/en-us/azure/container-apps/managed-identity-image-pull)などを運営と準備します。
 
 ## 1. テスト済みイメージをレジストリへ保存する
 
