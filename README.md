@@ -8,7 +8,7 @@
 
 ## 1. チーム用のForkを作る
 
-**[チーム用にForkする →](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)**
+[![チーム用にForkする](https://img.shields.io/badge/Fork_on_GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)
 
 代表者が1つ作り、メンバーを招待します。Publicの教材から作るForkもPublicです。公開してよい資料を使い、非公開での開発が必要なら作成前に運営へ相談してください。作成済みのチームは、そのリポジトリを使って続けます。
 
@@ -27,6 +27,12 @@
 **Actionsもチーム側で確認します。** 有効化の案内が出たら内容を確認して有効にします。mainには最初はアプリもCIもありません。一覧がなくても進め、最初のCIを作った後にPRで実行を確認します。初心者向けは既存の **Check** を使います。動かない場合は、PRの送り先・ワークフローの条件・**Settings → Actions → General** を運営と確認します。有効化前のPRは実行済みとは扱わず、標準の`pull_request`設定なら **Close → Reopen** で再実行できます。mainでは生成した条件を確認してから操作します。
 
 ## 2. 開発環境を開く
+
+[![Codespacesの作成画面を開く](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new)
+
+**先にチームのForkを作成してください。** Codespacesで編集を始める場合は、ボタン先の **Repository** でチームのFork、**Branch** で `main`、**Machine type** で2-coreを選び、**Create codespace** を押します。準備が終わったら、下のCodespacesガイドでCopilotの設定と作業ブランチの作成を続けます。
+
+作成済みなら[Codespaces一覧から再開](https://github.com/codespaces)できます。Appで編集した変更の確認には、[push済みの作業ブランチを開く手順](handson/copilot-app.md#codespaces-transfer)を使います。
 
 | 使う環境 | 準備・操作のガイド |
 | --- | --- |
