@@ -1,10 +1,10 @@
 # 実装して、確かめながら完成へ進める
 
-このリポジトリは汎用の Vite + React + TypeScript とNode.js APIのスターターです。[締切管理の例](../examples/deadline.md)を完成済みのアプリとして含むものではありません。まず[product.md](../product.md)を自分たちの企画で埋め、チームで完成条件を確認します。
+このリポジトリは汎用の Vite + React + TypeScript とNode.js APIのスターターです。[締切管理の例](../examples/deadline.md)を完成済みのアプリとして含むものではありません。各環境ガイドのPlanで[product.md](../product.md)へ保存した企画・完成条件を使います。未整理の場合は、先に環境ガイドのPlanへ戻って合意・保存します。
 
 このページは[Codespaces](../codespaces.md)と[Copilot app](../copilot-app.md)に共通する進め方です。環境ガイドで終えた起動確認や計画をやり直す必要はありません。
 
-依頼文・3つの文書・実行コマンドを使う理由は、[Copilotと開発する3つの工夫](ai-development-tips.md)で確認できます。
+必要な節を読んだら、選んだ環境の実装（[Codespacesの手順5](../codespaces.md#implementation)・[Copilot appの手順5](../copilot-app.md#implementation)）へ戻ります。依頼文・3つの文書・実行コマンドを使う理由は、[Copilotと開発する3つの工夫](ai-development-tips.md)で確認できます。
 
 ## 1. 起動と確認の方法をそろえる
 
@@ -38,6 +38,8 @@ docs/product.md と画面設計、既存コードを読んでください。
 チームは、必須機能の漏れと不要な追加がないかを確認します。小さな文言修正まで毎回新しい計画を作る必要はありません。
 
 ## 3. AIに実装・検証・修正を続けてもらう
+
+**各環境ガイドの手順5で実装依頼を送信済みなら、次の依頼文を重ねて送る必要はありません。** 現在の作業・結果を引き継ぎ、下の確認方法を使います。未送信の場合だけ、選んだ実行場所に合う依頼文を使ってください。
 
 編集と実行が同じ場所なら、次を送ります。**Appで編集しCodespacesで実行する場合は、[App手順5の依頼文](../copilot-app.md#5-interactiveで実装と確認を繰り返す)を使います。** この経路では、学生のGUIでのcommit・push、Codespacesでの確認、結果の返却を待ってから修正を続けます。
 
@@ -86,4 +88,4 @@ AIの完了報告を、[検証の進め方](verification.md)で確かめます�
 
 セッションや開発環境を切り替える前に、実装済み・未完了、確認結果、次の作業を文書に残してGitで保存します。次のAIは文書とGitの変更を読み、起動・基本動作を確認してから続きを進めます。
 
-必須条件を確認できたら、動くプレビューで発表できます。継続して共有する場合は[Azureへの公開](publish.md)へ進みます。
+実装後は、選んだ環境のチーム確認（[Codespacesの手順6](../codespaces.md#team-verification)・[Copilot appの手順6](../copilot-app.md#team-verification)）へ進みます。必須条件と人の操作確認まで終えている場合は、[Codespacesの手順7](../codespaces.md#save-and-share)・[Copilot appの手順7](../copilot-app.md#save-and-share)で保存・PR・CIの確認を済ませ、[発表・振り返り・終了](presentation.md)へ進みます。

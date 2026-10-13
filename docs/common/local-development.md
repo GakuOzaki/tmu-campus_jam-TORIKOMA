@@ -4,9 +4,11 @@
 
 公開時は、ビルド済みの画面とAPIを1つのコンテナにまとめてAzure Container Appsへ配置します。GitHub Actionsがコンテナを起動してテストします。手元でコンテナを確認する手順も、このページの後半にあります。
 
+発表のために開いた場合は、起動・終了の方法だけを使います。起動できたら[発表の手順1](presentation.md#1-デモの環境を用意する)、発表後に停止できたら[終了の手順4](presentation.md#4-発表後に保存して終了する)へ戻ります。開発の計画や実装をやり直す必要はありません。
+
 ## 起動する
 
-Node.js 24で、リポジトリのルートから実行します。Copilot appでは、初回の **Setup** が終わったら **Run** を押すと `npm run dev` が実行されます。
+Node.js 24で、リポジトリのルートから実行します。Copilot appでは、初回の **Setup** が終わったら **Run** を押すと `npm run dev` が実行されます。[設定の受け入れ・GUIからの起動手順](../copilot-app.md#pcで動作確認する場合)を参照してください。
 
 ```sh
 npm ci
@@ -17,10 +19,10 @@ npm run dev
 
 | 実行する場所 | ブラウザで開く場所 |
 | --- | --- |
-| PC（Copilot appなど） | `http://127.0.0.1:4280`。Appでは **Run → Browser** |
+| PC（Copilot appなど） | `http://127.0.0.1:4280`。Appでは **Run** で起動し、**Browser** で開く |
 | Codespaces | **Ports → 4280 → Open in Browser** |
 
-画面とAPIの入口は同じ4280番です。画面の編集はホットリロードされ、APIの保存時はサーバーが自動で再起動します。反映しない場合は一度停止して起動し直してください。起動を終えるときは実行したターミナルで **Ctrl+C** を押します。
+画面とAPIの入口は同じ4280番です。画面の編集はホットリロードされ、APIの保存時はサーバーが自動で再起動します。反映しない場合は一度停止して起動し直してください。終了するときは、AppのRunで起動したなら **Stop Run**、Terminalで手動起動したならそのTerminalで **Ctrl+C** を使います。停止後もBrowserに描画済みの画面が残ることがあります。表示だけで判断せず、実行の停止表示やログを確認します。
 
 Codespacesで4280が見えなければ **Forward a Port** で追加します。以前から開いているCodespaceでは **Codespaces: Rebuild Container** で開発環境の変更を反映できます。ポートは **Private** のまま使い、チーム内の手動確認は同じPCで交代して操作できます。転送URLはCodespaceとサーバーの起動中だけ使えます。
 
@@ -93,12 +95,12 @@ GitHub ActionsではContainer Appsに対応した `linux/amd64` のコンテナ�
 | 状況 | 確認すること |
 | --- | --- |
 | URLが開かない | 起動完了の表示、使っているポートの転送、Codespaceが停止していないか |
-| ポートが使用中 | 自分が前に起動したサーバーを元のターミナルでCtrl+C終了。別のプロセスを無条件に終了しない |
+| ポートが使用中 | 自分が起動したサーバーを、AppならStop Run、Terminalなら元のTerminalでCtrl+C終了。別のプロセスを無条件に終了しない |
 | 画面が以前のまま | 編集した環境と作業ブランチ、push／pull、previewやコンテナなら再ビルド |
 | 設定・依存を変えて動かない | サーバーを終了し、依存変更時はnpm ciして再起動 |
 | Codespacesでホスト拒否・ホットリロード失敗 | 最新のvite.config.ts、CODESPACE_NAME、GITHUB_CODESPACES_PORT_FORWARDING_DOMAINを確認。allowedHostsをtrueにして回避しない |
 | Dockerが見つからない・接続できない | Codespacesなら開発環境の再構築、PCならDockerの起動を確認。日々の開発はnpm run devで続けられる |
 
-継続して使うURLを作る場合は[公開手順](publish.md)へ進み、公開先でも完成条件を確認します。
+起動や環境の確認ができたら、読んでいた環境ガイドへ戻ります。企画前の準備なら[Codespacesの資料準備](../codespaces.md#prepare-materials)・[Appの資料準備](../copilot-app.md#prepare-materials)、開発中なら[Codespacesの実装](../codespaces.md#implementation)・[Appの実装](../copilot-app.md#implementation)です。発表準備から来た場合は[発表の手順1](presentation.md#1-デモの環境を用意する)、発表後の停止を確認した場合は[終了の手順4](presentation.md#4-発表後に保存して終了する)へ戻ります。公開前のコンテナ確認から来た場合は[公開手順](publish.md)へ戻り、公開先でも完成条件を確認します。
 
 公式資料：[Codespacesのポート転送](https://docs.github.com/en/codespaces/developing-in-a-codespace/forwarding-ports-in-your-codespace) · [Docker用Dev Container Feature](https://github.com/devcontainers/features/tree/main/src/docker-in-docker) · [Container Appsのコンテナ仕様](https://learn.microsoft.com/en-us/azure/container-apps/containers)

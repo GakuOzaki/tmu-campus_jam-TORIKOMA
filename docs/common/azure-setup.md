@@ -1,4 +1,6 @@
-# Container Appsへ公開するための初期設定
+# Container Appsへ公開するための初期設定（任意）
+
+[公開手順](publish.md)から進んだ、Azure公開を選ぶチームのための準備です。プレビューで発表するチームは[発表・振り返り・終了](presentation.md)へ進みます。
 
 この初心者向けコースでは、[選択手順](../choose-start.md)で設定した **`codex/beginner-starter`** がチームのデフォルトブランチです。以下のPRの統合先、手動実行のブランチ、Environmentの許可ブランチには、その名前を使います。
 
@@ -77,3 +79,5 @@ GitHubの **Settings → Secrets and variables → Actions → Variables** に�
 公開の自動更新を止めるときは`ENABLE_AZURE_DEPLOY`を`false`にします。イメージの公開も止める場合は`ENABLE_CONTAINER_PUBLISH`も`false`にします。**この設定だけでは、Azure上のアプリやDBは停止・削除されません。**
 
 発表後の継続利用をチームで決め、不要になったリソースはAzure portalから停止・削除します。チーム専用リソースグループごと削除する場合は、残したいDBやデータが含まれていないか確認してから行います。残す場合は **Cost Management** で使用額・クレジット残量を確認します。
+
+[公開URLの確認へ戻る](publish.md#4-公開urlで確認する) · [発表・振り返り・終了](presentation.md)

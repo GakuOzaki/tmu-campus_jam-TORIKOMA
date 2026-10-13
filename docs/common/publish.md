@@ -1,4 +1,6 @@
-# 動くアプリで発表し、Container Appsへ公開する
+# 継続して使うためにContainer Appsへ公開する（任意）
+
+**動くプレビューでの発表には、このページの作業は不要です。** 継続して共有するURLが必要なチームが、保存・PR・CIの確認後に運営と進めます。公開しない場合は[発表・振り返り・終了](presentation.md)へ進みます。
 
 この初心者向けコースでは、[選択手順](../choose-start.md)で設定した **`codex/beginner-starter`** がチームのデフォルトブランチです。以下のPRの統合先、手動実行のブランチ、Environmentの許可ブランチには、その名前を使います。
 
@@ -17,7 +19,7 @@
 今回の変更と検証記録をすでに保存・pushし、確認してチームのデフォルトブランチへマージ済みなら、次の「3. 自動テストとデプロイを待つ」へ進みます。
 
 1. [完成確認](verification.md)を終えます。
-2. 確認後に残っている変更や検証記録をcommit・pushします。Copilot appの場合は[AppのGUI手順](../copilot-app.md#codespacesへ変更を渡して確認する)の1〜4、Codespacesの場合は[保存の手順](../codespaces.md#7-保存し必要になったら公開する)を使います。保存・push済みなら、この操作は不要です。
+2. 確認後に残っている変更や検証記録をcommit・pushします。Copilot appの場合は[AppのGUI手順](../copilot-app.md#codespacesへ変更を渡して確認する)の1〜4、Codespacesの場合は[保存の手順](../codespaces.md#save-and-share)を使います。保存・push済みなら、この操作は不要です。
 3. GitHubでPRを作り、**Check** の成功、画面の操作結果、チームの完成条件を確認してチームのデフォルトブランチへマージします。作成済みのPRがあれば、そのPRを使います。
 
 ## 3. 自動テストとデプロイを待つ
@@ -63,6 +65,8 @@
 | `production` Environmentを作れない | リポジトリ所有者のプランと管理権限。Private OrganizationはGitHub Team以上が必要で、学生個人のProでは代用できない |
 | リビジョンが起動しない | Azureのコンテナログ、環境変数、待受ポート8080、外部DB・APIへの接続 |
 | 公開後に機能が動かない | 公開URLで再現する操作・エラーと、Actionsの実行URLをCopilotへ渡す |
+
+公開URLでの確認結果を記録したら、[発表・振り返り・終了](presentation.md)へ戻ります。すでに発表済みの場合は、引き継ぎと終了の確認に使います。
 
 利用が終わった後の停止・削除と費用の確認は、[初期設定の終了時の手順](azure-setup.md#5-利用を終えるとき)に従います。
 

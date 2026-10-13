@@ -98,3 +98,5 @@
 - 変更した仕様と理由、合わせて更新した文書・画面・テスト：未入力
 
 合意後に[作業計画](tasks.md)を作り、結果は[検証記録](verification.md)へ残します。
+
+編集・保存の操作は選んだ環境のPlan（[Codespacesの手順4](codespaces.md#planning)・[Copilot appの手順4](copilot-app.md#planning)）へ戻って進めます。企画と計画を保存済みなら、環境ガイドの手順5で実装へ進みます。
