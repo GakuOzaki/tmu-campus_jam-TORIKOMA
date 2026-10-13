@@ -29,9 +29,9 @@ git switch -c feat/first-demo
 
 **Plan** で[READMEのPlan用プロンプト](../README.md#plan)を送ります。実際の資料パスを指定し、**編集はPC、実行はPCまたはCodespacesのどちらか**を明記します。読めない資料はチャットへ添付するか必要な本文を補い、読めたことにして進めません。
 
-チームで合意したら **Interactive** に戻します。**Review plan** が出る版では **Exit plan mode and I will prompt myself** を選び、「合意内容をルートの `PLAN.md` へ保存し、アプリの実装はまだ始めないでください」と依頼します。`PLAN.md`はこの段階で作り、既存なら更新・再利用します。
+チームで合意したら **Interactive** に戻します。**Review plan** が出る版では **Exit plan mode and I will prompt myself** を選び、[READMEの保存・確認の依頼文](../README.md#plan)を送ります。`prepare-project`でルートの`PLAN.md`へ保存し、実ファイルを読み直して確認してもらいます。既存なら更新・再利用します。
 
-目的・完成条件・対象外・作業順・構成・編集と実行の場所が記録されたことを確認します。PCで実行する場合だけ、採用した言語・ツールをPCへ準備します。Codespacesで追加の実行環境が必要なら、`.devcontainer/`の調整を最初の作業へ含めます。
+自分たちでもプロジェクトのファイル一覧かOSのファイル管理画面からルートの`PLAN.md`を開き、目的・完成条件・対象外・作業順・構成・編集と実行の場所などが合意どおり記録されたことを確認します。ファイルがない・内容が違う場合は、保存・確認を依頼し直してから実装へ進みます。PCで実行する場合だけ、採用した言語・ツールをPCへ準備します。Codespacesで追加の実行環境が必要なら、`.devcontainer/`の調整を最初の作業へ含めます。
 
 ## 4. Interactiveで実装する
 
