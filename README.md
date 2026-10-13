@@ -19,6 +19,10 @@
 
 [コースの選び方とチーム用リポジトリの作成](docs/choose-start.md)で、チームに合う出発点を一つ選びます。リポジトリの作成は一度だけ行い、選んだコースのREADMEから環境ガイドへ進みます。
 
+[![チーム用にForkする](docs/images/fork-button.svg)](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)
+
+チーム用リポジトリがまだなければ、代表者が上のボタンから作成します。**Copy the main branch onlyは、mainコースならオン、初心者向けならオフ**にします。作成後は[選択手順](docs/choose-start.md)に沿って、既定ブランチ・招待・Actionsを確認してください。
+
 **`main`にはアプリ本体、package.json、起動コマンド、アプリ用CIはまだありません。** 企画の記録欄、Copilotへの指示・Skills、Codespacesの開発環境を用意しています。最初の計画で技術を選び、最初の実装タスクとして必要なファイルと確認方法をCopilotに作ってもらいます。React + Viteは候補の一つで、HTML中心の小さな構成や、APIを含む構成も選べます。
 
 ## 環境を選ぶ
