@@ -24,7 +24,9 @@ Codespacesだけで確認する場合は、PCのSetup・Run・Node.js導入を�
 
 プロジェクトのフォルダをOSのファイル管理画面で開き、`docs`直下へ企画資料を追加します。モードを **Plan** にして[READMEの依頼文](../README.md#plan)を使います。画像やPDFを読み取れなければ、本文や読み取れる形式をチャットへ添付します。
 
-草案に合意したら **Interactive** へ戻り、ルートの`PLAN.md`へ保存します。**Review plan**が出る版では **Exit plan mode and I will prompt myself** で戻り、保存だけを依頼します。PC実行かCodespaces実行かを記録し、[READMEの実装](../README.md#build)へ進みます。Codespaces実行なら先に[下の引き継ぎ](#codespaces-transfer)で起動を確かめます。
+草案に合意したら **Interactive** へ戻り、[READMEの保存・確認の依頼文](../README.md#plan)を送ります。**Review plan**が出る版では **Exit plan mode and I will prompt myself** で戻ります。`prepare-project`でルートの`PLAN.md`へ保存し、実ファイルを読み直して確認してもらいます。PC実行かCodespaces実行かも記録します。
+
+自分たちでもプロジェクトのファイル一覧かOSのファイル管理画面からルートの`PLAN.md`を開き、合意内容を確認してから[READMEの実装](../README.md#build)へ進みます。ファイルがない・内容が違う場合は、保存・確認を依頼し直します。Codespaces実行なら先に[下の引き継ぎ](#codespaces-transfer)で起動を確かめます。
 
 PCではサーバーと別のTerminalで`npm run check`と`npm run test:e2e`を実行します。Chromiumがなければ`npx playwright install chromium`、Linuxの依存ライブラリ不足なら`npx playwright install --with-deps chromium`を一度実行します。RunのBrowserで人も操作し、見た目の修正には **Pick & Polish**も使えます。結果はPROGRESSへ残して[READMEの確認](../README.md#verify)へ戻ります。
 
