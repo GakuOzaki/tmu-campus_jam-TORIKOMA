@@ -31,6 +31,12 @@
 
 Spec Kitや各社SDK自体の導入は、この教材の必須条件ではありません。上記の考え方を、少数の資料、共有Skills、npmコマンドで実践します。
 
+## Forkによる教材の配布
+
+10月13日に標準の配布方法をForkへ変更しました。[Forkの作成](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/fork-a-repo)に沿って、チーム代表者がForkを1つ作り、Collaboratorsへメンバーを招待します。[Forkの公開範囲](https://docs.github.com/en/pull-requests/reference/forks)により、Publicの教材から作るForkもPublicです。
+
+[Fork内のワークフロー](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#workflows-in-forked-repositories)は初期状態で無効なので、チーム側で有効化します。PRはbase repositoryとhead repositoryの両方をチームのForkにします。[Forkの同期](https://docs.github.com/en/pull-requests/how-tos/work-with-forks/syncing-a-fork)は、運営が案内した教材更新を同じコースへ取り込むときに使います。学生用の具体的な手順は[はじめ方](choose-start.md)を参照してください。
+
 ## GitHub Copilotの共通機能
 
 - [Agent Skills](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills)：VS Code AgentとCopilot appの両方が対象。教材では`.github/skills/`を共有し、認識されない場合は`SKILL.md`を明示して読みます。

@@ -24,7 +24,7 @@ Node.js 24 LTS、npm、`package-lock.json` を使用します。
 
 ## 作業と完了
 
-- これは初心者向けコース。チームのデフォルトブランチは`codex/beginner-starter`を使い、そこから作業ブランチを作って同じ枝へのPRで統合する。コピーされた`main`コースとマージしない。未設定なら`docs/choose-start.md`の手順を案内する。
+- これは初心者向けコース。代表者が作った1つのPublicのチーム用Forkを使い、メンバーはCollaboratorsとして参加する。チームのデフォルトブランチは`codex/beginner-starter`を使い、そこから作業ブランチを作る。PRのbase repositoryとhead repositoryはどちらもチームのFork、base branchは`codex/beginner-starter`、compareは作業ブランチとし、配布元への学生アプリのPRやコース間マージは行わない。未設定なら`docs/choose-start.md`を案内し、CIが動かない場合はFork側のActions有効化も確認する。教材のSync forkは運営から案内された場合だけ同じコースで行い、競合・未保存変更を強制的に上書きしない。
 
 - 相談・Planモードでは草案を提示し、編集可能なモードで依頼を受けてからファイルに反映する。
 - 合意した作業の範囲で、実装・関連テスト・不具合修正を続ける。文言だけの変更に大きな計画や全テストを強制しない。

@@ -20,7 +20,7 @@
 
 1. [完成確認](verification.md)を終えます。
 2. 確認後に残っている変更や検証記録をcommit・pushします。Copilot appの場合は[AppのGUI手順](../copilot-app.md#codespacesへ変更を渡して確認する)の1〜4、Codespacesの場合は[保存の手順](../codespaces.md#save-and-share)を使います。保存・push済みなら、この操作は不要です。
-3. GitHubでPRを作り、**Check** の成功、画面の操作結果、チームの完成条件を確認してチームのデフォルトブランチへマージします。作成済みのPRがあれば、そのPRを使います。
+3. [チームのFork内のPR](../choose-start.md#team-pull-request)を作り、base repositoryとhead repositoryがチームのForkであること、**Check** の成功、画面の操作結果、チームの完成条件を確認してチームのデフォルトブランチへマージします。作成済みのPRがあれば、そのPRを使います。
 
 ## 3. 自動テストとデプロイを待つ
 

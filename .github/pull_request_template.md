@@ -1,4 +1,4 @@
-PRのbaseがチームのデフォルトブランチ（初心者向けは`codex/beginner-starter`）、compareがそこから作った作業ブランチか確認してください。
+PRのbase repositoryとhead repositoryがどちらもチームのFork、baseがチームのデフォルトブランチ（初心者向けは`codex/beginner-starter`）、compareが作業ブランチか確認してください。学生のアプリのPRを配布元へ送らないでください。
 
 ## 何ができるようになるか
 

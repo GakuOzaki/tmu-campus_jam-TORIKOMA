@@ -10,12 +10,12 @@
 
 ## 1. チームのリポジトリを作る
 
-Azureへの自動公開まで行う場合、Publicリポジトリ、またはGitHub Proの個人アカウント所有のPrivateリポジトリで進められます。Organization所有のPrivateリポジトリではOrganizationのGitHub Team以上が必要です。[公開の初期設定](common/azure-setup.md)を参照してください。
+この教材は、代表者が作成した **Publicのチーム用Fork** で進めます。Privateが必要な場合は運営へ相談します。Azure公開を選ぶ場合だけ、[公開の初期設定](common/azure-setup.md)を参照してください。
 
 1. [企画の進め方](common/ideation.md)の手順1〜5で、誰の何を解決するかと画面案をチームで決めます。事前に企画・画面案がある場合は、その成果を確認して使います。手順6の文書整理は、環境を準備した後、このガイドの手順4で行います。
-2. [はじめ方を選ぶ](choose-start.md)に沿って、**Include all branches** でチーム用リポジトリを作り、チーム側のデフォルトブランチを **`codex/beginner-starter`** にします。準備済みなら、そのリポジトリを使います。
+2. [はじめ方を選ぶ](choose-start.md)に沿って、代表者が **Copy the main branch onlyをオフ**にしてチーム用Forkを1つ作り、デフォルトブランチを **`codex/beginner-starter`** にします。[Actionsの有効化](choose-start.md#enable-actions)も行います。準備済みなら、そのリポジトリを使います。
 3. チーム全員が編集する場合は、リポジトリの **Settings → Collaborators** からメンバーを追加します。選択手順で招待済みなら追加し直す必要はありません。
-4. 以降は、作成したチームのリポジトリを開いて作業します。
+4. 以降は、配布元ではなく、作成したチームのForkを開いて作業します。
 
 最初の実装は一人が操作し、ほかのメンバーが企画・画面・動作を確認すると進めやすくなります。複数人が編集する場合は、それぞれ別のブランチを使います。
 
@@ -182,7 +182,7 @@ npx playwright install --with-deps chromium
 
 **Source Control** で変更ファイルを選んで差分を確認し、採用するファイルの `+` を押してステージします。コミットメッセージを入力して **Commit** を選び、そのままGitHubへ送ります。初回は **Publish Branch**、公開済みの作業ブランチでは **Source Control → … → Push** を使います。Copilotには変更内容の説明やコミットメッセージ案を相談できます。[CodespacesのGUI操作の公式手順](https://docs.github.com/en/codespaces/developing-in-a-codespace/using-source-control-in-your-codespace)
 
-GitHubのチームリポジトリで **Compare & pull request** を開き、**baseがチームのデフォルトブランチ（`codex/beginner-starter`）、compareが作業ブランチ**になっているPRを作ります。コピーされた`main`コースへはPRを作りません。チームで変更とCIの結果を確認します。CIには本番用コンテナを起動して行うテストも含まれます。PR・CIの実行URL、対象変更、結果を[検証記録](verification.md#prとciの確認)へ追記し、追記分もcommit・pushします。最新のCIが成功し、チームが確認できたらマージします。記録だけを追加したコミットごとに同じ結果を追記し続ける必要はありません。
+GitHubのチームのForkで **Compare & pull request** を開き、**base repositoryとhead repositoryがどちらもチームのFork、baseが`codex/beginner-starter`、compareが作業ブランチ**になっているPRを作ります。[PRの比較先の選び方](choose-start.md#team-pull-request)に沿って所有者・リポジトリ名も確かめます。学生のアプリのPRを配布元へ送らず、別コースの`main`へも向けません。CIが動かない場合は、[チームのForkのActions有効化](choose-start.md#enable-actions)を確認します。チームで変更とCIの結果を確認します。CIには本番用コンテナを起動して行うテストも含まれます。PR・CIの実行URL、対象変更、結果を[検証記録](verification.md#prとciの確認)へ追記し、追記分もcommit・pushします。最新のCIが成功し、チームが確認できたらマージします。記録だけを追加したコミットごとに同じ結果を追記し続ける必要はありません。
 
 次は[発表・振り返り・終了](common/presentation.md)へ進みます。Codespacesのプレビューで発表でき、Azureへのデプロイは必須ではありません。継続して使えるURLが必要な場合だけ、[Azure Container Appsへの公開手順](common/publish.md)を使い、公開先でも操作を確認します。
 

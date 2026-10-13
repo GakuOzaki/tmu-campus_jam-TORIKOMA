@@ -1,5 +1,11 @@
 # スターターの検証記録
 
+## 2026年10月13日：配布手順をチーム用Forkへ変更
+
+標準の配布手順を、代表者1人によるチーム用Fork1つの作成、メンバー招待、初心者向けのデフォルトブランチ設定、Actionsの有効化へ変更しました。PRのbase repository・head repositoryの両方をチームのForkにする手順を、環境ガイド、共通指示、PRテンプレート、公開と運営の手順へ反映しました。ForkはPublic、Sync forkは運営が案内するときだけ同じコースで使う方針です。
+
+今回行ったのは文書とリンクの確認です。**Fork作成、既定ブランチ変更、Actions有効化、チーム内PR・CIの一連の実操作は未確認です。** アプリ・実行・CI設定は変更しておらず、以下の従来のテンプレート配布や別リポジトリでの検証を、Fork新経路の成功とは扱いません。現在の配布手順は[はじめ方](choose-start.md)、残る実機確認はこの文書末尾を参照してください。
+
 ## 2026年10月13日：全教材の順序・再開・引き継ぎを再確認
 
 初心者向けの配布ブランチ `6ae7b22` を基に、READMEから全教材、共通指示・Skills、App・Codespacesの設定、PRテンプレート、実行・CI設定を読み直しました。Codespaces、AppでPC実行、Appで編集してCodespaces実行の3経路について、企画済み・計画保存済み・開発途中・マージ後の開始位置と、発表後の保存・停止までを文書上でたどりました。
@@ -69,7 +75,7 @@ mainの25 Markdown、初心者向けの24 Markdownを対象に相対リンク・
 
 ## GitHub・Copilot appでの確認
 
-配布用リポジトリはTemplate repositoryとして用意済みです。再監査時に、コミット`774cafc`の[Check実行結果](https://github.com/mochan-tk/hackathon-for-student-20261017/actions/runs/37880463818)の成功を確認しました。GitHubのLinux runnerで依存関係のインストール、lint・型・本番ビルド、Dockerイメージのビルド・起動、APIの起動確認、本番コンテナに対するPC幅・スマホ幅のE2Eを確認しています。
+当時は配布用リポジトリをTemplate repositoryとして用意済みでした。再監査時に、コミット`774cafc`の[Check実行結果](https://github.com/mochan-tk/hackathon-for-student-20261017/actions/runs/37880463818)の成功を確認しました。GitHubのLinux runnerで依存関係のインストール、lint・型・本番ビルド、Dockerイメージのビルド・起動、APIの起動確認、本番コンテナに対するPC幅・スマホ幅のE2Eを確認しています。
 
 当時の構成では、GHCRへのイメージ公開・Azureへのデプロイは初期設定を有効にした`main`だけで動き、PRでは実行しませんでした。上の実行でも`oidc-setup`、`publish`、`deploy`はスキップされています。
 
@@ -145,11 +151,11 @@ PRの自動レビューでは、複数タブによる保存データの上書き
 
 修正後、macOS arm64・Node.js 24.19.0で`npm ci --offline`、`npm run check`、PC幅・390px幅の`npm run test:e2e`（6件）が成功しました。Chromiumは一時フォルダーへ導入して実行しました。`actionlint`、文書の相対リンク・見出し169件、公開・OIDCのブランチ判定12パターンのオフライン確認も成功しています。ブランチ判定の確認はGitHub Actions上の実行を代替するものではありません。
 
-上に記録したCodespaces実機リハーサルは、初心者向けのアプリ基盤とPlan→実装→確認の経路に対する過去の検証です。**今回追加したInclude all branchesでの新規コピー、デフォルトブランチの変更、そのブランチへのPR・CI・公開の一連の実操作は未確認です。** 配布前に新しいチーム用リポジトリで通してください。
+上に記録したCodespaces実機リハーサルは、初心者向けのアプリ基盤とPlan→実装→確認の経路に対する過去の検証です。**当時追加したInclude all branchesでの新規コピー、デフォルトブランチの変更、そのブランチへのPR・CI・公開の一連の実操作は、この時点では未確認でした。** 現在のFork方式で配布前に確認する項目は次節を参照してください。
 
 ## 配布前に残っている確認
 
-- 全ブランチのコピー→`codex/beginner-starter`をデフォルトへ変更→同コースから作業ブランチ→同コースへのPR・CIを、新しいチームリポジトリで確認する。
+- Copy the main branch onlyをオフにしたFork→`codex/beginner-starter`をデフォルトへ変更→メンバー招待→Actions有効化→作業ブランチ→チームのFork内のPR・CIを、新しいチーム用Forkで確認する。PRのbase repository・head repositoryの両方がチームのForkであることも確かめる。
 - Codespacesで保存後のホットリロードと、任意のDockerプレビューを確認する。
 - Copilot appでclone、設定受け入れ、Setup、Run、Browser、Changesを通す。
 - Studentアカウントで、企画整理→Plan→実装→完成条件との照合を両経路で通す。
