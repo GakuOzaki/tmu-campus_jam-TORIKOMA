@@ -15,7 +15,11 @@
 
 **Publicの教材から作るForkもPublicです。** 企画資料やコードは公開してよい内容を使います。Privateが必要なチームは、Forkの公開範囲を変更しようとせず、運営と別の配布方法を相談します。[Forkの公開範囲](https://docs.github.com/en/pull-requests/reference/forks)
 
-1. [配布元のGitHubページ](https://github.com/mochan-tk/hackathon-for-student-20261017)で **Fork → Create a new fork** を選びます。
+チーム用リポジトリが未作成なら、代表者が次のボタンから始めます。コースは作成画面で下の手順に沿って選びます。
+
+[![チーム用にForkする](images/fork-button.svg)](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)
+
+1. 上のボタンでFork作成画面を開きます。[配布元のGitHubページ](https://github.com/mochan-tk/hackathon-for-student-20261017)の **Fork → Create a new fork** からも開けます。
 2. 所有者とチーム用のリポジトリ名を決めます。以後、その所有者・名前のリポジトリを「チームのFork」と呼びます。
 3. **自分たちで構成を決める場合は、Copy the main branch onlyをオン**にします。**初心者向けの場合は、Copy the main branch onlyをオフ**にして、`codex/beginner-starter`も含めます。**Create fork** を押します。
 4. 初心者向けは、作成したチームのForkの **Settings → General → Default branch** の変更ボタンから`codex/beginner-starter`を選び、**Update** を押して確認画面を確定します。管理権限のある代表者が行います。mainコースは`main`のまま使います。

@@ -15,6 +15,10 @@
 - **リポジトリを準備済み**：下の環境ガイドへ進みます。企画も決まっていれば、その資料を使い、済んだ作業を繰り返す必要はありません。
 - **開発の続きから再開する**：[tasks.mdの引き継ぎ](docs/tasks.md#次のセッションへの引き継ぎ)を読み、使っていた環境と作業ブランチで続けます。前のPRをマージ済みなら、[マージ後の作業準備](docs/common/build-loop.md#after-merge)から始めます。
 
+チーム用リポジトリが未作成なら、代表者が下のボタンでFork作成画面を開きます。**初心者向けはCopy the main branch onlyをオフ**にし、作成後は[既定ブランチ・メンバー招待・Actionsの手順](docs/choose-start.md)へ進みます。
+
+[![チーム用にForkする](docs/images/fork-button.svg)](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)
+
 | 使う環境 | 最初に開くガイド | 準備 |
 | --- | --- | --- |
 | Codespaces + VS Code Copilot Chat | [Codespacesで進める](docs/codespaces.md) | GitHubとCopilotが使えるアカウント、ブラウザ |
