@@ -8,6 +8,8 @@
 
 初めて読むときは、下の[企画から発表まで](#企画から発表まで)で現在地を確認します。企画済みならコース選択へ、チーム用リポジトリも作成済みなら[環境を選ぶ](#環境を選ぶ)へ進んでください。**開発中は、選んだ環境ガイドを本線にして、案内された共通資料を読んだら元の手順へ戻ります。**
 
+途中から再開する場合は、[保存済みの作業から続ける](docs/common/build-loop.md#resume-work)へ進みます。企画・Plan・環境の準備を毎回やり直す必要はありません。
+
 ## 自分たちに合う始め方を選ぶ
 
 | コース | ブランチ | 向いているチーム |
@@ -35,15 +37,17 @@ CodespacesにはNode.js 24とDockerを使える環境を用意していますが
 | 段階 | 進めること・開く資料 | 次へ渡すもの |
 | --- | --- | --- |
 | 1. 企画と画面を決める | [企画の手順1〜5](docs/common/ideation.md)。書き方に迷ったら[締切管理の例](docs/examples/deadline.md)を見る | チームで選んだ課題・最大3つのコア機能・完成条件・画面案 |
-| 2. 開発の準備をする | [コース選択とコピー](docs/choose-start.md)後、[Codespaces](docs/codespaces.md)または[Copilot app](docs/copilot-app.md)のガイドを選び、[元資料](docs/source/README.md)を置く | チーム用リポジトリ、作業ブランチ、共有できる企画メモ・画面PNG・遷移 |
-| 3. Planで相談して保存する | 環境ガイドのPlan手順で`prepare-project`を使い、企画・最小構成・実装順を確認する | 合意した[企画](docs/product.md)・[開発方法](docs/development.md)・[作業計画](docs/tasks.md) |
-| 4. 作って、確かめて、直す | 環境ガイドの実装手順と[実装ループ](docs/common/build-loop.md#3-実装検証修正を続ける)。起動は[開発環境](docs/common/local-development.md)、完成確認は[検証手順](docs/common/verification.md)を使う | アプリ、必要なテスト・CI、別の学生による操作結果、[検証記録](docs/verification.md) |
+| 2. 開発の準備をする | [コース選択とコピー](docs/choose-start.md)後、[Codespaces](docs/codespaces.md)または[Copilot app](docs/copilot-app.md)を選ぶ。[元資料](docs/source/README.md)を置き、[コンテキストの図](docs/common/ai-development-tips.md#context-engineering)で保存先を確認する | チーム用リポジトリ、作業ブランチ、共有できる企画メモ・画面PNG・遷移 |
+| 3. Planで相談して保存する | [プロンプトの図](docs/common/ai-development-tips.md#prompt-engineering)で依頼の4項目を確認し、環境ガイドのPlanで`prepare-project`を使う。草案に合意してから保存する | 合意した[企画](docs/product.md)・[開発方法](docs/development.md)・[作業計画](docs/tasks.md) |
+| 4. 作って、確かめて、直す | [ハーネスの図](docs/common/ai-development-tips.md#harness-engineering)から環境ガイドの実装へ。[実装ループ](docs/common/build-loop.md#3-実装検証修正を続ける)、[起動・終了](docs/common/local-development.md)、[完成確認](docs/common/verification.md)を必要な場面で使う | アプリ、必要なテスト・CI、別の学生による操作結果、[検証記録](docs/verification.md) |
 | 5. 保存・PRで共有する | 使っている環境の[Codespaces手順7](docs/codespaces.md#save-and-share)／[App手順7](docs/copilot-app.md#save-and-share)へ戻り、差分・記録・CIを確認する | チームの基準ブランチへ反映した成果、CI結果と残る課題 |
 | 6. 発表して終了する | [デモ・発表と引き継ぎ](docs/common/presentation.md)で、主要操作・確認結果・学びを伝え、発表後に環境を停止する | 発表、残る作業と再開方法 |
 
 企画書などを先に全部手書きする必要はありません。段階1の元資料を入力に、段階3でCopilotに整理してもらい、チームが確認して保存します。既に合意・保存した部分は再利用します。
 
 3つの図解は、資料準備で「コンテキスト」、Plan前に「プロンプト」、実装開始時に「ハーネス」を各ガイドから参照します。継続して共有するURLが必要なチームだけ、発表ガイドから[Azure Container Appsへの公開](docs/common/publish.md)へ分岐します。Azureなしでもこの流れを最後まで進められます。
+
+**共通資料は、その段階で案内された節を使います。** 図解の詳細説明や公式出典は深めたいときに、運営資料と過去の検証記録はメンターが準備・支援するときに参照します。記録用ファイルは別の読み物として全部埋めるのではなく、Planの保存・実装・確認に合わせてCopilotと更新します。
 
 ## チームで更新する記録
 

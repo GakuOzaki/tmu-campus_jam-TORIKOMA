@@ -22,7 +22,7 @@ Copilotに、既存のアプリ用CIを読んだ上で、必要な公開用ワ�
 
 チームでPRを確認し既定ブランチへマージしたら、GitHubの **Actions → 追加したワークフロー → Run workflow** で既定ブランチを指定して実行します。Run workflowは、手動実行に対応するファイルが既定ブランチに入ってから表示されます。[手動実行の仕様](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)
 
-成功した実行のSummaryを確認し、対象コミット・結果・digestを[verification.md](../verification.md)へ記録します。次に、所有者の **Packages → 対象パッケージ → Package settings → Change visibility → Public** を選びます。初回公開時のパッケージは通常Privateです。**Public化はチームで公開内容を確認してから行います。一度PublicにしたパッケージはPrivateへ戻せません。** Organizationのポリシーで変更できない場合は運営と公開方法を決めます。[パッケージの公開範囲](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)
+成功した実行のSummaryから対象コミット・結果・digestを控え、[公開手順4](publish.md#4-公開urlで確認する)で公開URLと一緒に記録します。次に、所有者の **Packages → 対象パッケージ → Package settings → Change visibility → Public** を選びます。初回公開時のパッケージは通常Privateです。**Public化はチームで公開内容を確認してから行います。一度PublicにしたパッケージはPrivateへ戻せません。** Organizationのポリシーで変更できない場合は運営と公開方法を決めます。[パッケージの公開範囲](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)
 
 ## 2. Azureの利用先を決める
 
