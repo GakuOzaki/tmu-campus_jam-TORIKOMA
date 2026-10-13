@@ -2,7 +2,19 @@
 
 このフォルダに、Copilotへ渡すチームの資料を保存します。例えば `idea-notes.md` に企画メモ、`screen-home.png` に画面画像、`flow.md` に「何を押すとどうなるか」を記録します。ファイル名はチームで決めて構いません。
 
-FigmaはPNGに書き出した画面と操作・遷移の説明で引き継げます。FigmaのURLを残す場合も、Copilotからアクセスできるとは限らないため、実装に必要な情報をここで読めるようにします。[product.md](../product.md)の入力資料欄から、保存したファイルを参照してください。
+FigmaはPNGに書き出した画面と操作・遷移の説明で引き継げます。FigmaのURLを残す場合も、Copilotからアクセスできるとは限らないため、実装に必要な情報をここで読めるようにします。Planで合意した内容を[product.md](../product.md)へ保存するときに、入力資料欄にも参照先を残します。
+
+<a id="share-screens"></a>
+
+## 画面をCopilotへ渡す
+
+Figmaの実装対象のフレームをPNGへ書き出し、画面名が分かる名前でこのフォルダへ保存します。CodespacesではExplorerの `docs/source/` へ、Appではプロジェクトのフォルダ内へ追加します。各PNGに対応する操作・戻り先を `flow.md` などに添えます。
+
+Planの依頼には、今回使うファイルのパスを具体的に列挙します。例えば `docs/source/idea-notes.md`、`docs/source/screen-home.png`、`docs/source/flow.md` です。実際に置いたファイル名に置き換え、必要ならチャットにも添付します。**`docs/images/` はこの教材の説明図であり、チームのアプリの画面案ではありません。今回の入力は、`docs/source/` に置いて指定した資料です。**
+
+Copilotに「読み取れた画面名と操作の流れ、読めなかった資料を最初に示して」と伝え、見てほしい画面を使っていることを確かめます。画像が参照されない場合はチャットの添付操作でPNGを渡します。読めない画像やURLの中身を推測させず、画面の表示・操作を短い文章で補って進めます。接続設定の追加は必須ではありません。
+
+## 共有してよい内容を残す
 
 この教材は、運営の企画ワークシート、記入例、企画事前講義の流れに合わせて、AIでの実装と検証へつなぐものです。[企画の手順](../common/ideation.md)と[締切管理の例](../examples/deadline.md)に、共有してよい要点を記載しています。
 
@@ -12,4 +24,4 @@ FigmaはPNGに書き出した画面と操作・遷移の説明で引き継げま
 
 元資料と教材で食い違いがあれば、課題 → 深掘り → 解決策 → 企画 → 開発要件 → 手書き → Figma → 実装の順を確認し、変更理由をチームで共有します。
 
-資料の場所と正本の役割は[コンテキストの図解](../common/ai-development-tips.md#context-engineering)でも確認できます。資料を用意したら、選んだ環境ガイド（[Codespacesの手順3](../codespaces.md#prepare-materials)・[Copilot appの手順4](../copilot-app.md#prepare-materials)）へ戻り、Planで自分たちの企画を整理します。
+企画メモ・画面PNG・操作と遷移の説明を保存したら、[Codespacesの資料準備](../codespaces.md#prepare-materials)・[Copilot appの資料準備](../copilot-app.md#prepare-materials)へ戻り、コンテキストの図解を確認してからPlanへ進みます。合意した内容を文書へ保存するときに、`product.md` の入力資料欄にも参照先を残します。整理済みの文書があれば、それを引き継いで未決定の点から相談します。

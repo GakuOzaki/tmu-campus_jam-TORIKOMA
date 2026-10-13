@@ -6,6 +6,8 @@
 
 このページが開発中の本線です。共通ページを開いたら、読んでいた段階へ戻って続けます。Azureへの公開は、継続して共有するURLが必要なチームだけが行います。
 
+途中の作業を再開する場合は、[保存した作業から再開する](common/build-loop.md#resume-work)で、計画・実装・PRの状態に合う工程へ進みます。企画だけが決まっている場合は、下の環境準備を済ませて手順4で未決定の計画を相談します。
+
 ## 1. チームのリポジトリを作る
 
 Azureへの自動公開まで行う場合、Publicリポジトリ、またはGitHub Proの個人アカウント所有のPrivateリポジトリで進められます。Organization所有のPrivateリポジトリではOrganizationのGitHub Team以上が必要です。[公開の初期設定](common/azure-setup.md)を参照してください。
@@ -65,7 +67,7 @@ git switch -c feat/first-demo
 
 同名のブランチをすでに使っている場合は、作成し直さず `git switch feat/first-demo` で戻ります。複数人で編集する場合は、`feat/input-form` など作業ごとに別の名前にします。
 
-[docs/source/](source/README.md)へ企画メモや画面PNGを入れます。Figmaを使った場合も、画面PNGと「押すとどうなるか」のメモがあれば進められます。[締切管理の例](examples/deadline.md)も参考にできます。
+[docs/source/](source/README.md)へ企画メモや画面PNGを入れます。Figmaを使った場合も、画面PNGと「押すとどうなるか」のメモがあれば進められます。同ページの[画面を渡す手順](source/README.md#share-screens)で、保存した画面とチャットへの渡し方を確認します。[締切管理の例](examples/deadline.md)も参考にできます。
 
 引き継ぐ情報は次の3ファイルに残します。
 
@@ -83,7 +85,7 @@ git switch -c feat/first-demo
 
 [プロンプトの図解](common/ai-development-tips.md#prompt-engineering)で、依頼の4項目と短い例を確認してから、下の依頼文を自分たちの企画に合わせて使います。
 
-Copilot Chatで **Plan** を選び、次を送ります。
+Copilot Chatで **Plan** を選び、次を送ります。すでに保存済みの企画は再利用し、未決定の点だけ相談します。初回接続直後にPlanが見えない場合は、サインインと拡張機能の準備が終わるのを待ち、選択欄を開き直します。
 
 ```text
 目的：
@@ -108,7 +110,7 @@ docs/product.mdに残す企画・DoD・対象外と、docs/tasks.mdに残す小�
 .github/skills/prepare-project/SKILL.mdの手順を読んで進めてください。
 ```
 
-対象者、最初に通す操作、完成条件をチームで確認します。案を直したい場合は、そのままChatへ伝えます。計画がまとまったら **Agent** に切り替え、採用した企画と計画を `docs/product.md` と `docs/tasks.md` へ反映するよう依頼します。`docs/tasks.md` の引き継ぎ欄には「編集・実行・ブラウザ確認はCodespaces」と残します。画面上の計画だけで終わらせず、次のセッションでも読めるファイルに残します。
+対象者、最初に通す操作、完成条件をチームで確認します。案を直したい場合は、そのままChatへ伝えます。計画がまとまったら **Agent** に切り替え、「合意した企画と完成条件を `docs/product.md`、実装の順番を `docs/tasks.md` へ保存し、アプリの実装はまだ始めないでください」と依頼します。保存した内容をチームで確認してから、手順5の実装へ進みます。`docs/tasks.md` の引き継ぎ欄には「編集・実行・ブラウザ確認はCodespaces」と残します。画面上の計画だけで終わらせず、次のセッションでも読めるファイルに残します。
 
 <a id="implementation"></a>
 
@@ -127,6 +129,7 @@ docs/product.md、docs/tasks.mdと関係するコード・テストを読んで�
 
 制約：
 合意した範囲を守り、編集・実行・ブラウザ確認はCodespacesで行ってください。
+commit・pushはこちらがSource Controlの画面で行うので、自動実行せず待ってください。
 人の判断、認証、外部サービスの準備が必要なら、その理由と次の操作を知らせてください。
 実行できなかった確認は未確認とし、成功扱いにしないでください。
 

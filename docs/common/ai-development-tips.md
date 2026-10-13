@@ -120,7 +120,7 @@ Anthropicの[Prompting best practices](https://platform.claude.com/docs/en/build
 
 根拠：[AnthropicのContext engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)では、限られた文脈に十分な情報を選び、必要時に取得し、記録を使って継続する考え方を扱っています。[VS Codeのガイド](https://code.visualstudio.com/docs/agents/guides/context-engineering-guide)も、短い共通指示から必要な文書を参照する構成を説明しています。
 
-開発中に確認した場合は、資料を揃えた環境のPlanへ進みます：[Codespacesの手順4](../codespaces.md#planning) ／ [Copilot appの手順4](../copilot-app.md#planning)。再開中なら[tasks.mdの引き継ぎ](../tasks.md#次のセッションへの引き継ぎ)を使います。
+開発中に確認した場合は、資料を揃えた環境のPlanへ進みます：[Codespacesの手順4](../codespaces.md#planning) ／ [Copilot appの手順4](../copilot-app.md#planning)。再開中なら[保存した作業からの再開](build-loop.md#resume-work)を使います。
 
 <a id="harness-engineering"></a>
 
