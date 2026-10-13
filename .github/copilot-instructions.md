@@ -1,37 +1,25 @@
 # このリポジトリでの開発
 
-学生チームの企画を実装する、Vite + React + TypeScriptとNode.js APIのスターターです。画面とAPIを1つのコンテナにまとめ、Azure Container Appsへ公開できます。日本語で、結果と次に必要な判断を簡潔に伝えてください。
+学生の企画を実装するReact・TypeScript・ViteとNode.js APIの初心者向けスターターです。日本語で結果と次の操作を簡潔に伝えます。
 
-## 必要な資料
+## 必要な情報
 
-- 目的・対象ユーザー・完成条件・対象外の正本は `docs/product.md`。未入力欄を事実として扱わず、参考例をチームの企画として採用しない。
-- 作業単位、依存、現在の進捗は `docs/tasks.md`。確認結果と未確認事項は `docs/verification.md`。
-- 元の画面案や企画メモは `docs/source/`。関係する資料だけ読む。
-- 共通の進め方は `docs/common/build-loop.md`。実行環境は `docs/common/local-development.md`。公開を依頼されたときは `docs/common/publish.md`。
+- 前段の企画は`docs/`直下。ユーザーが指定したPDF・画像・Markdownなどの実ファイルを使う。`docs/README.md`は置き方の案内であり企画の入力ではない。元資料は上書きせず、形式や名前の統一、UI画像を必須にしない。読めた資料の要点と読めない資料を示し、読めない部分は本文や読み取れる形式で補足を求める。内容を推測しない。
+- 合意した目的・DoD・範囲・作業順・構成・編集と実行の場所・コマンドはルート`PLAN.md`。Planで相談後、編集可能なモードで依頼されたときに作る。既に読めた合意を質問し直さず、不足・矛盾だけ確認する。
+- 実装中の状態・自動と人の確認・証拠・未達や未確認・次の作業はルート`PROGRESS.md`。必要になった時点で作る。資料の重複や会話全文の転記は不要。再開時はこの2ファイルと関係する変更を読む。
+- 手順の本線はREADME。環境の操作は`handson/codespaces.md`または`handson/copilot-app.md`、公開を依頼された場合だけ`handson/azure.md`を使う。
 
-## 実行環境
+## 実行と確認
 
-Node.js 24 LTS、npm、`package-lock.json` を使用します。
+- Node.js 24、npm、lockfile。初回`npm ci`、起動`npm run dev`（画面とAPIは4280、Docker不要）。
+- `npm run check`でlint・型・build、`npm run test:e2e`で本番サーバーの4281を検証。Chromiumの準備は`npx playwright install chromium`、Linuxで必要なら`--with-deps`。手動previewはbuild後に`npm run preview`、E2Eと同じ4281を使うため先に止める。
+- 企画のDoDを確かめるよう`tests/starter.spec.ts`を更新する。`tests/runtime.spec.ts`と`/api/health`は維持する。CIは本番コンテナで確認する。
+- Appで編集しCodespacesで実行する場合は、変更内容・コミット案・確認コマンドを示し、学生がGUIでcommit・pushして結果を返すまで次の修正を待つ。PCで成功したことにしない。明示依頼がなければcommit・pushを自動実行せず、Git確認コマンドや番号照合を通常手順に追加しない。
+- APIは`server/api.js`へ追加し画面から`/api/...`で呼ぶ。秘密の値はサーバー側環境変数に置き、フロントや`VITE_`変数へ入れない。`.env`はGit・コンテナへ入れず、PC・Codespaces・CI・Azureそれぞれで設定する。共有・永続データは外部DB等へ保存する。
 
-- 初回準備: `npm ci`
-- 起動: `npm run dev`（ViteとNode.js APIを起動し、4280を開く。Docker不要）
-- 静的チェック・型チェック・本番ビルド: `npm run check`
-- ブラウザ準備: `npx playwright install chromium`（Linuxの依存ライブラリが足りない場合は `--with-deps`）
-- ブラウザテスト: `npm run test:e2e`（ビルド後に本番用Node.jsサーバーの4281で実行。API追加時はその動作もテスト）
-- 本番プレビュー: `npm run build` の後に `npm run preview`（4281）。`npm start` と本番コンテナは同じNode.jsサーバーを8080で起動する。CIは本番コンテナを起動してE2Eを実行する。
-- API: `server/api.js` に追加し、フロントは `/api/...` の相対URLで呼ぶ。APIキーはサーバー側の環境変数で扱う。共有・永続データは外部DBへ保存し、コンテナ内ファイルへ依存しない。
-- Copilot appからCodespacesへ渡す場合は、変更内容・コミットメッセージ案・Codespacesでの起動とテストのコマンドを示し、学生がAppの画面でcommit・pushして確認結果を返すまで次の修正を待つ。明示的な依頼がなければcommit・pushを自動実行しない。初回はpush済みの作業ブランチからCodespaceを作成し、既存Codespaceの再利用時は同じブランチでGUIのPullを使う。Gitの確認コマンドやコミット番号の照合を通常の手順に追加しない。未保存・未pushの変更や、GitHubへのpushが既存Codespaceへ自動反映されるとは扱わない。
+## 作業の約束
 
-## 作業と完了
-
-- これは初心者向けコース。代表者が作った1つのPublicのチーム用Forkを使い、メンバーはCollaboratorsとして参加する。チームのデフォルトブランチは`codex/beginner-starter`を使い、そこから作業ブランチを作る。PRのbase repositoryとhead repositoryはどちらもチームのFork、base branchは`codex/beginner-starter`、compareは作業ブランチとし、配布元への学生アプリのPRやコース間マージは行わない。未設定なら`docs/choose-start.md`を案内し、CIが動かない場合はFork側のActions有効化も確認する。教材のSync forkは運営から案内された場合だけ同じコースで行い、競合・未保存変更を強制的に上書きしない。
-
-- 相談・Planモードでは草案を提示し、編集可能なモードで依頼を受けてからファイルに反映する。
-- 合意した作業の範囲で、実装・関連テスト・不具合修正を続ける。文言だけの変更に大きな計画や全テストを強制しない。
-- 完成条件から期待値を導き、実装に合わせて条件を弱めない。条件の変更が必要なら理由を伝え、チームの判断を正本へ反映する。
-- 実行していない確認を「合格」にしない。`tests/starter.spec.ts`の画面サンプルは完成アプリの受け入れテストへ置き換え、`tests/runtime.spec.ts`のAPI・配信の基盤テストは残す。`/api/health`はCIと公開後の起動確認にも使う。
-- 検証用Skillを使う場合も、チームが選んだ実行場所に従う。Appで編集しCodespacesで実行する経路では、確認コマンド・操作・期待結果を渡し、学生から結果が返るまで未確認として扱う。
-- 節目で、対応した完成条件、実行コマンドと結果、未達・未確認、次の作業を記録する。会話の全履歴を転記する必要はない。
-- 同じ失敗が続く場合は、証拠から原因を確かめ、依頼・参照資料・テスト・実行環境の適切な場所を最小限直す。再現できる不具合は回帰テストへ残し、必要性がない共通指示やSkillを増やさない。
-- 外部アカウントの権限不足や利用枠に阻まれたら、試したこと・残る問題・必要な入力を報告する。追加課金や企画外のクラウド作成へ勝手に広げない。
-- APIキーはブラウザに含めない。`VITE_` 変数は公開される値として扱う。公開する資料には個人情報や秘密情報を含めない。
+- 代表者のPublicのチーム用Fork1つを使う。作業枝は`codex/beginner-starter`から作り、PRのbase/head repositoryはともにチームFork、baseは`codex/beginner-starter`。学生アプリを配布元へPRしない。Fork・Actions・同期はREADMEを案内する。
+- Planは草案の相談。合意の保存を頼まれた時点ではアプリの実装を始めず、実装依頼後に合意範囲で進める。仕様変更はPLANへ反映し、期待値を都合よく弱めない。
+- DoDと実際の証拠を照合し、未実行は未確認と記録する。人の操作と仮説の評価をAIの成功報告で代用しない。同じ成功確認を際限なく繰り返さない。
+- 同じ失敗が続く場合、証拠から依頼・資料・テスト・環境の適切な場所を最小限直す。判断・権限・外部サービスが必要なら次の操作を説明し、企画外の支出や契約へ広げない。

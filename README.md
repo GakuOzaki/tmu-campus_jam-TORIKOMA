@@ -1,104 +1,182 @@
 # 学生ハッカソン：初心者向けスターター
 
-アイデアを、確かめられるアプリへ。
+**前段でまとめた企画を `docs/` に置き、GitHub CopilotのPlanへ渡して開発します。** PDF、画像、Markdownなど、形式とファイル名はチームで決めて構いません。UI画像やFigmaの準備は必須ではありません。
 
-学生チームが目的と完成条件を決め、GitHub Copilotと一緒に実装・テスト・改善するための教材とアプリのスターターです。**CodespacesのCopilot ChatとGitHub Copilot appのどちらでも、同じ企画・コード・完成条件で進められます。**
+このコースはReact・TypeScript・Vite・Node.js、起動・テスト・CIを用意しています。機能と画面はチームの企画で決めます。構成から選びたいチームは[mainコース](https://github.com/mochan-tk/hackathon-for-student-20261017/tree/main)を使います。
 
-## はじめる
+**Fork → 環境を開く → 企画を渡す → Plan → 作る・確かめる → PR・発表**。すでに合意・保存した計画がある場合は[再開](#resume)から続けます。
 
-このブランチは **初心者向け（`codex/beginner-starter`）**です。React・TypeScript・Vite・Node.jsと、起動・テスト・任意のコンテナ公開を用意しています。アプリの機能と画面は自分たちで決められます。アプリのひな形を使わず構成から選びたい場合は、配布元の[`main`コース](https://github.com/mochan-tk/hackathon-for-student-20261017/tree/main)を使います。
+<a id="fork"></a>
 
-下の現在地に合わせて始めます。**開発中は、選んだ環境ガイドを本線として上から進み、共通ページを読んだら同じ段階へ戻ります。**
+## 1. チームのForkを用意する
 
-- **企画や画面案がまだない**：[企画の手順1〜5](docs/common/ideation.md)で考え、まとまったら下のコース選択・環境準備へ進みます。
-- **チーム用リポジトリがまだない**：[はじめ方を選ぶ](docs/choose-start.md)で作ります。代表者が **Copy the main branch onlyをオフ**にしてチーム用Forkを1つ作り、デフォルトブランチを **`codex/beginner-starter`** に変更します。メンバーを招待し、Actionsも有効にします。
-- **リポジトリを準備済み**：下の環境ガイドへ進みます。企画も決まっていれば、その資料を使い、済んだ作業を繰り返す必要はありません。
-- **開発の続きから再開する**：[tasks.mdの引き継ぎ](docs/tasks.md#次のセッションへの引き継ぎ)を読み、使っていた環境と作業ブランチで続けます。前のPRをマージ済みなら、[マージ後の作業準備](docs/common/build-loop.md#after-merge)から始めます。
+**[チーム用にForkする](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)**
 
-チーム用リポジトリが未作成なら、代表者が下のボタンでFork作成画面を開きます。**初心者向けはCopy the main branch onlyをオフ**にし、作成後は[既定ブランチ・メンバー招待・Actionsの手順](docs/choose-start.md)へ進みます。
+代表者1人がForkを1つ作り、メンバーを招待します。チーム用リポジトリがある場合は作り直しません。
 
-[![チーム用にForkする](docs/images/fork-button.svg)](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)
+1. 上のリンクでFork作成画面を開き、Ownerとチーム用の名前を決めます。
+2. 初心者向けは **Copy the main branch onlyをオフ**にして **Create fork** を押します。mainコースを選ぶ場合はオンです。
+3. チームのForkで **Settings → General → Default branch** を開き、`codex/beginner-starter`へ変更します。
+4. **Code** で所有者・リポジトリ名・ブランチと、この初心者向けREADMEを確認します。以降はチームのForkで作業します。
+5. **Settings → Collaborators** からメンバーを招待し、各メンバーが招待を受け入れます。各自で別のForkを作る必要はありません。
 
-| 使う環境 | 最初に開くガイド | 準備 |
-| --- | --- | --- |
-| Codespaces + VS Code Copilot Chat | [Codespacesで進める](docs/codespaces.md) | GitHubとCopilotが使えるアカウント、ブラウザ |
-| GitHub Copilot app | [Copilot appで進める](docs/copilot-app.md) | 同じアカウント、Git、Copilot app。PCで実行する場合はNode.js 24 LTS |
+Publicの教材から作るForkもPublicです。共有できる企画・コード・ダミーデータを使い、Privateが必要なら作成前に運営へ相談します。以前のTemplate方式のリポジトリも継続できますが、ForkではないためSync forkは使いません。
 
-チームのリポジトリ作成とコース選択は上の手順で一度行います。GitHub Copilot StudentとGitHub Proを利用する想定です。権利の有効化と利用残量は事前にアカウント画面で確認してください。
+<a id="enable-actions"></a>
 
-標準のチーム用Forkは **Public** です。Privateが必要な場合は運営へ相談します。Azureへの自動公開まで行う場合だけ、[初期設定](docs/common/azure-setup.md)の所有者・権限などの条件も確認してください。
+### Actionsを有効にする
 
-どちらかの環境ガイドを選び、そこから共通手順を参照して進めます。企画やリポジトリの準備を済ませている場合は、その成果を使って続けてください。Copilot appで編集し、Codespacesで実行する経路もAppのガイドに含めています。
+代表者がチームのForkの **Actions** を開き、有効化の案内が出たら内容を確認して有効にします。使えない場合は **Settings → Actions → General** と所有者のポリシーを運営と確認します。
 
-## 企画から発表まで
+初回に試すなら **Actions → Check → Run workflow** で`codex/beginner-starter`を選び、OIDC表示用のチェックを外します。公開用変数を設定しなければテストだけが動き、Azureの準備は不要です。この手動実行は、後で作るPRの最新CIの代わりにはしません。
 
-[![ハッカソンの流れ：課題とアイデアを考え、画面を描き、GitHub Copilotと作り、確かめて発表する](docs/images/hackathon-overview.png)](docs/images/hackathon-overview.png)
+## 2. 使う環境を開く
 
-図は全体像です。実際の進行は、次の表と選んだ環境ガイドに沿います。
-
-| 段階 | 進めること・開く資料 | 次へ渡すもの |
-| --- | --- | --- |
-| 1. 企画と画面を決める | [企画の手順1〜5](docs/common/ideation.md)、[締切管理の参考例](docs/examples/deadline.md) | 誰の何を解決するか、コア機能、完成条件、画面と操作 |
-| 2. 開発の準備をする | [コース選択とFork](docs/choose-start.md)、選んだ環境ガイド、[元資料の置き方](docs/source/README.md)、[コンテキスト図](docs/common/ai-development-tips.md#context-engineering) | チーム用リポジトリ、作業ブランチ、企画メモ・画面PNG・遷移 |
-| 3. Planで相談して保存する | [プロンプト図](docs/common/ai-development-tips.md#prompt-engineering)を見て、環境ガイドの手順4でprepare-projectを使う | 合意した[企画とDoD](docs/product.md)、[作業計画](docs/tasks.md) |
-| 4. 作って、確かめて、直す | [ハーネス図](docs/common/ai-development-tips.md#harness-engineering)を見て、手順5の[実装ループ](docs/common/build-loop.md)、手順6の[完成確認](docs/common/verification.md)とverify-goal | 動くアプリ、機能テスト、別の学生の操作結果、[検証記録](docs/verification.md) |
-| 5. 保存・PRで共有する | [Codespacesの手順7](docs/codespaces.md#save-and-share)・[Appの手順7](docs/copilot-app.md#save-and-share) | commit・push、PRとCIの結果、チームへの共有 |
-| 6. 発表して終了する | [発表・振り返り・終了](docs/common/presentation.md) | デモ、学んだこと、次の作業、環境の停止 |
-
-企画書などを先に全部手書きする必要はありません。段階1の元資料を入力に、段階3でCopilotに整理してもらい、チームが確認して保存します。既に合意・保存した部分は再利用します。
-
-3つの図解は、資料準備で[コンテキスト](docs/common/ai-development-tips.md#context-engineering)、Plan前に[プロンプト](docs/common/ai-development-tips.md#prompt-engineering)、実装開始時に[ハーネス](docs/common/ai-development-tips.md#harness-engineering)を各ガイドから参照します。継続して使えるURLが必要なチームだけ、発表ガイドから[Azure Container Appsへの公開](docs/common/publish.md)へ分岐します。発表には動くプレビューを使えます。
-
-公式資料は根拠を調べたいとき、運営資料は配布・支援を準備するときに読みます。
-
-## チームで更新する3つのファイル
-
-| ファイル | 残すこと |
+| 編集・動作確認する場所 | 環境の操作手順 |
 | --- | --- |
-| [docs/product.md](docs/product.md) | 誰の何を解決するか、できたと判断する条件、対象外 |
-| [docs/tasks.md](docs/tasks.md) | 実装計画、今の作業、残っていること |
-| [docs/verification.md](docs/verification.md) | 実際に確かめた結果、証拠、未確認のこと |
+| CodespacesのCopilot Chat | [Codespaces](handson/codespaces.md) |
+| Copilot appで編集し、PCまたはCodespacesで確認 | [Copilot app](handson/copilot-app.md) |
 
-入力欄はまだ空です。[締切管理の記入例](docs/examples/deadline.md)を参考に、自分たちの企画を記入してください。最初のアプリは起動と入力操作を確認するための小さな画面です。
+学生アカウントでCopilot Studentの有効化と利用残量を確認し、モデルは **Auto** を使います。GitHub ProとCopilotの利用権利は別です。環境ガイドはその時点の操作だけ読み、作業ブランチと実行場所を準備したら、この下へ戻ります。開発の進め方はこのREADMEを本線にします。
 
-## 共通のコマンド
+<a id="prepare-docs"></a>
 
-Node.js 24 LTSを使います。nvmがある場合は `nvm install`、続いて `nvm use` で `.nvmrc` に合わせられます。
+## 3. 前段の企画をdocsへ置く
 
-```sh
-npm ci
-npm run dev
+作業ブランチの **`docs/` 直下**へ、チームでまとめた企画ファイルを追加します。例は `docs/企画.pdf`、`docs/メモ.md`、`docs/検討結果.png` です。ファイル名や形式をそろえたり、別の企画書へ転記したりする必要はありません。[置き方の案内](docs/README.md)も参照できます。
+
+Copilotへ渡すファイル名を具体的に選びます。画像やPDFを読み取れるかは環境によるため、読めなかった部分は本文の貼り付けや読み取れる形式で補います。画面の資料がなくても、企画の本文から必要な画面・操作を相談できます。
+
+<a id="plan"></a>
+
+## 4. Planで相談し、合意した計画を保存する
+
+Copilotを **Plan** にして次を送ります。ファイル名を実際のものへ置き換え、編集・実行場所も選んだ環境に合わせます。
+
+```text
+目的：
+前段でまとめた企画をもとに、ハッカソンで実装する範囲と計画を相談したいです。
+
+文脈：
+prepare-projectスキルと、docs/＜実際のファイル名。複数なら列挙＞を読んでください。
+この初心者向けスターターの構成を使います。
+編集場所：＜Codespaces / PCのCopilot app＞
+実行・ブラウザ確認の場所：＜Codespaces / PC＞
+
+制約：
+最初に、読めた資料の要点と、読めなかった資料・箇所を示してください。
+docs/README.mdは置き方の案内であり企画の入力ではありません。元資料は上書きしないでください。
+読めない内容を推測せず、必要なら補足を求めてください。
+資料にある合意を尊重し、決まっていることは質問し直さず、不足・矛盾だけ確認してください。
+UI画像は必須にせず、必要な画面と操作を提案してください。
+このPlanではファイルを編集せず、実装も始めないでください。
+
+完成条件：
+目的、対象者、作る範囲と対象外、完成条件（操作と期待結果）、
+作業順、構成、編集・実行場所、起動・確認コマンドを草案として示してください。
+既存の合意と今回の提案・未決定事項を区別し、チームが確認できる状態にしてください。
 ```
 
-**ViteとNode.jsのAPI**をまとめて起動します。PCでは `http://127.0.0.1:4280`、Codespacesではポート **4280** の転送先を開きます。普段の開発にDockerやAzureへのログインは不要です。起動・終了とAPIの追加は[共通の開発環境](docs/common/local-development.md)を参照してください。
+スキルが認識されなければ `.github/skills/prepare-project/SKILL.md` を明示します。チームで草案を確認し、**CodespacesはAgent、AppはInteractive**に切り替えて、次を依頼します。
 
-Copilot appでPC上のコードを編集し、GitHubへpushして[Codespacesで動かす](docs/copilot-app.md)こともできます。PCとCodespacesのファイルは自動同期されません。
+> 合意した内容をルートのPLAN.mdへ保存してください。入力資料のパス、目的・完成条件・対象外・作業順・構成・編集と実行の場所・起動と確認のコマンドを残し、アプリの実装はまだ始めないでください。
 
-```sh
-npm run check
-npx playwright install chromium
-npm run test:e2e
+`PLAN.md`はここで初めて作ります。企画の原本は`docs/`に残し、その後の仕様変更はPLANも更新します。Appで編集してCodespacesで実行する場合は、その分担を明記し、[GUIで変更を渡す手順](handson/copilot-app.md#codespaces-transfer)で最初の起動を確認してから次へ進みます。
+
+<a id="build"></a>
+
+## 5. 作って、確かめて、直す
+
+Agent／Interactiveへ次を送ります。
+
+```text
+目的：
+PLAN.mdの最初の未完了タスクから、合意した完成条件まで実装・確認・修正してください。
+文脈：
+PLAN.md、関係する入力資料・コード・テストを読み、PROGRESS.mdがあれば引き継いでください。
+制約：
+合意した範囲と編集・実行場所を守ってください。commit・pushは自分でGUIから行います。
+Appで編集しCodespacesで実行する場合は、確認したい変更ごとに変更内容・コミット案・確認コマンドを示し、結果が返るまで待ってください。
+判断・認証・外部サービスの準備が必要なら、理由と次の操作を知らせてください。
+完成条件：
+対応する完成条件を確かめるテストを用意し、npm run checkとnpm run test:e2eで確認してください。
+並び替えなど期待結果が明確な機能は、未実装時のテスト失敗も確認してください。
+verify-goalで照合し、作業状態・実行場所・操作と結果・未達や未確認・次の作業をルートのPROGRESS.mdへ残してください。
+実行していない確認を成功にせず、範囲内の不具合は修正して再確認してください。
 ```
 
-`check` はlint・型チェック・本番ビルド、`test:e2e` は本番用のNode.jsサーバーから画面とAPIを配信してブラウザで操作する確認です。Linuxのブラウザ依存ライブラリが足りない場合は `npx playwright install --with-deps chromium` を実行します。Codespacesでは初回準備に含まれています。
+`PROGRESS.md`も必要になった時点で作ります。認識されないSkillは `.github/skills/verify-goal/SKILL.md` を明示します。短い修正は差分と期待結果だけ伝えて構いません。同じ条件で確認済みのテストを、変更なしで繰り返す必要はありません。
 
-公開時は画面とAPIを1つのコンテナにまとめ、Azure Container Appsへ配置します。GitHub Actionsが本番用コンテナをビルド・起動してテストするため、学生のPCへのDocker導入は必須ではありません。[手元やCodespacesでコンテナを確認する手順](docs/common/local-development.md#コンテナで確認する任意)も用意しています。
+| 用途 | コマンド・確認先 |
+| --- | --- |
+| 初回・依存変更時の準備 | `npm ci`（Node.js 24） |
+| 普段の起動 | `npm run dev`。画面とAPIは4280。Docker不要 |
+| lint・型・本番ビルド | `npm run check` |
+| ブラウザテスト | `npm run test:e2e`。本番サーバーの4281で自動確認 |
+| 本番表示の手動確認（任意） | `npm run build`の後に`npm run preview`。4281を開く。E2E前にはこのpreviewを止める |
 
-`tests/starter.spec.ts` は最初の画面の確認用です。企画を実装するときに、自分たちの完成条件を確かめるテストへ更新します。`tests/runtime.spec.ts` のAPI・画面配信の基盤テストは残して、アプリの機能テストと一緒に実行します。
+`tests/starter.spec.ts`を自分たちの完成条件のテストへ更新し、`tests/runtime.spec.ts`のAPI・画面配信のテストは残します。初期テストの成功だけで企画の完成とはしません。
 
-## Copilotとの進め方
+APIは`server/api.js`へ追加し、画面から`/api/...`で呼びます。外部サービスが必要なら[.env.example](.env.example)を参考に各実行場所の`.env`へ設定し、変更後に再起動します。`.env`はPC・Codespaces・CI・Azureへ自動同期されません。秘密のキーを画面や`VITE_`変数へ入れず、CIでモックを使った結果と実サービスの確認を区別します。共有・永続データが必要なら外部DBなどを選びます。
 
-共通指示は [.github/copilot-instructions.md](.github/copilot-instructions.md)。教材に固有の2つの作業をSkillsにしています。
+<a id="verify"></a>
 
-- [prepare-project](.github/skills/prepare-project/SKILL.md)：企画メモと画面案を開発用の資料に整理する。
-- [verify-goal](.github/skills/verify-goal/SKILL.md)：完成条件と実際の結果を照合し、残る作業を見つける。
+## 6. チームでも操作する
 
-「prepare-projectを使って企画を整理して」のように依頼できます。認識されないときはSkillファイルを添付・参照します。モード切り替えやファイルの渡し方は各環境のガイドにあります。
+実装した人とは別の学生が、起動済みのアプリでPLANの完成条件を確かめます。同じPCで交代して構いません。主要な操作を最初から最後まで通し、その機能に関係する空の状態・入力ミス・戻る操作・スマートフォン幅を試します。
 
-[図解でわかる：Copilotと開発する3つの工夫](docs/common/ai-development-tips.md)では、プロンプト・コンテキスト・ハーネスエンジニアリングを、3枚の画像と具体例で説明しています。短い依頼例と、失敗したときに何を直すかの例もあります。
+PROGRESSへ、対象の変更・実行場所・日時、操作と期待結果、実際の結果を残します。条件ごとに **達成／未達／未確認**を区別し、不具合は再現操作と結果をCopilotへ返します。修正したら影響する条件を再確認します。日付や保存、長文、複数タブなどの境界は、企画で採用した機能に必要なものだけ選びます。
 
-## 運営・メンター向け
+ブラウザをAIが操作できなくても、Playwrightと学生の操作で進められます。失敗したE2Eの画像・traceは`test-results/`、CIでは **Check → Summary → Artifacts → playwright-failure-evidence**に残ります（3日保存。実行前の失敗では生成されない場合があります）。
 
-[事前準備とリハーサル](docs/facilitator.md)に、両環境で確認することをまとめています。[設計の根拠と公式資料](docs/references.md)も参照してください。
+<a id="share"></a>
 
-[スターターの検証記録](docs/template-validation.md)には、実施した確認と残る確認を記載しています。配布前に、参加者と同じ条件で企画整理から発表・終了まで通してください。Azure公開は採用する場合に追加で確認します。
+## 7. 保存して、チーム内PRで共有する
+
+環境ガイドの[Codespaces](handson/codespaces.md#save-and-share)／[App](handson/copilot-app.md#save-and-share)のGUIで、コード・PLAN・PROGRESS・共有してよい入力資料をcommit・pushします。GitHubのチームForkで **Compare & pull request** を開き、必要なら **compare across forks** で次を選びます。
+
+| 比較の項目 | 選ぶもの |
+| --- | --- |
+| base repository・head repository | どちらもチームのFork |
+| base | `codex/beginner-starter` |
+| compare | 今回の作業ブランチ |
+
+配布元や別コースへ学生アプリのPRを送りません。AppのCreate PRでも送信前に比較先を確認し、確認できなければGitHubから作成します。作成後もGitHubで確認します。
+
+CIは本番コンテナでもテストします。**Check** の成功を確認したら、PROGRESSにPR・CIのURL、対象変更と結果を記録し、GUIで追記分をcommit・pushします。その後、チームで最新のCheck・差分・操作結果を確認してマージします。記録だけのコミットごとに同じCI結果を追記し続ける必要はありません。
+
+CIが始まらなければ[Actionsの有効化](#enable-actions)を確認します。有効化前に作ったPRは実行済みとは扱わず、設定確認後に同じ未マージPRを **Close → Reopen** してCheckを開始できます。
+
+<a id="finish"></a>
+
+## 8. 発表して、保存・終了する
+
+確認済みのプレビューを使い、「誰の何を解決するか → 主要操作のデモ → 確認できたこと → 残ること」を説明します。CodespacesのPrivate URLはログイン済みPCから投影できます。利用者の課題を解決できたか未検証なら、仮説として話します。
+
+前のPRをマージ済みなら、まず[次の作業ブランチを準備](#after-merge)します。その後、発表で得た気づきと次の作業をPROGRESSへ残し、GUIで保存・pushして[PRで共有](#share)します。記録だけの変更ならCodespacesやアプリの再起動は不要です。サーバーを止め、Codespacesを使った場合は **Stop codespace** も行います。環境ごとの終了方法は[Codespaces](handson/codespaces.md#stop)／[App](handson/copilot-app.md#stop)を参照します。
+
+継続して使えるURLが必要なチームだけ、運営と[Azure Container Appsへの公開](handson/azure.md)へ進みます。公開した場合は同ガイドの終了・費用確認も行います。
+
+<a id="resume"></a>
+
+## 続きから再開する
+
+同じプロジェクトと作業ブランチを開きます。PLANが未作成なら[Plan](#plan)へ戻り、合意済みの内容から保存します。PLANがある場合は、PLAN・PROGRESS（あれば）と現在の変更を読んで「最後の確認・未完了・次の作業・実行場所」を説明するようCopilotへ依頼します。資料の読み直しや合意済みのPlanを最初から繰り返す必要はありません。
+
+追加編集の前に、前のPRがマージ済みなら[新しい作業ブランチ](#after-merge)を準備し、未マージなら同じ枝を続けます。計画が未決定なら[Plan](#plan)、実装途中なら[実装](#build)、操作確認待ちなら[確認](#verify)、PR・CIが未完了なら[共有](#share)、マージまで済んだら[発表](#finish)へ進みます。起動中の同じ環境のアプリは再利用し、環境を変えた場合はその場所で起動と基本動作を確認します。
+
+<a id="after-merge"></a>
+
+### マージ後に編集するとき
+
+確認済みアプリで発表するだけなら、そのまま使えます。追加編集は、未保存の変更がないことを確認してチームの既定ブランチを最新にし、新しい作業ブランチを作ってから始めます。Copilotへこの準備を依頼できます。未保存や競合があれば保全して運営へ相談し、削除・強制操作で進めません。準備済みの新しい枝は再利用し、PRの状態はGitHubでも確かめます。
+
+App→Codespacesでアプリを再確認する変更なら新しい枝をpushしてCodespacesも切り替えます。記録だけの変更ならPCから保存・PRで共有でき、同じ操作確認は不要です。準備したら、実装・発表後の記録・公開結果の記録など、元の作業へ戻ります。
+
+<a id="sync-fork"></a>
+
+### 教材の更新を取り込むとき
+
+Sync forkは運営の案内があったときだけ使います。作業をcommit・pushし、配布元とチーム側の同じコースを同期します。各PC・Codespacesでも最新を取得し、進行中なら差分を確認して基準ブランチの変更を作業ブランチへ取り込みます。作業ブランチのPullだけでは入りません。前のPRをマージ済みなら更新済み基準から次の枝を作ります。競合は保全して運営へ相談します。
+
+[公式根拠・運営の確認範囲](handson/references.md)は必要なときに参照してください。
