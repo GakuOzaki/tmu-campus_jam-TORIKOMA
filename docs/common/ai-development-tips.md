@@ -82,7 +82,7 @@ Anthropicの[Prompting best practices](https://platform.claude.com/docs/en/build
 
 会話が長くなっても、次のセッションが現在の決定を読めるようにします。
 
-図で元資料と決定の保存先を確認したら、資料を揃えた環境のPlan（[Codespacesの手順4](../codespaces.md#planning)・[Copilot appの手順4](../copilot-app.md#planning)）へ進みます。作業の再開時に読んでいる場合は、[引き継ぎの確認](build-loop.md#5-保存し次の作業へ引き継ぐ)へ進みます。 **発表中の振り返りで開いた場合は、[発表ガイドの振り返り](presentation.md#3-copilotとの開発を振り返る)へ戻ります。**
+図で元資料と決定の保存先を確認したら、資料を揃えた環境のPlan（[Codespacesの手順4](../codespaces.md#planning)・[Copilot appの手順4](../copilot-app.md#planning)）へ進みます。作業の再開時に読んでいる場合は、[引き継ぎの確認](build-loop.md#resume-work)へ進みます。 **発表中の振り返りで開いた場合は、[発表ガイドの振り返り](presentation.md#3-copilotとの開発を振り返る)へ戻ります。**
 
 | 場所 | 役割と使い方 |
 | --- | --- |

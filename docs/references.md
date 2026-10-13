@@ -42,13 +42,14 @@ Spec Kitや各社SDK自体の導入は、この教材の必須条件ではあり
 
 教材の「ゴールまで繰り返す」は、完成条件をファイルに保存して実装・確認・修正を続ける進め方です。特定製品の`/goal`、永続的な自動再開、Copilot appのAutopilotを同一の機能として扱いません。
 
-## 2つの開発経路
+## 開発環境と実行場所
 
 | 経路 | 根拠・制約 |
 | --- | --- |
 | Codespacesのブラウザ版VS Code | [Codespacesの説明](https://code.visualstudio.com/docs/remote/codespaces)。実行環境はCodespace内。Node等はdev containerでそろえる |
 | VS Code DesktopからCodespacesへ接続 | 任意。[Integrated browser](https://code.visualstudio.com/docs/debugtest/integrated-browser)のremote proxyは基準日時点でPreview。標準手順は通常のポート転送を使う |
 | Copilot appのローカル実行 | [Quickstart](https://docs.github.com/en/copilot/get-started/quickstart-copilot-app)。Gitと、選んだアプリ構成に必要な実行環境をPCに準備する |
+| Copilot appで編集しCodespacesで実行 | PCからcommit・pushし、同じ作業ブランチのCodespaceへ[GUIで取り込む](copilot-app.md#codespacesへ変更を渡して確認する)。起動・テスト・ブラウザ確認の結果をAppへ返す。AppからCodespaceへの直接接続ではない |
 | AppのSetup・Run | [.github/github-app.ymlの仕様](https://docs.github.com/en/copilot/reference/github-copilot-app-reference/repository-configuration)。リポジトリ設定は確認・受け入れ後に適用される。mainには配布時点で置かず、構成決定後に必要なSetup・Runを登録する |
 | Appの画面確認 | [Terminal・Browser・Changesの公式解説](https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-using-the-diff-terminal-and-browser/)。Runで起動し、Browserで確認する |
 
