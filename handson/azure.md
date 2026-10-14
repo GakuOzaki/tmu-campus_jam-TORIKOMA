@@ -4,6 +4,16 @@
 
 この手順は **本番コンテナの作成 → 保存・PR・CI → テスト済みの同じイメージをGHCRへ公開 → digestを指定してAzureへ配置 → 公開URLの確認** の順です。元のPRをマージ済みなら、編集前に[次の作業ブランチ](../README.md#after-merge)を用意します。
 
+## CodespacesでAzure MCPを使う準備（任意）
+
+[devcontainer](../.devcontainer/devcontainer.json)に.NET 10とAzure CLI、[VS CodeのMCP設定](../.vscode/mcp.json)にAzure MCP `3.0.0-beta.48`を用意しています。
+
+1. 既存Codespaceでは、更新した設定を取り込んでからコマンドパレットの **Codespaces: Rebuild Container** で環境を再構築します。新規作成では設定が最初から適用されます。
+2. CodespacesのTerminalで`az login --use-device-code`を実行し、案内に従ってAzureへサインインします。`az account set --subscription '<使用するSubscription ID>'`で対象を選びます。
+3. コマンドパレットで **MCP: List Servers → com.microsoft/azure → Start** を選びます。信頼の確認が出たら設定内容を確認して進み、Copilot Chatのツール一覧でAzure MCPが利用できることを確かめます。起動に失敗したら同じサーバーの **Show Output** でログを確認します。
+
+この設定はCodespacesのVS Codeで使います。Copilot appで編集している場合も、[変更をCodespacesへ渡す手順](copilot-app.md#codespaces-transfer)で同じ設定を取り込み、上の準備を行えます。以降の手順で公開に必要な設定を整え、公開URLまで確認します。[Azure MCPの認証](https://learn.microsoft.com/en-us/azure/developer/azure-mcp-server/get-started/tools/visual-studio-code)・[VS CodeでのMCP管理](https://code.visualstudio.com/docs/agent-customization/mcp-servers)
+
 ## 1. コンテナと公開ワークフローを作る
 
 [完成確認](../README.md#verify)を終えたアプリで、編集できるモードのCopilotへ次を依頼します。
