@@ -163,7 +163,7 @@ Codespacesでは **Terminal → New Terminal** で下表の準備・起動コマ
 
 `tests/starter.spec.ts`を自分たちの完成条件のテストへ更新し、`tests/runtime.spec.ts`のAPI・画面配信のテストは残します。初期テストの成功だけで企画の完成とはしません。
 
-APIは`server/api.js`へ追加し、画面から`/api/...`で呼びます。外部サービスが必要なら[.env.example](.env.example)を参考に各実行場所の`.env`へ設定し、変更後に再起動します。`.env`はPC・Codespaces・CI・Azureへ自動同期されません。秘密のキーを画面や`VITE_`変数へ入れず、CIでモックを使った結果と実サービスの確認を区別します。共有・永続データが必要なら外部DBなどを選びます。
+APIは`server/api.js`へ追加し、画面から`/api/...`で呼びます。外部サービスが必要なら[.env.example](.env.example)を参考に各実行場所の`.env`へ設定し、変更後に再起動します。`.env`はPC・Codespaces・CIへ自動同期されません。秘密のキーを画面や`VITE_`変数へ入れず、CIでモックを使った結果と実サービスの確認を区別します。共有・永続データが必要なら外部DBなどを選びます。
 
 <a id="verify"></a>
 
@@ -202,8 +202,6 @@ CIが始まらなければ運営に相談します。設定を確認した後、
 確認済みのプレビューを使い、「誰の何を解決するか → 主要操作のデモ → 確認できたこと → 残ること」を説明します。CodespacesのPrivate URLはログイン済みPCから投影できます。利用者の課題を解決できたか未検証なら、仮説として話します。
 
 前のPRをマージ済みなら、まず[次の作業ブランチを準備](#after-merge)します。その後、発表で得た気づきと次の作業をPROGRESSへ残し、GUIで保存・pushして[PRで共有](#share)します。記録だけの変更ならCodespacesやアプリの再起動は不要です。CodespacesではTerminalの **Ctrl+C** でサーバーを止め、[Codespaces一覧](https://github.com/codespaces)から **Stop codespace** も行います。Appの終了操作は[Appの手順](handson/copilot-app.md#stop)を参照します。
-
-継続して使えるURLが必要なチームだけ、運営と[Azure Container Appsへの公開](handson/azure.md)へ進みます。公開した場合は同ガイドの終了・費用確認も行います。
 
 <a id="share-url"></a>
 
