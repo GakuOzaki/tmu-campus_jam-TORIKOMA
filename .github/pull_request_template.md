@@ -1,4 +1,4 @@
-PRのbase repository・head repositoryがどちらもチームのFork、baseが`codex/beginner-starter`、compareが作業ブランチか確認してください。学生アプリのPRを配布元へ送りません。
+PRが班のリポジトリの中で作られていること、baseが既定ブランチ（通常は`codex/beginner-starter`）、compareが作業ブランチであることを確認してください。配布元（教材）や他の班へPRを送りません。
 
 ## 何ができるようになるか
 
