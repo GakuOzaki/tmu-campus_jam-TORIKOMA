@@ -32,7 +32,7 @@ Publicの教材から作るForkもPublicです。共有できる企画・コー�
 
 <a id="environment"></a>
 
-## 2. 使う環境を開く
+## 1. 使う環境を開く
 
 [![Codespacesの作成画面を開く](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new)
 
