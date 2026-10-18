@@ -1,7 +1,7 @@
 # 学生ハッカソン：初心者向けスターター
 
-**前段でまとめた企画を `docs/` に置き、GitHub CopilotのPlanへ渡して開発します。** PDF、画像、Markdownなど、形式とファイル名はチームで決めて構いません。UI画像やFigmaの準備は必須ではありません。
 
+**前段でまとめた企画を `docs/` に置き、GitHub CopilotのPlanへ渡して開発します。** PDF、画像、Markdownなど、形式とファイル名はチームで決めて構いません。UI画像やFigmaの準備は必須ではありません。
 このコースはReact・TypeScript・Vite・Node.js、起動・テスト・CIを用意しています。機能と画面はチームの企画で決めます。構成から選びたいチームは[mainコース](https://github.com/mochan-tk/hackathon-for-student-20261017/tree/main)を使います。
 
 **Fork → 環境を開く → 企画を渡す → Plan → 作る・確かめる → PR・発表**。すでに合意・保存した計画がある場合は[再開](#resume)から続けます。
