@@ -1,8 +1,16 @@
 # Azure Container Appsへ公開する（任意）
 
-継続して共有するURLが必要なチームだけが使います。通常はPCやCodespacesのプレビューで[発表](../README.md#finish)できます。**mainにはDockerfile・公開ワークフロー・Azure接続設定はありません。** 合意した構成に合わせて作ります。ここに記載したmainの公開経路は、Azureでの一気通貫の実機確認は未実施です。
+動くプレビューで発表するだけなら、このページの作業は不要です。[READMEの確認・PR](../README.md#share)まで済ませ、継続して使うURLが必要なチームが運営と進めます。画面とAPIを1つのコンテナにまとめ、CIでテストした同じイメージをGHCRからAzureへ配置します。PCへのDocker導入は必須ではありません。
 
-この手順は **本番コンテナの作成 → 保存・PR・CI → テスト済みの同じイメージをGHCRへ公開 → digestを指定してAzureへ配置 → 公開URLの確認** の順です。元のPRをマージ済みなら、編集前に[次の作業ブランチ](../README.md#after-merge)を用意します。
+この初心者向けコースでは、[Forkの手順](../README.md#fork)で設定した **`codex/beginner-starter`** がチームのデフォルトブランチです。以下のPRの統合先、手動実行のブランチ、Environmentの許可ブランチには、その名前を使います。
+
+チームの代表者が運営・メンターと一度行う準備です。準備後は、学生はGitHubのPRをマージする操作で更新できます。対象は通常の **Azure Container Apps（Consumption）**です。
+
+必要なのは、チームリポジトリの設定変更権限、Azureでリソースを作成する権限とロールを割り当てる権限です。使うサブスクリプションとチーム用リソースグループを決めます。学生クレジットは利用できるサービス・リージョン・残量を確認して使います。[Azure for Students](https://azure.microsoft.com/en-us/pricing/offers/ms-azr-0170p/)
+
+標準のチーム用ForkはPublicです。別途Privateでの運用を選ぶ場合は、PublicのForkを直接Privateへ変更できないため、先に運営と配布方法を決めます。
+
+GitHubの **Environment** を使います。Publicリポジトリ、またはGitHub Proの個人アカウントが所有するPrivateリポジトリで進められます。Organization所有のPrivateリポジトリには、そのOrganizationのGitHub Team以上のプランが必要です。学生個人のProはOrganizationへは引き継がれません。[Environmentの利用条件](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/manage-environments)
 
 ## CodespacesでAzure MCPを使う準備（任意）
 
@@ -14,99 +22,114 @@
 
 この設定はCodespacesのVS Codeで使います。Copilot appで編集している場合も、[変更をCodespacesへ渡す手順](copilot-app.md#codespaces-transfer)で同じ設定を取り込み、上の準備を行えます。以降の手順で公開に必要な設定を整え、公開URLまで確認します。[Azure MCPの認証](https://learn.microsoft.com/en-us/azure/developer/azure-mcp-server/get-started/tools/visual-studio-code)・[VS CodeでのMCP管理](https://code.visualstudio.com/docs/agent-customization/mcp-servers)
 
-## 1. コンテナと公開ワークフローを作る
+## 1. テスト済みコンテナをGitHubへ保存する
 
-[完成確認](../README.md#verify)を終えたアプリで、編集できるモードのCopilotへ次を依頼します。
+1. チームのリポジトリのデフォルトブランチに、この教材の`.github/workflows/check.yml`と`Dockerfile`があることを確認します。Fork直後は、[チームのActionsを有効化](../README.md#enable-actions)してあることも確認します。公開したいアプリの変更が作業ブランチにある場合は、base repositoryとhead repositoryがチームのForkである確認済みのPRを、チームのデフォルトブランチへマージします。
+2. GitHubの **Settings → Secrets and variables → Actions → Variables → New repository variable** で、`ENABLE_CONTAINER_PUBLISH`を値`true`で追加します。`ENABLE_AZURE_DEPLOY`はまだ設定しません。
+3. **Actions → Check → Run workflow** で **チームのデフォルトブランチ** を選び、**初期設定用: Azureへ登録するOIDC接続情報だけ表示する**のチェックは外したまま実行します。
+4. `check`と`publish`が成功したら、実行の **Summary → Tested container image** を開きます。`Tag`に表示される`ghcr.io/所有者/リポジトリ:タグ`を次節で使います。このイメージは本番コンテナでのブラウザテストを通っています。
+5. リポジトリの **Packages**、または所有者のプロフィール／Organizationの **Packages** から、このコンテナパッケージを開きます。**Package settings → Change visibility → Public** にします。新規パッケージは通常Privateなので、初回に切り替えます。OrganizationのポリシーでPublicへ変更できない場合は、運営と所有者・公開方法を決めてから進めます。
 
-```text
-目的：
-現在のアプリをAzure Container Appsへ公開する準備をしてください。
-文脈：
-PLAN.md、PROGRESS.md、現在のアプリ・テスト・CI、handson/azure.mdを読んでください。
-制約：
-採用構成を維持し、linux/amd64の本番イメージを作ってください。
-コンテナ内で0.0.0.0に待ち受け、起動確認と主要なDoDをそのイメージでテストしてください。
-秘密情報・私的な資料をイメージへ含めず、commit・push・公開・Azure操作はまだしないでください。
-完成条件：
-Dockerfile・.dockerignore、必要なテストとPR用CI、下記条件の公開ワークフローを用意してください。
-PLAN.mdに実際のビルド・起動・終了・確認方法、ポート、設定、公開操作を残してください。
-実行した結果はPROGRESS.mdへ残し、未実行は未確認と明記してください。
+この標準手順では、コンテナを誰でも取得できるようにします。一度PublicにしたパッケージはPrivateへ戻せないため、公開できるアプリコード・画面素材だけを含めてください。`.env`や秘密のキーはイメージへ入れません。非公開コードを配布するチームは、運営と非公開レジストリ・Azure側の取得認証を用意する別構成を選び、このPublic設定を使いません。[GHCRの公開範囲](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)
+
+## 2. Azure portalでContainer Appを作る
+
+Azure portalで **Container Apps → Create** を開き、次を設定します。表示名やタブの並びが異なる場合は[公式の作成手順](https://learn.microsoft.com/en-us/azure/container-apps/quickstart-portal)も参照します。
+
+初めて使うサブスクリプションでは、**Subscriptions → 対象のサブスクリプション → Resource providers**で`Microsoft.App`が登録済みか確認し、未登録なら **Register** を選びます。ほかのプロバイダーの未登録エラーが出た場合も、使うサービスについて同じ画面で登録します。登録の権限がない場合は運営に依頼します。[リソースプロバイダーの登録](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/resource-providers-and-types#azure-portal)
+
+| 項目 | 設定 |
+| --- | --- |
+| Subscription / Resource group | 学生が利用するサブスクリプションと、チーム用リソースグループ |
+| Container app name | チームのアプリ名 |
+| Region / Environment | 利用可能なリージョンとContainer Apps環境。ワークロードプロファイルはConsumption |
+| Deployment source / Image source | **Container image**を選び、Quickstart imageは使わず外部レジストリを選択 |
+| Registry / Image | Registry serverは`ghcr.io`。Image and tagには手順1のTagから`ghcr.io/`を除いた`所有者/リポジトリ:タグ`。公開イメージなので取得用パスワードは不要 |
+| CPU / Memory | 最初は0.5 vCPU / 1 GiBを目安に、アプリに合わせて選ぶ |
+| Ingress | 有効、外部からのHTTPアクセスを許可、Target portは **8080** |
+| Scale | Minimum replicas **0**、Maximum replicas **1**から開始 |
+| Revision mode | **Single** |
+
+画面の **Review + create** で内容を確認して作成します。作成後、必要なら **Containers**／**Scale**／**Revisions** の設定で上の値をそろえます。GHCRの公開イメージを使うレジストリ設定も`ghcr.io`に合わせます。[GHCRからのデプロイ](https://learn.microsoft.com/en-us/azure/container-apps/github-actions#deploy-images-from-non-acr-registries)
+
+**Application URL** でアプリが開くことを確かめます。独自ドメインは必須ではありません。HTTPの入口にはAzureのHTTPS URLを使い、コンテナ自身は8080で待ち受けます。
+
+Consumptionには月ごとの無料枠があり、0レプリカではコンテナのリソース消費課金は発生しません。ログ・通信・DB・外部AIなどの費用は別途確認します。[課金仕様](https://learn.microsoft.com/en-us/azure/container-apps/billing)
+
+## 3. GitHub ActionsからAzureへ接続する
+
+長期間使うクライアントシークレットを作らず、**OpenID Connect（OIDC）**で接続します。ここで作るIDは、GitHub Actionsがアプリを更新するためのものです。
+
+1. GitHubの **Settings → Environments → New environment** で`production`を作ります。**Deployment branches and tags → Selected branches and tags → Add deployment branch or tag rule**で、Ref typeを **Branch**、名前にチームのデフォルトブランチ名（`codex/beginner-starter`）を入力して追加します。
+2. **Actions → Check → Run workflow**で **チームのデフォルトブランチ** を選び、**初期設定用: Azureへ登録するOIDC接続情報だけ表示する**にチェックを入れて実行します。今回は`oidc-setup`だけが動きます。Azureへのログイン、コンテナの公開、デプロイは行いません。成功した実行の **Summary → Azure OIDC setup** にある **Issuer / Subject / Audience** を控えます。トークンそのものは表示されません。
+3. Azure portalの **Managed Identities** で、チームのリソースグループに **User assigned managed identity** を作ります。Overviewにある **Client ID**、**Subscription ID** を控えます。**Tenant ID** は **Microsoft Entra ID → Overview** で確認できます。
+4. そのIDの **Federated credentials → Add credential** を開き、シナリオは **Other issuer** を選びます。手順2の **Issuer / Subject / Audience** をそれぞれそのまま入力し、Nameは`github-production`などにして追加します。Subjectは大文字・小文字、数字のID、末尾の`environment:production`まで一致させます。
+5. チーム用リソースグループの **Access control (IAM) → Add role assignment** で、このIDへ **Contributor** を割り当てます。割り当て先の範囲はそのチームのリソースグループです。権限不足の場合は、割り当て可能な運営・管理者に依頼します。
+
+**2026年7月15日以降に作ったGitHubリポジトリでは、Subjectに所有者とリポジトリの数字のIDも含まれます。** 名前だけでSubjectを組み立てるとAzureへのログインに失敗するため、この教材では実際の値を表示してコピーします。旧形式のリポジトリでも同じ手順を使えます。[GitHubのSubject仕様](https://docs.github.com/en/actions/reference/security/oidc#immutable-subject-claims)・[Azureでの対応](https://learn.microsoft.com/en-us/entra/workload-id/workload-identities-github-immutable-subjects)・[Other issuerの設定](https://learn.microsoft.com/en-us/entra/workload-id/workload-identity-federation-create-trust-user-assigned-managed-identity#other)
+
+## 4. 公開を有効にする
+
+GitHubの **Settings → Secrets and variables → Actions → Variables** に、次のRepository variablesを追加します。この表のIDは接続先の識別子であり、アプリのAPIキーやパスワードを入れる欄ではありません。
+
+| 名前 | 値 |
+| --- | --- |
+| `AZURE_CLIENT_ID` | 手順3のUser assigned managed identityのClient ID |
+| `AZURE_TENANT_ID` | AzureのTenant ID |
+| `AZURE_SUBSCRIPTION_ID` | 使用するSubscription ID |
+| `AZURE_RESOURCE_GROUP` | 手順2のリソースグループ名 |
+| `AZURE_CONTAINER_APP_NAME` | 手順2のContainer App名 |
+| `ENABLE_CONTAINER_PUBLISH` | `true`（手順1で設定済み） |
+| `ENABLE_AZURE_DEPLOY` | `true` |
+
+**Actions → Check → Run workflow → チームのデフォルトブランチ** で、**OIDC接続情報だけ表示するチェックを外して**実行します。`check` → `publish` → `deploy`が成功し、Summaryに公開URLが表示されれば初期設定は完了です。以降はチームのデフォルトブランチへのマージで同じ流れが動きます。
+
+`deploy`は既存アプリへテスト済みイメージのdigestを指定して更新します。Single revision modeで新しいリビジョンが準備できるのを待ち、公開URLの`/api/health`を確認します。PRでのCI成功だけではデプロイ済みとは扱いません。次の公開URLの確認を行います。
+
+## 5. 公開URLで確認し、更新する
+
+成功した **Actions → Check → Summary → Azure Container Apps → URL**、またはAzure portalの **Application URL** を開きます。PLANの必須DoD、直接アクセス・再読み込み、使う場合はAPI・本物のログイン・共有DBを確認します。`/api/health`の成功は起動確認であり、企画全体の完成確認ではありません。
+
+元のPRをマージ済みなら、まず[次の作業ブランチ](../README.md#after-merge)を準備してから、この節へ戻ります。公開URL・対象変更・日時・操作結果・未確認をルートの`PROGRESS.md`へ残します。記録を[保存・PR](../README.md#share)で共有し、[発表・終了](../README.md#finish)へ戻ります。
+
+次のアプリ更新は **編集 → 確認 → commit・push → チーム内PR → マージ**です。マージ後のCheckで、`check`が本番コンテナをテストし、`publish`が再ビルドせずGHCRへ保存、`deploy`がそのdigestで既存Container Appを更新します。公開はチームのデフォルトブランチだけで動きます。
+
+## 本番コンテナを手元で確認する（任意）
+
+普段は`npm run dev`を使います。Dockerを用意済みのPC、またはDocker機能を含むCodespacesで公開前のコンテナを試せます。以前からのCodespaceでは必要に応じて **Codespaces: Rebuild Container** を使います。
+
+Codespacesの開発サーバーや手動previewが4281を使っていたら止め、リポジトリのルートで実行します。
+
+```sh
+docker build -t student-hackathon .
+docker run --rm -p 127.0.0.1:4281:8080 student-hackathon
 ```
 
-公開ワークフローは次の条件にします。配布済みの設定を有効にする操作ではありません。
+PCは`http://127.0.0.1:4281`、Codespacesは **Ports → 4281 → Open in Browser**から画面と`/api/health`を確認します。ポートがなければ追加し、Privateのまま使えます。終了は **Ctrl+C**、変更後は再buildします。外部設定が必要ならrunへ`--env-file .env`を追加できます。CIはContainer Apps用の`linux/amd64`でビルド・テストします。手元での成功をAzureでの確認済みとはしません。
 
-- **手動実行（workflow_dispatch）・チームの既定ブランチのみ**を公開対象にする。
-- `linux/amd64`のイメージを一度ビルドして起動し、起動確認・主要なDoDをテストする。失敗時は公開しない。
-- 成功した**同じイメージを再ビルドせず**、`GITHUB_TOKEN`と`packages: write`でGHCRへpushする。PRの確認ジョブへ公開権限を与えない。
-- Summaryに対象コミット・結果・タグ・完全なdigest参照（`ghcr.io/所有者/名前@sha256:...`）を残す。
+## API・DB・外部AIを使う場合
 
-開発用サーバーではなく本番用HTTPサーバーを起動し、コンテナ内のポートと起動・readinessを判定する方法を記録します。ビルド・確認はCodespacesまたはCIで行えるため、全員のPCへDockerを導入する必要はありません。CodespacesでDockerが使えなければ`.devcontainer/`と環境の再構築を確認します。[コンテナ要件](https://learn.microsoft.com/en-us/azure/container-apps/containers)
+- APIは`server/api.js`へ追加し、画面は`/api/...`で呼びます。画面とAPIは同じサーバーが配信します。
+- 開発中の`.env`は[.env.example](../.env.example)を参考に作り、教材の`PORT`・`HOST`を上書きしません。Azureには自動で移らないので、Container Appの[Secrets](https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets)と[環境変数](https://learn.microsoft.com/en-us/azure/container-apps/environment-variables)へ設定します。秘密のキーはサーバー側で使い、画面や`VITE_`変数には入れません。
+- 共有・永続データには外部DB・ストレージを接続します。コンテナのファイルやメモリは永続保存先としません。必要な認証方式や外部AIの権利・利用枠・リージョンを確認し、公開URLで実際に操作します。
+- `.env`やAzureのSecretsはCIにも継承されません。モックやテスト専用接続先を使うなら、その結果と実サービスの接続確認を区別してPROGRESSへ残します。CIへ値を渡す場合はActions Secrets等を使い、コンテナイメージに埋め込みません。
 
-## 2. 保存してPR・CIを確認する
+## うまくいかないとき
 
-[READMEの保存とPR](../README.md#share)へ進み、設定・アプリ・テスト・記録をGUIでcommit・pushします。PRのbase repositoryとhead repositoryを**同じチームのFork**にし、実際のCI成功とチームの確認後に既定ブランチへマージします。CIが未作成・未実行なら成功とは扱いません。
+| 状況 | 確認すること |
+| --- | --- |
+| checkが失敗 | 最初の失敗ログと操作をCopilotへ渡す。失敗を省略して公開しない |
+| publish／deployがSkipped | 有効化変数と実行ブランチ。OIDC表示用の実行なら公開・デプロイは行われない |
+| GHCRへのpush／取得が失敗 | Packagesのポリシー、Public設定、イメージ名。既存パッケージはManage Actions accessでチームForkのWrite権限も確認 |
+| Azureログインが失敗 | IDとFederated credentialsのIssuer・Subject・Audienceが実際の表示値と一致するか、Environment設定、設定反映待ち |
+| productionを作れない | 管理権限と所有者のプラン。Private Organizationでは個人のProを代用できない |
+| 起動しない | Azureのコンテナログ、環境変数、8080、DB・APIへの接続、Single revision設定 |
+| 公開後に機能が動かない | 公開URLでの再現操作・結果・Actionsの実行URLをCopilotへ渡す |
 
-公開ワークフローもこのPRで確認してからマージします。**Run workflowは、対応するファイルが既定ブランチに入ってから**使います。保存・CI確認後はこのページの手順3へ戻ります。
+## 利用を終えるとき
 
-## 3. テスト済みイメージをGHCRへ公開する
+自動更新を止めるには`ENABLE_AZURE_DEPLOY=false`、イメージ公開も止めるなら`ENABLE_CONTAINER_PUBLISH=false`にします。**これだけではAzureのアプリやDBは停止・削除されません。**
 
-GitHubの **Actions → 作成した公開ワークフロー → Run workflow** で既定ブランチを選びます。ワークフロー名は`PLAN.md`で確認します。[ForkのActions](../README.md#enable-actions)が有効であることも確かめます。
+継続利用するかチームで決め、不要なリソースはAzure portalから停止・削除します。チーム専用リソースグループを削除する場合は、残すDBやデータがないか確認します。残す場合はCost Managementで使用額・クレジット残量と担当者を確認します。
 
-成功した実行のSummaryで対象コミットとテスト結果を確認し、完全なdigest参照を控えます。初回は所有者の **Packages → 対象パッケージ → Package settings → Change visibility → Public** で、Azureが取得できるようにします。
-
-この標準手順は公開イメージを使います。内容をチームで確認してください。**Public化したパッケージはPrivateへ戻せません。** 非公開が必要な場合は実行せず、運営と非公開レジストリ・取得認証を用意します。Publicのチーム用ForkもPrivateへ変更できません。[GHCRの認証・digest](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)・[公開範囲](https://docs.github.com/en/packages/learn-github-packages/configuring-a-packages-access-control-and-visibility)
-
-## 4. Azureを準備して配置する
-
-チームの代表者が運営・メンターと、利用するサブスクリプション・残額・リージョン・作成権限を確認します。クレジットがあるだけで全サービスを利用できるとは判断しません。
-
-Azure portalでチーム専用の **Resource group** と **Container Apps Environment（Consumption）** を用意します。必要ならサブスクリプションの **Resource providers** で`Microsoft.App`などを登録します。[作成の前提](https://learn.microsoft.com/en-us/azure/container-apps/quickstart-portal)
-
-**Cloud Shell → Bash** を開き、次の`<...>`を実際の値へ置き換えます。初回はストレージをマウントしない一時セッションも使えます。ポートは`PLAN.md`に記録した**コンテナ内の待受ポート**です。
-
-```bash
-az account set --subscription '<使用するSubscription ID>'
-az extension add --name containerapp --upgrade
-az containerapp create \
-  --name '<チームのアプリ名>' \
-  --resource-group '<チームのResource group>' \
-  --environment '<Container Apps Environment名>' \
-  --image 'ghcr.io/<所有者>/<名前>@sha256:<成功したdigest>' \
-  --ingress external \
-  --target-port <コンテナ内の待受ポート> \
-  --min-replicas 0 --max-replicas 1 \
-  --cpu 0.5 --memory 1Gi --revisions-mode single
-```
-
-CPU・メモリは最初の目安で、必要量に合わせます。公開イメージの取得用パスワードは不要です。この操作はAzureリソースを作成します。[CLIの仕様](https://learn.microsoft.com/en-us/cli/azure/containerapp?view=azure-cli-latest#az-containerapp-create)
-
-APIキー等が必要なら、対象Container Appの **Secrets** と **Containersの環境変数参照**へ設定します。開発環境から自動同期されません。秘密の値をGit・イメージ・チャットへ含めず、ブラウザ用の公開変数へも入れません。必要な設定、Target port、起動・readinessのprobeが揃ってから起動を判断します。共有・永続データは外部のDBやストレージへ保存し、コンテナ内の一時ファイル・メモリを永続保存先にしません。[Secrets](https://learn.microsoft.com/en-us/azure/container-apps/manage-secrets)・[Health probes](https://learn.microsoft.com/en-us/azure/container-apps/health-probes)
-
-## 5. 公開URLを確認し、記録する
-
-**Revision management** で新しいリビジョンが準備できたことを確認し、概要の **Application URL** を開きます。主要なDoD、URLの直接表示・再読み込み、必要なAPI・実際の認証・共有DBを操作します。起動確認だけで全機能の成功とは扱いません。
-
-起動しなければ、コンテナログ、イメージ取得、待受ポート、必要な環境変数とprobeを確認します。機能が動かなければ再現操作・期待結果・エラーをCopilotへ渡します。
-
-マージ後の記録用ブランチがまだなければ[次の作業の準備](../README.md#after-merge)を行い、`PLAN.md`へ公開方法、`PROGRESS.md`へURL・コミット・digest・結果・未確認を残します。[保存とPR](../README.md#share)で共有し、[発表と終了](../README.md#finish)へ戻ります。
-
-アプリを更新するときも、変更のPR・CI・マージ、手順3のテストと公開を経て、成功した新しいdigestだけを配置します。
-
-```bash
-az containerapp update \
-  --name '<チームのアプリ名>' \
-  --resource-group '<チームのResource group>' \
-  --image 'ghcr.io/<所有者>/<名前>@sha256:<今回成功したdigest>'
-```
-
-更新後もリビジョンと公開URLを確認します。変化する`latest`タグや別のビルドへ置き換えません。GitHub ActionsからAzureまで自動化する場合は、この経路が動いてからOIDCを追加します。mainにはその接続は未設定です。[Actionsからのデプロイ](https://learn.microsoft.com/en-us/azure/container-apps/github-actions)
-
-<a id="finish"></a>
-
-## 6. 利用を終了・継続する
-
-公開を続けるかをチームで決めます。不要なアプリ・環境・関連サービスはAzure portalで削除します。チーム専用Resource groupごと削除する場合も、残すDBやデータがないか先に確認します。Codespaceを停止してもAzureのリソースは消えません。
-
-継続する場合は担当を決め、**Cost Management** で使用額・残額を確認します。0レプリカでもDB・ログ・通信・外部AI等の費用は別に確認します。[Container Appsの課金](https://learn.microsoft.com/en-us/azure/container-apps/billing)
-
-[全体の流れ](../README.md) · [公式情報](references.md)
+[READMEの発表・終了へ戻る](../README.md#finish) · [公式根拠と確認範囲](references.md)
