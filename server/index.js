@@ -6,8 +6,7 @@ import express from 'express'
 import { api } from './api.js'
 
 const development = process.argv.includes('--dev')
-const preview = process.argv.includes('--preview')
-const port = Number(process.env.PORT ?? (development ? 4280 : preview ? 4281 : 8080))
+const port = Number(process.env.PORT ?? 4280)
 const host = process.env.HOST ?? '127.0.0.1'
 const root = fileURLToPath(new URL('../', import.meta.url))
 
@@ -32,6 +31,9 @@ if (development) {
       middlewareMode: true,
       ws: { server: httpServer },
     },
+  })
+  app.use('/server', (_request, response) => {
+    response.status(404).type('text').send('Not found')
   })
   app.use(vite.middlewares)
 }

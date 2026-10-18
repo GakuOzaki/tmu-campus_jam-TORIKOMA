@@ -89,11 +89,11 @@ jobs:
             --label "org.opencontainers.image.revision=$GITHUB_SHA" \
             --tag "$LOCAL_IMAGE" .
       - name: Start the production container
-        run: docker run --detach --name app-under-test --publish 127.0.0.1:4281:8080 "$LOCAL_IMAGE"
+        run: docker run --detach --name app-under-test --publish 127.0.0.1:4280:4280 "$LOCAL_IMAGE"
       - name: Wait for the API
         run: |
           for _attempt in {1..30}; do
-            if curl --fail --silent http://127.0.0.1:4281/api/health; then
+            if curl --fail --silent http://127.0.0.1:4280/api/health; then
               exit 0
             fi
             sleep 2
@@ -103,7 +103,7 @@ jobs:
       - name: Test the running production container
         id: browser-tests
         env:
-          E2E_BASE_URL: http://127.0.0.1:4281
+          E2E_BASE_URL: http://127.0.0.1:4280
         run: npm run test:e2e
       - name: Save browser test failure evidence
         if: failure() && steps.browser-tests.outcome == 'failure'
