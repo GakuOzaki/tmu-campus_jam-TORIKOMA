@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
 
 const externalBaseURL = process.env.E2E_BASE_URL
-const baseURL = externalBaseURL ?? 'http://127.0.0.1:4281'
+const baseURL = externalBaseURL ?? 'http://127.0.0.1:4282'
 
 export default defineConfig({
   testDir: './tests',
@@ -32,7 +32,7 @@ export default defineConfig({
     command: 'npm run build && npm run preview',
     url: baseURL,
     // .envや端末側のPORT/HOSTが、テスト専用の接続先を上書きしないようにする。
-    env: { PORT: '4281', HOST: '127.0.0.1' },
+    env: { PORT: '4282', HOST: '127.0.0.1' },
     reuseExistingServer: false,
     timeout: 120_000,
   },

@@ -1,17 +1,42 @@
 # 学生ハッカソン：初心者向けスターター
 
-**前段でまとめた企画を `docs/` に置き、GitHub CopilotのPlanへ渡して開発します。** PDF、画像、Markdownなど、形式とファイル名はチームで決めて構いません。UI画像やFigmaの準備は必須ではありません。
 
+**前段でまとめた企画を `docs/` に置き、GitHub CopilotのPlanへ渡して開発します。** PDF、画像、Markdownなど、形式とファイル名はチームで決めて構いません。UI画像やFigmaの準備は必須ではありません。
 このコースはReact・TypeScript・Vite・Node.js、起動・テスト・CIを用意しています。機能と画面はチームの企画で決めます。構成から選びたいチームは[mainコース](https://github.com/mochan-tk/hackathon-for-student-20261017/tree/main)を使います。
 
-**環境を開く → 企画を渡す → Plan → 作る・確かめる → PR・発表**。すでに合意・保存した計画がある場合は[再開](#resume)から続けます。
+**Fork → 環境を開く → 企画を渡す → Plan → 作る・確かめる → PR・発表**。すでに合意・保存した計画がある場合は[再開](#resume)から続けます。
+
+<a id="fork"></a>
+
+## 1. チームのForkを用意する
+
+[![チーム用にForkする](https://img.shields.io/badge/Fork_on_GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/mochan-tk/hackathon-for-student-20261017/fork)
+
+代表者1人がForkを1つ作り、メンバーを招待します。チーム用リポジトリがある場合は作り直しません。
+
+1. 上のリンクでFork作成画面を開き、Ownerとチーム用の名前を決めます。
+2. 初心者向けは **Copy the main branch onlyをオフ**にして **Create fork** を押します。mainコースを選ぶ場合はオンです。
+3. チームのForkで **Settings → General → Default branch** を開き、`codex/beginner-starter`へ変更します。
+4. **Code** で所有者・リポジトリ名・ブランチと、この初心者向けREADMEを確認します。以降はチームのForkで作業します。
+5. **Settings → Collaborators** からメンバーを招待し、各メンバーが招待を受け入れます。各自で別のForkを作る必要はありません。
+
+Publicの教材から作るForkもPublicです。共有できる企画・コード・ダミーデータを使い、Privateが必要なら作成前に運営へ相談します。以前のTemplate方式のリポジトリも継続できますが、ForkではないためSync forkは使いません。
+
+<a id="enable-actions"></a>
+
+### Actionsを有効にする
+
+代表者がチームのForkの **Actions** を開き、有効化の案内が出たら内容を確認して有効にします。使えない場合は **Settings → Actions → General** と所有者のポリシーを運営と確認します。
+
+初回に試すなら **Actions → Check → Run workflow** で`codex/beginner-starter`を選び、OIDC表示用のチェックを外します。公開用変数を設定しなければテストだけが動き、Azureの準備は不要です。この手動実行は、後で作るPRの最新CIの代わりにはしません。
 
 <a id="environment"></a>
 
 ## 1. 使う環境を開く
+
 [![Codespacesの作成画面を開く](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new)
 
-**班のリポジトリは運営が用意済みです。** Codespacesで編集を始める場合は、ボタン先の **Repository** で班のリポジトリ（`tmu-campus-jam/team-◯`）、**Branch** で `codex/beginner-starter`、**Machine type** で2-coreを選び、**Create codespace** を押します。準備が終わったらCopilot Chatを開きます。
+**先にチームのForkを作成してください。** Codespacesで編集を始める場合は、ボタン先の **Repository** でチームのFork、**Branch** で `codex/beginner-starter`、**Machine type** で2-coreを選び、**Create codespace** を押します。準備が終わったらCopilot Chatを開きます。
 
 作成済みなら[Codespaces一覧から再開](https://github.com/codespaces)できます。Appで編集した変更の確認には、[push済みの作業ブランチを開く手順](handson/copilot-app.md#codespaces-transfer)を使います。
 
@@ -26,7 +51,7 @@ Codespacesでは左下のブランチ名から **Create new branch** を選び�
 
 <a id="prepare-docs"></a>
 
-## 2. 前段の企画をdocsへ置く
+## 3. 前段の企画をdocsへ置く
 
 作業ブランチの **`docs/` 直下**へ、チームでまとめた企画ファイルを追加します。例は `docs/企画.pdf`、`docs/メモ.md`、`docs/検討結果.png` です。ファイル名や形式をそろえたり、別の企画書へ転記したりする必要はありません。[置き方の案内](docs/README.md)も参照できます。
 
@@ -34,11 +59,11 @@ Copilotへ渡すファイル名を具体的に選びます。画像やPDFを読�
 
 <a id="plan"></a>
 
-## 3. Planで相談し、合意した計画を保存する
+## 4. Planで相談し、合意した計画を保存する
 
-**3.1〜3.3を順番に進めます。`PLAN.md`の保存と確認まで終えたら、手順4の実装へ進みます。**
+**4.1〜4.3を順番に進めます。`PLAN.md`の保存と確認まで終えたら、手順5の実装へ進みます。**
 
-### 3.1 Planモードで企画資料を渡し、草案を相談する
+### 4.1 Planモードで企画資料を渡し、草案を相談する
 
 Copilotを **Plan** にして次を送ります。ファイル名を実際のものへ置き換え、編集・実行場所も選んだ環境に合わせます。
 
@@ -68,13 +93,13 @@ UI画像は必須にせず、必要な画面と操作を提案してください
 
 スキルが認識されなければ、[prepare-project](.github/skills/prepare-project/SKILL.md)を明示して読み込ませます。
 
-### 3.2 草案をチームで確認し、合意する
+### 4.2 草案をチームで確認し、合意する
 
 Copilotの質問に答え、目的・完成条件・今回は作らないもの・構成・作業順・編集と実行の場所をチームで確認します。直したい点は同じチャットで伝え、合意できたら次へ進みます。すでに合意した内容は再利用し、変わった点だけ相談します。
 
 <a id="plan-mode-switch"></a>
 
-### 3.3 PLAN.mdを保存して確認する
+### 4.3 PLAN.mdを保存して確認する
 
 **まず、ファイルを編集できるモードへ切り替えます。**
 
@@ -121,13 +146,13 @@ prepare-projectの保存・確認まで完了してください。
 
 Appで編集してCodespacesで実行する場合は、確認したPLANも[GUIで変更を渡す手順](handson/copilot-app.md#codespaces-transfer)で渡し、スターターの最初の起動を確認します。
 
-確認できたら、[手順4の実装](#build)へ進みます。
+確認できたら、[手順5の実装](#build)へ進みます。
 
 <a id="build"></a>
 
-## 4. 作って、確かめて、直す
+## 5. 作って、確かめて、直す
 
-[3.3のファイル確認](#plan-confirm)まで終えたら、Agent／Interactiveで次を送ります。
+[4.3のファイル確認](#plan-confirm)まで終えたら、Agent／Interactiveで次を送ります。
 
 ```text
 目的：
@@ -150,23 +175,23 @@ verify-goalで照合し、作業状態・実行場所・操作と結果・未達
 
 <a id="run"></a>
 
-Codespacesでは **Terminal → New Terminal** で下表の準備・起動コマンドを実行します。初回の依存インストールが成功済みなら`npm ci`の再実行は不要です。サーバーを起動したまま **Ports → 4280 → Open in Browser** で開きます。ポートがなければ **Forward a Port** で追加し、公開範囲は **Private** のまま使います。テストは別のTerminalで実行します。
+Codespacesでは **Terminal → New Terminal** で下表の準備・起動コマンドを実行します。初回の依存インストールが成功済みなら`npm ci`の再実行は不要です。サーバーを起動したまま **Ports → 4281 → Open in Browser** で開きます。ポートがなければ **Forward a Port** で追加し、公開範囲は **Private** のまま使います。テストは別のTerminalで実行します。
 
 | 用途 | コマンド・確認先 |
 | --- | --- |
 | 初回・依存変更時の準備 | `npm ci`（Node.js 24） |
-| 普段の起動 | `npm run dev`。画面とAPIは4280。Docker不要 |
+| 普段の起動 | `npm run dev`。Codespacesは4281、PCは4280。Docker不要 |
 | lint・型・本番ビルド | `npm run check` |
-| ブラウザテスト | `npm run test:e2e`。本番サーバーの4281で自動確認 |
-| 本番表示の手動確認（任意） | `npm run build`の後に`npm run preview`。4281を開く。E2E前にはこのpreviewを止める |
+| ブラウザテスト | `npm run test:e2e`。本番サーバーの4282で自動確認 |
+| 本番表示の手動確認（任意） | `npm run build`の後に`npm run preview`。4281を開く。Codespacesでは開発サーバーとポートを共用するため、切り替えるときは先に停止 |
 
 `tests/starter.spec.ts`を自分たちの完成条件のテストへ更新し、`tests/runtime.spec.ts`のAPI・画面配信のテストは残します。初期テストの成功だけで企画の完成とはしません。
 
-APIは`server/api.js`へ追加し、画面から`/api/...`で呼びます。外部サービスが必要なら[.env.example](.env.example)を参考に各実行場所の`.env`へ設定し、変更後に再起動します。`.env`はPC・Codespaces・CIへ自動同期されません。秘密のキーを画面や`VITE_`変数へ入れず、CIでモックを使った結果と実サービスの確認を区別します。共有・永続データが必要なら外部DBなどを選びます。
+APIは`server/api.js`へ追加し、画面から`/api/...`で呼びます。外部サービスが必要なら[.env.example](.env.example)を参考に各実行場所の`.env`へ設定し、変更後に再起動します。`.env`はPC・Codespaces・CI・Azureへ自動同期されません。秘密のキーを画面や`VITE_`変数へ入れず、CIでモックを使った結果と実サービスの確認を区別します。共有・永続データが必要なら外部DBなどを選びます。
 
 <a id="verify"></a>
 
-## 5. チームでも操作する
+## 6. チームでも操作する
 
 実装した人とは別の学生が、起動済みのアプリでPLANの完成条件を確かめます。同じPCで交代して構いません。主要な操作を最初から最後まで通し、その機能に関係する空の状態・入力ミス・戻る操作・スマートフォン幅を試します。
 
@@ -176,57 +201,39 @@ PROGRESSへ、対象の変更・実行場所・日時、操作と期待結果、
 
 <a id="share"></a>
 
-## 6. 保存して、チーム内PRで共有する
+## 7. 保存して、チーム内PRで共有する
 
 コード・PLAN・PROGRESS・共有してよい入力資料をcommit・pushします。Codespacesでは **Source Control** で差分を確認し、対象ファイルの **＋** でステージして **Commit** します。完了後、初回は **Publish Branch**、以降は **Source Control → … → Push** を選び、GitHubの同じ作業ブランチに変更が届いたことを確認します。Appの場合は[AppのGUI手順](handson/copilot-app.md#save-and-share)を使います。
 
-GitHubの班のリポジトリで **Compare & pull request** を開き、次を選びます。
+GitHubのチームForkで **Compare & pull request** を開き、必要なら **compare across forks** で次を選びます。
 
 | 比較の項目 | 選ぶもの |
 | --- | --- |
-| base repository・head repository | どちらも班のリポジトリ |
+| base repository・head repository | どちらもチームのFork |
 | base | `codex/beginner-starter` |
 | compare | 今回の作業ブランチ |
 
-配布元（教材のリポジトリ）や別の班へPRを送りません。AppのCreate PRでも送信前に比較先を確認し、確認できなければGitHubから作成します。作成後もGitHubで確認します。
+配布元や別コースへ学生アプリのPRを送りません。AppのCreate PRでも送信前に比較先を確認し、確認できなければGitHubから作成します。作成後もGitHubで確認します。
 
 CIは本番コンテナでもテストします。**Check** の成功を確認したら、PROGRESSにPR・CIのURL、対象変更と結果を記録し、GUIで追記分をcommit・pushします。その後、チームで最新のCheck・差分・操作結果を確認してマージします。記録だけのコミットごとに同じCI結果を追記し続ける必要はありません。
 
-CIが始まらなければ運営に相談します。設定を確認した後、同じ未マージPRを **Close → Reopen** するとCheckを開始できます。
+CIが始まらなければ[Actionsの有効化](#enable-actions)を確認します。有効化前に作ったPRは実行済みとは扱わず、設定確認後に同じ未マージPRを **Close → Reopen** してCheckを開始できます。
 
 <a id="finish"></a>
 
-## 7. 発表して、保存・終了する
+## 8. 発表して、保存・終了する
 
 確認済みのプレビューを使い、「誰の何を解決するか → 主要操作のデモ → 確認できたこと → 残ること」を説明します。CodespacesのPrivate URLはログイン済みPCから投影できます。利用者の課題を解決できたか未検証なら、仮説として話します。
 
 前のPRをマージ済みなら、まず[次の作業ブランチを準備](#after-merge)します。その後、発表で得た気づきと次の作業をPROGRESSへ残し、GUIで保存・pushして[PRで共有](#share)します。記録だけの変更ならCodespacesやアプリの再起動は不要です。CodespacesではTerminalの **Ctrl+C** でサーバーを止め、[Codespaces一覧](https://github.com/codespaces)から **Stop codespace** も行います。Appの終了操作は[Appの手順](handson/copilot-app.md#stop)を参照します。
 
-<a id="share-url"></a>
-
-### 他の班やメンターにアプリを触ってもらうとき
-
-Codespacesで動かしているアプリは、URLを共有すると、他の人も自分のPCやスマホから開けます。
-
-1. Codespacesの下側にある **PORTS** タブを開きます。
-2. **チームのアプリ（4280）** の行を右クリックし、**Port Visibility → Public** を選びます。
-3. **Forwarded Address** の横のコピーボタンでURLをコピーし、Slackなどで共有します。
-
-| 公開範囲 | 開ける人 |
-| --- | --- |
-| Private（最初の設定） | 自分だけ |
-| Public | URLを知っている人なら誰でも |
-
-- Publicにすると、**URLを知っていれば誰でも開けます**。個人情報・APIキー・公開できない情報が画面に出ないことを確認してから共有します。
-- 触ってもらっている間は、TerminalのサーバーとCodespaceを止めないでください。止めるとURLが開けなくなります。
-- 触ってもらい終わったら、**Port Visibility → Private** に戻します。
-- Codespace自体（エディタやターミナル）は、作った本人しか開けません。班のメンバーとは、これまでどおりpushとPRでコードを共有します。
+継続して使えるURLが必要なチームだけ、運営と[Azure Container Appsへの公開](handson/azure.md)へ進みます。公開した場合は同ガイドの終了・費用確認も行います。
 
 <a id="resume"></a>
 
 ## 続きから再開する
 
-同じプロジェクトと作業ブランチを開きます。PLANが未作成で合意済みの計画があるなら、[3.3の保存・確認](#plan-mode-switch)へ進みます。計画もまだなら[3.1の相談](#plan)へ戻ります。PLANがある場合は、PLAN・PROGRESS（あれば）と現在の変更を読んで「最後の確認・未完了・次の作業・実行場所」を説明するようCopilotへ依頼します。資料の読み直しや合意済みのPlanを最初から繰り返す必要はありません。
+同じプロジェクトと作業ブランチを開きます。PLANが未作成で合意済みの計画があるなら、[4.3の保存・確認](#plan-mode-switch)へ進みます。計画もまだなら[4.1の相談](#plan)へ戻ります。PLANがある場合は、PLAN・PROGRESS（あれば）と現在の変更を読んで「最後の確認・未完了・次の作業・実行場所」を説明するようCopilotへ依頼します。資料の読み直しや合意済みのPlanを最初から繰り返す必要はありません。
 
 追加編集の前に、前のPRがマージ済みなら[新しい作業ブランチ](#after-merge)を準備し、未マージなら同じ枝を続けます。計画が未決定なら[Plan](#plan)、実装途中なら[実装](#build)、操作確認待ちなら[確認](#verify)、PR・CIが未完了なら[共有](#share)、マージまで済んだら[発表](#finish)へ進みます。起動中の同じ環境のアプリは再利用し、環境を変えた場合はその場所で起動と基本動作を確認します。
 
@@ -238,8 +245,10 @@ Codespacesで動かしているアプリは、URLを共有すると、他の人�
 
 App→Codespacesでアプリを再確認する変更なら新しい枝をpushしてCodespacesも切り替えます。記録だけの変更ならPCから保存・PRで共有でき、同じ操作確認は不要です。準備したら、実装・発表後の記録・公開結果の記録など、元の作業へ戻ります。
 
+<a id="sync-fork"></a>
+
 ### 教材の更新を取り込むとき
 
-教材が更新された場合は、運営から取り込み方を案内します。自分たちで配布元から取り込む必要はありません。
+Sync forkは運営の案内があったときだけ使います。作業をcommit・pushし、配布元とチーム側の同じコースを同期します。各PC・Codespacesでも最新を取得し、進行中なら差分を確認して基準ブランチの変更を作業ブランチへ取り込みます。作業ブランチのPullだけでは入りません。前のPRをマージ済みなら更新済み基準から次の枝を作ります。競合は保全して運営へ相談します。
 
 [公式根拠・運営の確認範囲](handson/references.md)は必要なときに参照してください。

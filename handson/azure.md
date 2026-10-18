@@ -98,7 +98,7 @@ GitHubの **Settings → Secrets and variables → Actions → Variables** に�
 
 普段は`npm run dev`を使います。Dockerを用意済みのPC、またはDocker機能を含むCodespacesで公開前のコンテナを試せます。以前からのCodespaceでは必要に応じて **Codespaces: Rebuild Container** を使います。
 
-手動previewやE2Eで4281を使っていたら止め、リポジトリのルートで実行します。
+Codespacesの開発サーバーや手動previewが4281を使っていたら止め、リポジトリのルートで実行します。
 
 ```sh
 docker build -t student-hackathon .
