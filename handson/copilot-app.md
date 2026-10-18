@@ -50,7 +50,7 @@ Codespacesで確認するチームは下の手順へ進み、PCで実行する�
 1. 上のGUI手順で**まずcommit・push**します。初回の企画・PLANも保存します。
 2. GitHubのチームのForkで**同じ作業ブランチ**を選び、初回は **Code → Codespaces → Create codespace**。2回目以降は既存Codespaceを開きます。
 3. 既存環境だけ、サーバーをCtrl+Cで止め、**Source Control → … → Pull**で変更を取り込みます。新規作成直後は不要です。別の枝から再利用するなら左下で今回の枝へ切り替えてからPullします。
-4. CodespacesのTerminalで`npm ci`、`npm run dev`を実行し、**Ports → 4280 → Open in Browser**で開きます。ポートがなければ追加し、公開範囲はPrivateのままで構いません。
+4. CodespacesのTerminalで`npm ci`、`npm run dev`を実行し、**Ports → 4281 → Open in Browser**で開きます。ポートがなければ追加し、公開範囲はPrivateのままで構いません。
 5. 別Terminalで`npm run check`と`npm run test:e2e`を確認し、結果・エラー全文・実際の操作結果をPCのAppへ返します。同じ変更・環境で記録済みなら再実行不要です。
 6. AppでPROGRESSへの記録と必要な修正を依頼します。修正したら再びcommit・pushから繰り返します。初回のPLAN保存直後は起動と基本テストが通れば[実装](../README.md#build)へ、実装後は[チーム確認](../README.md#verify)へ戻ります。
 
