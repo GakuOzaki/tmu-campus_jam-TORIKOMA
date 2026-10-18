@@ -6,7 +6,9 @@ import express from 'express'
 import { api } from './api.js'
 
 const development = process.argv.includes('--dev')
-const port = Number(process.env.PORT ?? 4280)
+const preview = process.argv.includes('--preview')
+const developmentPort = process.env.CODESPACE_NAME ? 4281 : 4280
+const port = Number(process.env.PORT ?? (development ? developmentPort : preview ? 4281 : 8080))
 const host = process.env.HOST ?? '127.0.0.1'
 const root = fileURLToPath(new URL('../', import.meta.url))
 

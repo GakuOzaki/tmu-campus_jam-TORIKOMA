@@ -1,7 +1,7 @@
 # 学生ハッカソン：初心者向けスターター
 
-**前段でまとめた企画を `docs/` に置き、GitHub CopilotのPlanへ渡して開発します。** PDF、画像、Markdownなど、形式とファイル名はチームで決めて構いません。UI画像やFigmaの準備は必須ではありません。
 
+**前段でまとめた企画を `docs/` に置き、GitHub CopilotのPlanへ渡して開発します。** PDF、画像、Markdownなど、形式とファイル名はチームで決めて構いません。UI画像やFigmaの準備は必須ではありません。
 このコースはReact・TypeScript・Vite・Node.js、起動・テスト・CIを用意しています。機能と画面はチームの企画で決めます。構成から選びたいチームは[mainコース](https://github.com/mochan-tk/hackathon-for-student-20261017/tree/main)を使います。
 
 **Fork → 環境を開く → 企画を渡す → Plan → 作る・確かめる → PR・発表**。すでに合意・保存した計画がある場合は[再開](#resume)から続けます。
@@ -32,7 +32,7 @@ Publicの教材から作るForkもPublicです。共有できる企画・コー�
 
 <a id="environment"></a>
 
-## 2. 使う環境を開く
+## 1. 使う環境を開く
 
 [![Codespacesの作成画面を開く](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new)
 
@@ -175,15 +175,15 @@ verify-goalで照合し、作業状態・実行場所・操作と結果・未達
 
 <a id="run"></a>
 
-Codespacesでは **Terminal → New Terminal** で下表の準備・起動コマンドを実行します。初回の依存インストールが成功済みなら`npm ci`の再実行は不要です。サーバーを起動したまま **Ports → 4280 → Open in Browser** で開きます。ポートがなければ **Forward a Port** で追加し、公開範囲は **Private** のまま使います。テストは別のTerminalで実行します。開発サーバー・preview・E2Eテストは同じ4280を使うため、E2Eテストやpreviewを実行するときは起動中のサーバーを先に停止します。
+Codespacesでは **Terminal → New Terminal** で下表の準備・起動コマンドを実行します。初回の依存インストールが成功済みなら`npm ci`の再実行は不要です。サーバーを起動したまま **Ports → 4281 → Open in Browser** で開きます。ポートがなければ **Forward a Port** で追加し、公開範囲は **Private** のまま使います。テストは別のTerminalで実行します。
 
 | 用途 | コマンド・確認先 |
 | --- | --- |
 | 初回・依存変更時の準備 | `npm ci`（Node.js 24） |
-| 普段の起動 | `npm run dev`。Codespaces・PCとも4280。Docker不要 |
+| 普段の起動 | `npm run dev`。Codespacesは4281、PCは4280。Docker不要 |
 | lint・型・本番ビルド | `npm run check` |
-| ブラウザテスト | `npm run test:e2e`。本番サーバーの4280で自動確認 |
-| 本番表示の手動確認（任意） | `npm run build`の後に`npm run preview`。4280を開く。開発サーバーとポートを共用するため、切り替えるときは先に停止 |
+| ブラウザテスト | `npm run test:e2e`。本番サーバーの4282で自動確認 |
+| 本番表示の手動確認（任意） | `npm run build`の後に`npm run preview`。4281を開く。Codespacesでは開発サーバーとポートを共用するため、切り替えるときは先に停止 |
 
 `tests/starter.spec.ts`を自分たちの完成条件のテストへ更新し、`tests/runtime.spec.ts`のAPI・画面配信のテストは残します。初期テストの成功だけで企画の完成とはしません。
 

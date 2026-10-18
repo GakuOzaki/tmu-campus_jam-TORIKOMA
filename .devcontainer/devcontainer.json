@@ -10,11 +10,15 @@
   },
   "remoteUser": "node",
   "postCreateCommand": "npm ci && npx playwright install --with-deps chromium",
-  "forwardPorts": [4280],
+  "forwardPorts": [4281],
   "portsAttributes": {
-    "4280": {
+    "4281": {
       "label": "チームのアプリ",
       "onAutoForward": "openBrowser"
+    },
+    "4282": {
+      "label": "ブラウザテスト",
+      "onAutoForward": "silent"
     }
   },
   "customizations": {

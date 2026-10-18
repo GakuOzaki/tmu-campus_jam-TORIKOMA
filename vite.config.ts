@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig(() => {
-  const port = Number(process.env.PORT ?? 4280)
+  const port = Number(process.env.PORT ?? (process.env.CODESPACE_NAME ? 4281 : 4280))
   const codespaceHost = process.env.CODESPACE_NAME && process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN
     ? `${process.env.CODESPACE_NAME}-${port}.${process.env.GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}`
     : undefined

@@ -175,6 +175,5 @@ AIへ：画像の画面は「1画面＝1つの枠」です。各画面の下に 
 
 - 編集場所・実行場所: このリポジトリのルート。画面は既存のReact・TypeScriptアプリ（`src/`）に実装する。
 - APIは不要。既存の`server/api.js`と`tests/runtime.spec.ts`の基盤確認は変更しない。
-- 初回準備: `npm ci`（Node.js 24）。起動: `npm run dev`（画面とAPI。Codespaces・PCとも4280）。
-- 開発・preview・E2Eテスト・本番コンテナの待受ポートは4280に統一する。previewやE2Eテストを実行するときは、同じポートを使う開発サーバーを停止する。
-- 静的確認: `npm run check`。ブラウザ確認: `npm run test:e2e`（本番サーバーの4280）。
+- 初回準備: `npm ci`（Node.js 24）。起動: `npm run dev`（画面とAPI。Codespacesは4281、PCは4280）。
+- 静的確認: `npm run check`。ブラウザ確認: `npm run test:e2e`（テスト用ポート4282）。

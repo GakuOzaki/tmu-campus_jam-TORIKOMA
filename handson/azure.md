@@ -46,13 +46,13 @@ Azure portalで **Container Apps → Create** を開き、次を設定します�
 | Deployment source / Image source | **Container image**を選び、Quickstart imageは使わず外部レジストリを選択 |
 | Registry / Image | Registry serverは`ghcr.io`。Image and tagには手順1のTagから`ghcr.io/`を除いた`所有者/リポジトリ:タグ`。公開イメージなので取得用パスワードは不要 |
 | CPU / Memory | 最初は0.5 vCPU / 1 GiBを目安に、アプリに合わせて選ぶ |
-| Ingress | 有効、外部からのHTTPアクセスを許可、Target portは **4280** |
+| Ingress | 有効、外部からのHTTPアクセスを許可、Target portは **8080** |
 | Scale | Minimum replicas **0**、Maximum replicas **1**から開始 |
 | Revision mode | **Single** |
 
 画面の **Review + create** で内容を確認して作成します。作成後、必要なら **Containers**／**Scale**／**Revisions** の設定で上の値をそろえます。GHCRの公開イメージを使うレジストリ設定も`ghcr.io`に合わせます。[GHCRからのデプロイ](https://learn.microsoft.com/en-us/azure/container-apps/github-actions#deploy-images-from-non-acr-registries)
 
-**Application URL** でアプリが開くことを確かめます。独自ドメインは必須ではありません。HTTPの入口にはAzureのHTTPS URLを使い、コンテナ自身は4280で待ち受けます。
+**Application URL** でアプリが開くことを確かめます。独自ドメインは必須ではありません。HTTPの入口にはAzureのHTTPS URLを使い、コンテナ自身は8080で待ち受けます。
 
 Consumptionには月ごとの無料枠があり、0レプリカではコンテナのリソース消費課金は発生しません。ログ・通信・DB・外部AIなどの費用は別途確認します。[課金仕様](https://learn.microsoft.com/en-us/azure/container-apps/billing)
 
@@ -98,14 +98,14 @@ GitHubの **Settings → Secrets and variables → Actions → Variables** に�
 
 普段は`npm run dev`を使います。Dockerを用意済みのPC、またはDocker機能を含むCodespacesで公開前のコンテナを試せます。以前からのCodespaceでは必要に応じて **Codespaces: Rebuild Container** を使います。
 
-Codespacesの開発サーバーや手動previewが4280を使っていたら止め、リポジトリのルートで実行します。
+Codespacesの開発サーバーや手動previewが4281を使っていたら止め、リポジトリのルートで実行します。
 
 ```sh
 docker build -t student-hackathon .
-docker run --rm -p 127.0.0.1:4280:4280 student-hackathon
+docker run --rm -p 127.0.0.1:4281:8080 student-hackathon
 ```
 
-PCは`http://127.0.0.1:4280`、Codespacesは **Ports → 4280 → Open in Browser**から画面と`/api/health`を確認します。ポートがなければ追加し、Privateのまま使えます。終了は **Ctrl+C**、変更後は再buildします。外部設定が必要ならrunへ`--env-file .env`を追加できます。CIはContainer Apps用の`linux/amd64`でビルド・テストします。手元での成功をAzureでの確認済みとはしません。
+PCは`http://127.0.0.1:4281`、Codespacesは **Ports → 4281 → Open in Browser**から画面と`/api/health`を確認します。ポートがなければ追加し、Privateのまま使えます。終了は **Ctrl+C**、変更後は再buildします。外部設定が必要ならrunへ`--env-file .env`を追加できます。CIはContainer Apps用の`linux/amd64`でビルド・テストします。手元での成功をAzureでの確認済みとはしません。
 
 ## API・DB・外部AIを使う場合
 
@@ -123,7 +123,7 @@ PCは`http://127.0.0.1:4280`、Codespacesは **Ports → 4280 → Open in Browse
 | GHCRへのpush／取得が失敗 | Packagesのポリシー、Public設定、イメージ名。既存パッケージはManage Actions accessでチームForkのWrite権限も確認 |
 | Azureログインが失敗 | IDとFederated credentialsのIssuer・Subject・Audienceが実際の表示値と一致するか、Environment設定、設定反映待ち |
 | productionを作れない | 管理権限と所有者のプラン。Private Organizationでは個人のProを代用できない |
-| 起動しない | Azureのコンテナログ、環境変数、4280、DB・APIへの接続、Single revision設定 |
+| 起動しない | Azureのコンテナログ、環境変数、8080、DB・APIへの接続、Single revision設定 |
 | 公開後に機能が動かない | 公開URLでの再現操作・結果・Actionsの実行URLをCopilotへ渡す |
 
 ## 利用を終えるとき

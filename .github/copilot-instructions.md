@@ -12,8 +12,8 @@
 
 ## 実行と確認
 
-- Node.js 24、npm、lockfile。初回`npm ci`、起動`npm run dev`（画面とAPIは4280、Docker不要）。
-- `npm run check`でlint・型・build、`npm run test:e2e`で本番サーバーの4280を検証。Chromiumの準備は`npx playwright install chromium`、Linuxで必要なら`--with-deps`。手動previewはbuild後に`npm run preview`で4280を使う。開発・preview・E2Eは同じポートを使うため、previewまたはE2Eの起動前に開発サーバーを停止する。
+- Node.js 24、npm、lockfile。初回`npm ci`、起動`npm run dev`（画面とAPIはCodespacesで4281、PCで4280、Docker不要）。
+- `npm run check`でlint・型・build、`npm run test:e2e`で本番サーバーの4282を検証。Chromiumの準備は`npx playwright install chromium`、Linuxで必要なら`--with-deps`。手動previewはbuild後に`npm run preview`で4281を使う。Codespacesでは開発サーバーとpreviewが同じ4281を使うため、切り替えるときは先に停止する。
 - 企画のDoDを確かめるよう`tests/starter.spec.ts`を更新する。`tests/runtime.spec.ts`と`/api/health`は維持する。CIは本番コンテナで確認する。
 - Appで編集しCodespacesで実行する場合は、変更内容・コミット案・確認コマンドを示し、学生がGUIでcommit・pushして結果を返すまで次の修正を待つ。PCで成功したことにしない。明示依頼がなければcommit・pushを自動実行せず、Git確認コマンドや番号照合を通常手順に追加しない。
 - APIは`server/api.js`へ追加し画面から`/api/...`で呼ぶ。秘密の値はサーバー側環境変数に置き、フロントや`VITE_`変数へ入れない。`.env`はGit・コンテナへ入れず、PC・Codespaces・CI・Azureそれぞれで設定する。共有・永続データは外部DB等へ保存する。
