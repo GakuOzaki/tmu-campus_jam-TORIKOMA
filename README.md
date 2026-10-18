@@ -9,7 +9,6 @@
 <a id="environment"></a>
 
 ## 1. 使う環境を開く
-
 [![Codespacesの作成画面を開く](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new)
 
 **班のリポジトリは運営が用意済みです。** Codespacesで編集を始める場合は、ボタン先の **Repository** で班のリポジトリ（`tmu-campus-jam/team-◯`）、**Branch** で `codex/beginner-starter`、**Machine type** で2-coreを選び、**Create codespace** を押します。準備が終わったらCopilot Chatを開きます。
