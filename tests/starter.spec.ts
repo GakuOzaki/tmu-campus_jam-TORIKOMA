@@ -49,7 +49,7 @@ test('全学部・学科で4件以上の講義が検索画面に表示される'
   ])
   const departmentsByFaculty = [
     ['法学部', ['法律学科', '政策学科']],
-    ['経済経営学部', ['経済学科', '経営学科']],
+    ['経済経営学部', ['経済経営学部']],
     ['人文社会学部', ['人文学科', '社会学科']],
     ['システムデザイン学部', ['情報システム学科', 'デザイン学科']],
     ['理学部', ['数理科学科', '物理科学科']],
@@ -70,6 +70,17 @@ test('全学部・学科で4件以上の講義が検索画面に表示される'
       firstSelection = false
     }
   }
+})
+
+test('経済経営学部を選ぶと管理CSVの授業が一覧に表示される', async ({ page }) => {
+  await page.goto('/')
+  await page.getByLabel('学部', { exact: true }).selectOption('経済経営学部')
+  await expect(page.getByLabel('学科', { exact: true })).toHaveValue('経済経営学部')
+  await page.getByRole('button', { name: '講義を見る' }).click()
+  await expect(page.locator('.course-title-button').filter({ hasText: 'サステナブルファイナンス' })).toBeVisible()
+  await expect(page.locator('.course-title-button').filter({ hasText: '国際金融特別講義（国際証券投資と資産運用Ⅰ）' })).toBeVisible()
+  await expect(page.locator('.course-card')).toHaveCount(84)
+  await expect(page.locator('.course-card-meta span').filter({ hasText: '2単位' })).toHaveCount(84)
 })
 
 test('検索カードは映像を優先し、資料のみは資料プレビュー、メディアなしは文字のみで表示する', async ({ page }) => {
@@ -152,6 +163,9 @@ test('時間割は初期状態で空で、登録した講義の詳細を開い�
   await page.getByRole('button', { name: '時間割', exact: true }).click()
 
   const table = page.getByRole('table', { name: '時間割' })
+  await expect(page.getByRole('tab', { name: '前期' })).toHaveAttribute('aria-selected', 'true')
+  await expect(page.getByRole('tab', { name: '後期' })).toHaveAttribute('aria-selected', 'false')
+  await expect(page.locator('.schedule-credit-total')).toHaveText('（0）/70')
   await expect(table.getByRole('columnheader')).toHaveCount(6)
   await expect(page.getByText('曜日と時限ごとの講義一覧')).toHaveCount(0)
   await expect(table.locator('tbody button.schedule-course')).toHaveCount(0)
@@ -171,6 +185,7 @@ test('時間割は初期状態で空で、登録した講義の詳細を開い�
   await page.reload()
   await page.getByRole('button', { name: '時間割', exact: true }).click()
   await expect(table.getByRole('button', { name: '情報リテラシー基礎の詳細を開く' })).toBeVisible()
+  await expect(page.locator('.schedule-credit-total')).toHaveText('（2）/70')
   await expect(table.getByRole('button', { name: '月曜日 1限の講義を探す' })).toHaveCount(0)
 
   await table.getByRole('button', { name: '情報リテラシー基礎の詳細を開く' }).click()
@@ -183,6 +198,29 @@ test('時間割は初期状態で空で、登録した講義の詳細を開い�
   await expect(table.getByRole('button', { name: '月曜日 1限の講義を探す' })).toBeVisible()
   await page.getByRole('button', { name: '講義検索' }).click()
   await expect(courseCard.getByRole('button', { name: '時間割に追加' })).toHaveAttribute('aria-pressed', 'false')
+})
+
+test('時間割を前期・後期で切り替えられる', async ({ page }) => {
+  await chooseDepartment(page)
+  await page.getByRole('button', { name: '講義検索' }).click()
+  const fallCourse = page.locator('.course-card').filter({ hasText: 'ソフトウェア工学' })
+  await fallCourse.getByRole('button', { name: '時間割に追加' }).click()
+  await page.getByRole('button', { name: '時間割', exact: true }).click()
+  await expect(page.getByRole('tab', { name: '前期' })).toHaveAttribute('aria-selected', 'true')
+  await expect(page.getByRole('button', { name: 'ソフトウェア工学の詳細を開く' })).toHaveCount(0)
+  await page.getByRole('tab', { name: '後期' }).click()
+  await expect(page.getByRole('tab', { name: '後期' })).toHaveAttribute('aria-selected', 'true')
+  await expect(page.getByRole('button', { name: 'ソフトウェア工学の詳細を開く' })).toBeVisible()
+})
+
+test('CSVの授業を時間割に追加すると曜日と時限のセルへ反映される', async ({ page }) => {
+  await page.goto('/')
+  await page.getByLabel('学部', { exact: true }).selectOption('経済経営学部')
+  await page.getByRole('button', { name: '講義を見る' }).click()
+  const courseCard = page.locator('.course-card').filter({ hasText: 'サステナブルファイナンス' })
+  await courseCard.getByRole('button', { name: '時間割に追加' }).click()
+  await page.getByRole('button', { name: '時間割', exact: true }).click()
+  await expect(page.getByRole('button', { name: 'サステナブルファイナンスの詳細を開く' })).toBeVisible()
 })
 
 test('時間割の空きコマから同じ曜日・時限の講義を検索できる', async ({ page }) => {
