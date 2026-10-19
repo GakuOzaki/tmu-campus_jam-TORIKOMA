@@ -20,6 +20,7 @@ type Course = {
   professor: string
   weekday: string
   period: string
+  scheduleSlots?: ScheduleSlot[]
   credits: number
   semester: string
   room: string
@@ -36,10 +37,20 @@ type AdditionalCourseSeed = Pick<Course, 'id' | 'code' | 'name' | 'weekday' | 'p
   department: string
   media: 'both' | 'video' | 'materials' | 'none'
 }
+type ManagedCourseRow = {
+  id: string
+  department: string
+  name: string
+  weekday: string
+  period: string
+  semester: string
+}
+type ScheduleSemester = '前期' | '後期'
+type ScheduleSlot = { weekday: string; period: string }
 
 const facultyDepartments: Record<Faculty, string[]> = {
   法学部: ['法律学科', '政策学科'],
-  経済経営学部: ['経済学科', '経営学科'],
+  経済経営学部: ['経済経営学部'],
   人文社会学部: ['人文学科', '社会学科'],
   システムデザイン学部: ['情報システム学科', 'デザイン学科'],
   理学部: ['数理科学科', '物理科学科'],
@@ -48,7 +59,7 @@ const facultyDepartments: Record<Faculty, string[]> = {
 
 const legacySelections: Record<string, DepartmentSelection> = {
   '情報システム学科': { faculty: 'システムデザイン学部', department: '情報システム学科' },
-  '経済経営学部': { faculty: '経済経営学部', department: '経済学科' },
+  '経済経営学部': { faculty: '経済経営学部', department: '経済経営学部' },
   'メディア情報学科': { faculty: 'システムデザイン学部', department: 'デザイン学科' },
   'コンピュータ応用学科': { faculty: 'システムデザイン学部', department: '情報システム学科' },
   '物理学科': { faculty: '理学部', department: '物理科学科' },
@@ -57,7 +68,7 @@ const legacySelections: Record<string, DepartmentSelection> = {
   '日本文学科': { faculty: '人文社会学部', department: '人文学科' },
   '人文学科': { faculty: '人文社会学部', department: '人文学科' },
   '歴史学科': { faculty: '人文社会学部', department: '人文学科' },
-  '経営学部': { faculty: '経済経営学部', department: '経営学科' },
+  '経営学部': { faculty: '経済経営学部', department: '経済経営学部' },
   '政治学科': { faculty: '法学部', department: '政策学科' },
 }
 
@@ -216,7 +227,87 @@ const additionalCourses: Course[] = additionalCourseSeeds.map(({ media, ...seed 
   }
 })
 
-const allCourses = [...courses, ...additionalCourses]
+const builtInCourses = [...courses, ...additionalCourses]
+
+function parseCsvLine(line: string): string[] {
+  const fields: string[] = []
+  let field = ''
+  let quoted = false
+  for (let index = 0; index < line.length; index += 1) {
+    const character = line[index]
+    if (character === '"') {
+      if (quoted && line[index + 1] === '"') {
+        field += '"'
+        index += 1
+      } else {
+        quoted = !quoted
+      }
+    } else if (character === ',' && !quoted) {
+      fields.push(field)
+      field = ''
+    } else {
+      field += character
+    }
+  }
+  if (quoted) throw new Error('CSVの引用符が閉じられていません。')
+  fields.push(field)
+  return fields
+}
+
+function managedRowsToCourses(rows: ManagedCourseRow[]): Course[] {
+  return rows.map((row) => {
+    const slots = [...row.period.matchAll(/([1-5])限/g)].map((match) => ({ weekday: row.weekday, period: `${match[1]}限` }))
+    const period = row.period.replace(new RegExp(`^${row.weekday}曜`), '')
+    return {
+      id: row.id,
+      code: row.id,
+      name: row.name,
+      department: row.department,
+      professor: '情報未登録',
+      weekday: row.weekday,
+      period,
+      credits: 2,
+      semester: row.semester,
+      room: '情報未登録',
+      summary: '',
+      tags: [],
+      evaluation: [],
+      textbook: '情報未登録',
+      materials: [],
+      reviews: [],
+      scheduleSlots: slots,
+    }
+  })
+}
+
+function courseHasScheduleSlot(course: Course, weekday: string, period: string): boolean {
+  if (course.scheduleSlots) return course.scheduleSlots.some((slot) => slot.weekday === weekday && slot.period === period)
+  return course.weekday === weekday && course.period === period
+}
+
+function isInScheduleSemester(course: Course, semester: ScheduleSemester): boolean {
+  return semester === '前期'
+    ? course.semester === '前期' || course.semester === '春学期'
+    : course.semester === '後期' || course.semester === '秋学期'
+}
+
+function parseManagedCourses(csv: string): Course[] {
+  const lines = csv.replace(/^\uFEFF/, '').split(/\r?\n/).filter((line) => line.trim())
+  if (lines.length < 2) throw new Error('授業CSVにデータがありません。')
+  const header = parseCsvLine(lines[0])
+  const expectedHeader = ['id', 'department', 'name', 'weekday', 'period', 'semester']
+  if (header.length !== expectedHeader.length || header.some((value, index) => value !== expectedHeader[index])) {
+    throw new Error('授業CSVの見出しが正しくありません。')
+  }
+  const rows = lines.slice(1).map((line, index) => {
+    const fields = parseCsvLine(line)
+    if (fields.length !== expectedHeader.length || fields.some((field) => !field.trim())) {
+      throw new Error(`授業CSVの${index + 2}行目が正しくありません。`)
+    }
+    return Object.fromEntries(expectedHeader.map((key, fieldIndex) => [key, fields[fieldIndex].trim()])) as ManagedCourseRow
+  })
+  return managedRowsToCourses(rows)
+}
 
 const storageKeys = { selection: 'unilenz-selection', reviews: 'unilenz-reviews', favorites: 'unilenz-favorites', timetable: 'unilenz-timetable', profile: 'unilenz-profile' }
 const attachmentDatabase = 'unilenz-attachments'
@@ -304,6 +395,9 @@ function normalizeProfile(saved: unknown): UserProfile {
 }
 
 function App() {
+  const [managedCourses, setManagedCourses] = useState<Course[]>([])
+  const [managedCoursesError, setManagedCoursesError] = useState('')
+  const [isManagedCoursesLoading, setIsManagedCoursesLoading] = useState(true)
   const [selection, setSelection] = useState<DepartmentSelection | null>(() => {
     return normalizeSavedSelection(readStorage<DepartmentSelection | null>(storageKeys.selection, null))
   })
@@ -316,6 +410,7 @@ function App() {
   const [profileError, setProfileError] = useState('')
   const [isSavingProfile, setIsSavingProfile] = useState(false)
   const [activeNav, setActiveNav] = useState('explore')
+  const [scheduleSemester, setScheduleSemester] = useState<ScheduleSemester>('前期')
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null)
   const [courseReturnNav, setCourseReturnNav] = useState<'explore' | 'schedule' | 'favorites'>('explore')
   const [activeTab, setActiveTab] = useState('詳細')
@@ -334,16 +429,32 @@ function App() {
   const [favoriteCourseIds, setFavoriteCourseIds] = useState<string[]>(() => {
     const savedIds = readStorage<unknown>(storageKeys.favorites, [])
     return Array.isArray(savedIds)
-      ? [...new Set(savedIds.filter((id): id is string => typeof id === 'string' && allCourses.some((course) => course.id === id)))]
+      ? [...new Set(savedIds.filter((id): id is string => typeof id === 'string' && builtInCourses.some((course) => course.id === id)))]
       : []
   })
   const [timetableCourseIds, setTimetableCourseIds] = useState<string[]>(() => {
     const savedIds = readStorage<unknown>(storageKeys.timetable, [])
     return Array.isArray(savedIds)
-      ? [...new Set(savedIds.filter((id): id is string => typeof id === 'string' && allCourses.some((course) => course.id === id)))]
+      ? [...new Set(savedIds.filter((id): id is string => typeof id === 'string' && builtInCourses.some((course) => course.id === id)))]
       : []
   })
   const videoCheckSequence = useRef(0)
+
+  useEffect(() => {
+    const controller = new AbortController()
+    fetch('/data/business-economics-courses.csv', { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error(`授業CSVを読み込めませんでした（${response.status}）。`)
+        return response.text()
+      })
+      .then((csv) => setManagedCourses(parseManagedCourses(csv)))
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === 'AbortError') return
+        setManagedCoursesError(error instanceof Error ? error.message : '授業CSVを読み込めませんでした。')
+      })
+      .finally(() => setIsManagedCoursesLoading(false))
+    return () => controller.abort()
+  }, [])
 
   useEffect(() => {
     return () => {
@@ -367,6 +478,7 @@ function App() {
     localStorage.setItem(storageKeys.timetable, JSON.stringify(timetableCourseIds))
   }, [timetableCourseIds])
 
+  const allCourses = [...builtInCourses, ...managedCourses]
   const selectedCourse = allCourses.find((course) => course.id === selectedCourseId) ?? null
   const favoriteCourses = allCourses.filter((course) => favoriteCourseIds.includes(course.id))
   const visibleCourses = allCourses.filter((course) => {
@@ -730,14 +842,27 @@ function App() {
         ) : activeNav === 'schedule' ? (
           <section className="plain-screen" aria-labelledby="schedule-title">
             <PageHeading id="schedule-title" eyebrow="YOUR WEEK" title="時間割" description={`${selection.department}の講義`} />
+            <p className="schedule-credit-total" aria-label={`総単位数 ${allCourses.filter((course) => timetableCourseIds.includes(course.id) && course.department === selection.department).reduce((total, course) => total + course.credits, 0)} 単位、70単位中`}>
+              （{allCourses.filter((course) => timetableCourseIds.includes(course.id) && course.department === selection.department).reduce((total, course) => total + course.credits, 0)}）/70
+            </p>
+            <div className="schedule-semester-tabs" role="tablist" aria-label="時間割の学期">
+              {(['前期', '後期'] as const).map((semester) => <button
+                key={semester}
+                type="button"
+                role="tab"
+                aria-selected={scheduleSemester === semester}
+                className={scheduleSemester === semester ? 'active' : ''}
+                onClick={() => setScheduleSemester(semester)}
+              >{semester}</button>)}
+            </div>
             <div className="schedule-table-wrap">
               <table className="schedule-table" aria-label="時間割">
                 <thead><tr><th scope="col">時限</th>{weekdays.map((day) => <th scope="col" key={day}>{day}</th>)}</tr></thead>
                 <tbody>{periods.map((period) => <tr key={period}>
                   <th scope="row">{period}</th>
                   {weekdays.map((day) => {
-                    const slotCourses = allCourses.filter((course) => timetableCourseIds.includes(course.id) && course.department === selection.department && course.weekday === day && course.period === period)
-                    const coursesAvailableToAdd = allCourses.some((course) => !timetableCourseIds.includes(course.id) && course.department === selection.department && course.weekday === day && course.period === period)
+                    const slotCourses = allCourses.filter((course) => timetableCourseIds.includes(course.id) && course.department === selection.department && isInScheduleSemester(course, scheduleSemester) && courseHasScheduleSlot(course, day, period))
+                    const coursesAvailableToAdd = allCourses.some((course) => !timetableCourseIds.includes(course.id) && course.department === selection.department && isInScheduleSemester(course, scheduleSemester) && courseHasScheduleSlot(course, day, period))
                     return <td key={day}>
                       {slotCourses.length > 0 || coursesAvailableToAdd ? <div className="schedule-cell-courses">
                         {slotCourses.map((course) => <button className="schedule-course" key={course.id} type="button" aria-label={`${course.name}の詳細を開く`} onClick={() => openCourse(course.id, 'schedule')}>{course.name}</button>)}
@@ -810,6 +935,8 @@ function App() {
             <div className="explore-heading"><div><p className="screen-overline">COURSE DISCOVERY</p><h1 id="explore-title">講義を探す</h1></div><span className="result-total">{visibleCourses.length}<small>講義</small></span></div>
             <label className="search-box"><span aria-hidden="true">⌕</span><input type="search" aria-label="講義名で検索" placeholder="講義名で検索" value={search} onChange={(event) => setSearch(event.target.value)} /><button type="button" aria-label="絞り込み条件" onClick={() => setIsFilterOpen(true)}>☷{activeFilterCount > 0 && <i>{activeFilterCount}</i>}</button></label>
             <div className="filter-quick-row"><span>今学期の講義</span><button type="button" onClick={() => setFilters((current) => ({ ...current, semester: current.semester ? '' : '春学期' }))} className={filters.semester === '春学期' ? 'selected' : ''}>春学期</button><button type="button" onClick={() => setIsFilterOpen(true)}>曜日・時限 <span aria-hidden="true">⌄</span></button></div>
+            {isManagedCoursesLoading && <p className="course-data-status" role="status">授業一覧を読み込み中...</p>}
+            {managedCoursesError && <p className="attachment-error course-data-status" role="alert">{managedCoursesError}</p>}
             <div className="course-list" aria-label="講義一覧">
               {visibleCourses.map((course, index) => <CourseCard
                 key={course.id}
